@@ -34,7 +34,7 @@ div.fill-screen {
 
 .sidenav {
   height: 100%;
-  width: 120px;
+  width: 150px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -43,5 +43,4 @@ div.fill-screen {
   opacity: 1;
   overflow-x: hidden;
   transition: 1s;
-  padding-top: 60px;
 }

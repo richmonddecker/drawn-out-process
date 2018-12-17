@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { NavItem, Nav, NavCard, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import NavigationSection from "./navigation/NavigationSection";
+import NavigationHeader from "./navigation/NavigationHeader";
+import NavigationItem from "./navigation/NavigationItem";
 
 class Navigation extends React.Component {
   constructor(props, context) {
@@ -20,26 +22,16 @@ class Navigation extends React.Component {
     //console.log("ACTIVE KEY IS: ", this.state.activeKey);
     return (
       <div className="sidenav">
-        <Nav pills vertical>
-          <NavItem>
-            <NavLink to="/">Home</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/creative">Creative</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/repetitive">Repetitive</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/repetitive/kochpinski">Kochpinski</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/repetitive/snowflake">Snowflake</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to="/repetitive/plasma-ball">Plasma Ball</NavLink>
-          </NavItem>
-        </Nav>
+        <NavigationSection url="/" name="Home"/>
+        <NavigationSection url="/creative" name="Creative">
+          <NavigationItem url="/creative/chord-art" name="Chord Art" />
+        </NavigationSection>
+        <NavigationSection url="/generative" name="Generative" />
+        <NavigationSection url="/repetitive" name="Repetitive">
+          <NavigationItem url="/repetitive/kochpinski" name="Kochpinski"/>
+          <NavigationItem url="/repetitive/snowflake" name="Snowflake"/>
+          <NavigationItem url="/repetitive/plasma-ball" name="Plasma Ball"/>
+        </NavigationSection>
       </div>
     );
   }
