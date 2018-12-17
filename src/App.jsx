@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
+import Navigation from './components/Navigation';
+import Main from './components/Main'
 
 const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <h1>Drawn Out Process</h1>
-    </header>
+  <div>
+    <Navigation />
+    <Main />
   </div>
 );
 
