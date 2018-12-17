@@ -16,7 +16,7 @@
 html, body {
   height: 100%;
   background-color: black;
-  color: white;
+  color: red;
 }
 
 div.fill-screen {
@@ -30,5 +30,18 @@ div.fill-screen {
   bottom: 0;
   justify-content: center;
   align-items: center;
+}
 
+.sidenav {
+  height: 100%;
+  width: 120px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #330033;
+  opacity: 1;
+  overflow-x: hidden;
+  transition: 1s;
+  padding-top: 60px;
 }

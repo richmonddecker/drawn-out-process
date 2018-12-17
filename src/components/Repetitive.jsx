@@ -1,6 +1,5 @@
 import React from "react";
 import videos from "../scripts/videos";
-import "../styles/App.css";
 
 class Repetitive extends React.Component {
   constructor(props) {
@@ -12,9 +11,8 @@ class Repetitive extends React.Component {
     const name = this.props.match.params.name;
     console.log("HEY!", videos[name]);
     return (
-      <div class="fill-screen">
-        <video height={this.state.height} width={this.state.width} autoPlay loop muted>
-          <source src={videos[name]} type="video/mp4"/>
+      <div className="fill-screen">
+        <video src={videos[name]} height={this.state.height} width={this.state.width} autoPlay loop muted>
         </video>
       </div>
     );
