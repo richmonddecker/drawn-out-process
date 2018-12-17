@@ -5,22 +5,8 @@ import NavigationHeader from "./navigation/NavigationHeader";
 import NavigationItem from "./navigation/NavigationItem";
 import images from "../scripts/images";
 
-class Navigation extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      open: true
-    };
-  }
-
-  handleSelect(activeKey) {
-    console.log("Activedd key is: ", activeKey);
-    this.setState({ activeKey });
-  }
-
+class NavigationBar extends React.Component {
   render() {
-    //console.log("ACTIVE KEY IS: ", this.state.activeKey);
     return (
       <div className="sidenav">
         <NavigationSection url="/" name="Home"/>
@@ -39,4 +25,4 @@ class Navigation extends React.Component {
 }
 
 
-export default Navigation;
+export default NavigationBar;

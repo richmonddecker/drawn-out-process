@@ -1,8 +1,9 @@
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'SIMPLE_ACTION':
+    case "SET_NAV_SECTION":
       return {
-        result: action.payload
+        ...state,
+        openNavSection: action.payload
       }
     default:
       return state

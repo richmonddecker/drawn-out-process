@@ -44,3 +44,7 @@ div.fill-screen {
   overflow-x: hidden;
   transition: 1s;
 }
+
+.active-item {
+  background-color: #777777;
+}
