@@ -7,7 +7,11 @@ import rootReducer from "./reducers/rootReducer";
 const history = createBrowserHistory();
 
 const state = {
-  openNavSection: null
+  openNavSection: null,
+  trigger: {
+    saveFrame: false,
+    resetFrame: false
+  }
 };
 
 export default function configureStore(initialState=state) {

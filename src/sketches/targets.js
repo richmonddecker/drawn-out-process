@@ -3,7 +3,7 @@ const sketch = (p) => {
   let word = "none";
 
   p.setup = function() {
-    radius = p.min(p.windowWidth, p.windowHeight) / 2;
+    radius = p.min(window.innerWidth, window.innerHeight) / 2;
     p.createCanvas(2 * radius, 2 * radius);
     p.colorMode(p.HSB, 1);
   }

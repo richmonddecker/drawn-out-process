@@ -16,20 +16,11 @@ const sketch = (p) => {
     drawBorder();
   }
 
-  function resizeCircle() {
-    let newRadius = p.min(p.windowWidth, p.windowHeight) / 2;
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    radius = newRadius;
-    clearCircle();
-  }
-
   p.setup = function() {
-    radius = p.min(p.windowWidth, p.windowHeight) / 2;
+    radius = p.min(window.innerWidth, window.innerHeight) / 2;
     p.createCanvas(2 * radius, 2 * radius);
     p.colorMode(p.HSB, 1);
     clearCircle();
-    //makeTheButtons();
-    //makeTheSliders();
   }
 
   p.draw = function() {

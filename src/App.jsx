@@ -11,7 +11,6 @@ import Repetitive from "./components/Repetitive";
 import NavigationBar from "./components/NavigationBar";
 
 const App = ({ history }) => {
-  console.log("ROUTES: ", Routes.length);
   return (
   <ConnectedRouter history={history}>
     <Routes />

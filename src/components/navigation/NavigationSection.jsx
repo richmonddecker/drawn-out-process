@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { Card, Collapse } from "reactstrap";
 import NavigationHeader from "./NavigationHeader";
-import { setOpenNavSection } from "../../actions/actions.js"
+import { setOpenNavSection } from "../../actions/navigation.js"
 
 class NavigationSection extends React.Component {
   render() {

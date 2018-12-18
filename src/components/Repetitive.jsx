@@ -9,7 +9,6 @@ class Repetitive extends React.Component {
 
   render() {
     const name = this.props.match.params.name;
-    console.log("HEY!", videos[name]);
     return (
       <div className="fill-screen">
         <video src={videos[name]} height={this.state.height} width={this.state.width} autoPlay loop muted>

@@ -11,7 +11,7 @@ class NavigationBar extends React.Component {
       <div className="sidenav">
         <NavigationSection url="/" name="Home"/>
         <NavigationSection url="/creative" name="Creative">
-          <NavigationItem url="/creative/chord-art" name="Chord Art" />
+          <NavigationItem url="/creative/chord-art" name="Chord Art" thumb={images["chord-art"]} />
         </NavigationSection>
         <NavigationSection url="/generative" name="Generative">
           <NavigationItem url="/generative/targets" name="Targets" />
