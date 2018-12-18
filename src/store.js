@@ -7,7 +7,10 @@ import rootReducer from "./reducers/rootReducer";
 const history = createBrowserHistory();
 
 const state = {
-  openNavSection: null,
+  navigation: {
+    openNavSection: "/repetitive",
+    barsOpen: true
+  },
   trigger: {
     saveFrame: false,
     resetFrame: false

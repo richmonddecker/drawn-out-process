@@ -31,7 +31,7 @@ class Repetitive extends React.Component {
   }
 
   componentWillUnMount() {
-    window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener("resize");
   }
 }
 

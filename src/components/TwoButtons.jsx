@@ -9,7 +9,7 @@ const openFullScreen = () => {
 };
 
 const TwoButtons = (props) => (
-  <div className="toolbar">
+  <div>
     <button onClick={props.save}>Save</button>
     <button onClick={props.reset}>Reset</button>
   </div>

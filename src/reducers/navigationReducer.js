@@ -5,6 +5,16 @@ export default (state = {}, action) => {
         ...state,
         openNavSection: action.payload
       }
+    case "OPEN_BARS":
+      return {
+        ...state,
+        barsOpen: true
+      }
+    case "CLOSE_BARS":
+      return {
+        ...state,
+        barsOpen: false
+      }
     default:
       return state
   }

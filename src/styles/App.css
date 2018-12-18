@@ -32,32 +32,47 @@ div.fill-screen {
   align-items: center;
 }
 
-.sidenav {
+.side-bar {
   height: 100%;
-  width: 200px;
+  width: 170px;
   position: fixed;
   z-index: 1;
   top: 0;
-  left: 0;
   background-color: #330033;
-  opacity: 1;
+  opacity: 0;
   overflow-x: hidden;
   transition: 1s;
 }
 
-.toolbar {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
+.navigation-bar {
+  left: 0;
+}
+
+.tool-bar {
   right: 0;
-  background-color: #330033;
-  opacity: 1;
-  overflow-x: hidden;
-  transition: 1s;
 }
 
 .active-item {
   background-color: #777777;
+}
+
+.bar-tab {
+  display: flex;
+  position: fixed;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  align-items: center;
+  width: 30px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  transition: 1s;
+}
+
+.bar-tab span {
+  display: block;
+  transition: 1s;
 }
