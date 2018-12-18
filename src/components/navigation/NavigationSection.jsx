@@ -24,7 +24,7 @@ class NavigationSection extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  open: ownProps.url === state.simpleReducer.openNavSection
+  open: ownProps.url === state.navigation.openNavSection
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

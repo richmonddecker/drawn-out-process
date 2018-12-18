@@ -13,7 +13,9 @@ class NavigationBar extends React.Component {
         <NavigationSection url="/creative" name="Creative">
           <NavigationItem url="/creative/chord-art" name="Chord Art" />
         </NavigationSection>
-        <NavigationSection url="/generative" name="Generative" />
+        <NavigationSection url="/generative" name="Generative">
+          <NavigationItem url="/generative/targets" name="Targets" />
+        </NavigationSection>
         <NavigationSection url="/repetitive" name="Repetitive">
           <NavigationItem url="/repetitive/kochpinski" name="Kochpinski" thumb={images["kochpinski"]} />
           <NavigationItem url="/repetitive/snowflake" name="Snowflake" thumb={images["snowflake"]} />

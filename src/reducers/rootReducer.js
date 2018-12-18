@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
-import simpleReducer from "./simpleReducer";
+import navReducer from "./navReducer";
 
 export default (history) => combineReducers({
   router: connectRouter(history),
-  simpleReducer
+  navigation: navReducer
 });
