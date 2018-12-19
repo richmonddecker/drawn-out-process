@@ -8,15 +8,10 @@ import images from "../scripts/images";
 
 import { openBars, closeBars } from "../actions/navigation.js";
 
-class NavigationBar extends React.Component {
+class Navigation extends React.Component {
   render() {
     return (
-      <div
-        onMouseOver={this.props.openBars}
-        onMouseLeave={this.props.closeBars}
-        onclick={this.props.openBars}
-        onblur={this.props.openBars}
-      >
+      <div id="navigation-container">
         <div className="side-bar navigation-bar" style={this.props.style}>
           <NavigationSection url="/" name="Home"/>
           <NavigationSection url="/creative" name="Creative">
@@ -32,8 +27,10 @@ class NavigationBar extends React.Component {
           </NavigationSection>
         </div>
         <div class="bar-tab" id="myTab"
+          onMouseOver={this.props.openBars}
+          onClick={this.props.openBars}
         >
-          <span id="myArrow">&#8649;</span>
+          <span id="leftTab">&#8649;</span>
         </div>
       </div>
     );
@@ -42,7 +39,7 @@ class NavigationBar extends React.Component {
 
 const mapStateToProps = (state) => ({
   style : {
-    left: state.navigation.barsOpen ? "0" : "-170px",
+    left: state.navigation.barsOpen ? "0" : "-200px",
     opacity: state.navigation.barsOpen ? 1 : 0
   }
 });
@@ -55,4 +52,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NavigationBar);
+)(Navigation);

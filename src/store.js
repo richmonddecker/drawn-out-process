@@ -9,7 +9,7 @@ const history = createBrowserHistory();
 const state = {
   navigation: {
     openNavSection: "/repetitive",
-    barsOpen: true
+    barsOpen: false
   },
   trigger: {
     saveFrame: false,

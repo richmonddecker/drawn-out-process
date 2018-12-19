@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
 import { createBrowserHistory } from "history"
+import { ConnectedRouter } from "connected-react-router/immutable";
 
 import configureStore from "./store";
 
@@ -15,7 +16,9 @@ const history = createBrowserHistory()
 
 ReactDOM.render((
   <Provider store={configureStore()}>
-    <App history={history} />
+    <ConnectedRouter history={createBrowserHistory()}>
+      <App />
+    </ConnectedRouter>
   </Provider>
 ), document.getElementById("root"));
 

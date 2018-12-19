@@ -32,11 +32,15 @@ div.fill-screen {
   align-items: center;
 }
 
+#application {
+  z-index: 2;
+}
+
 .side-bar {
   height: 100%;
-  width: 170px;
+  width: 200px;
   position: fixed;
-  z-index: 1;
+  z-index: 101;
   top: 0;
   background-color: #330033;
   opacity: 0;
@@ -56,11 +60,16 @@ div.fill-screen {
   background-color: #777777;
 }
 
+.navigation-container {
+  z-index: 100;
+}
+
 .bar-tab {
   display: flex;
   position: fixed;
   font-size: 40px;
   color: white;
+  z-index: 100;
   cursor: pointer;
   align-items: center;
   width: 30px;
@@ -70,6 +79,14 @@ div.fill-screen {
   top: 0;
   bottom: 0;
   transition: 1s;
+}
+
+#leftTab {
+  left: 0;
+}
+
+.right-tab {
+  right: 0;
 }
 
 .bar-tab span {
