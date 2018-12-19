@@ -4,17 +4,16 @@ import { Link, NavLink } from "react-router-dom";
 import images from "../scripts/images";
 
 import TwoButtons from "./TwoButtons";
+import FullscreenButton from "./FullscreenButton";
 import { openBars, closeBars } from "../actions/navigation.js";
 
-const openFullScreen = () => {
-
-};
 
 class Configuration extends React.Component {
   render() {
     return (
       <div class="navigation-container">
         <div className="side-bar tool-bar" style={this.props.style}>
+          <FullscreenButton />
           <TwoButtons />
         </div>
         <div class="bar-tab right-tab"

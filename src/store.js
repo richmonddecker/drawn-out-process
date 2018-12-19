@@ -11,6 +11,9 @@ const state = {
     openNavSection: "/repetitive",
     barsOpen: false
   },
+  configuration: {
+    fullScreen: false
+  },
   trigger: {
     saveFrame: false,
     resetFrame: false
