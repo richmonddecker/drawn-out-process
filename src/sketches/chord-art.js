@@ -3,12 +3,12 @@ const sketch = (p) => {
   let lastMillis = 0;
   let settings = {
     hueCycles: 3,
+    hueOffset: 0,
     lineSpeed: 1000,
     lineThickness: 1,
-    lineAlpha: 50,
+    lineOpacity: 50,
     spanPower: 1,
-    colorPower: 2,
-    hueOffset: 0
+    colorPower: 2
   }
 
   function clearCircle() {
@@ -31,6 +31,17 @@ const sketch = (p) => {
       makeLines(coords, settings, ellapsed);
     }
     drawBorder();
+  }
+
+  p.interpretProps = function({ controls}) {
+    settings.hueCycles = parseFloat(controls.hueCycles, 10);
+    settings.hueOffset = parseFloat(controls.hueOffset, 10);
+    settings.lineSpeed = parseFloat(controls.lineSpeed, 10);
+    settings.lineThickness = parseFloat(controls.lineThickness, 10);
+    settings.lineOpacity = parseFloat(controls.lineOpacity, 10);
+    settings.spanPower = parseFloat(controls.spanPower, 10);
+    settings.colorPower = parseFloat(controls.colorPower, 10);
+    console.log("SETTINGS NOW: ")
   }
 
   function drawBorder() {
@@ -62,7 +73,7 @@ const sketch = (p) => {
     let h = (settings.hueCycles * (coords.th / p.TWO_PI + 1.75) + 1 + settings.hueOffset / 360.0) % 1.0
     let s = p.pow(coords.r / radius, 1.0 / settings.colorPower);
     let b = (0.5 + 0.5 * p.pow(coords.r / radius, 1.0 / settings.colorPower));
-    let a = settings.lineAlpha / 100.0;
+    let a = settings.lineOpacity / 100.0;
     return p.color(h, s, b, a);
   }
 
@@ -138,8 +149,8 @@ export default sketch;
 //   sliders.lineSpeed.position(20, 80);
 //   sliders.lineThickness = createSlider(1, 20, 1, 1);
 //   sliders.lineThickness.position(20, 100);
-//   sliders.lineAlpha = createSlider(1, 100, 50, 1);
-//   sliders.lineAlpha.position(20, 120);
+//   sliders.lineOpacity = createSlider(1, 100, 50, 1);
+//   sliders.lineOpacity.position(20, 120);
 //   sliders.spanPower = createSlider(0.1, 10, 1, 0.1);
 //   sliders.spanPower.position(20, 140);
 //   sliders.colorPower = createSlider(0.1, 10, 2, 0.1);
@@ -153,7 +164,7 @@ export default sketch;
 //     hueCycles: sliders.hueCycles.value(),
 //     lineSpeed: sliders.lineSpeed.value(),
 //     lineThickness: sliders.lineThickness.value(),
-//     lineAlpha: sliders.lineAlpha.value(),
+//     lineOpacity: sliders.lineOpacity.value(),
 //     spanPower: sliders.spanPower.value(),
 //     colorPower: sliders.colorPower.value(),
 //     hueOffset: sliders.hueOffset.value()
