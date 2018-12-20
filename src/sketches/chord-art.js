@@ -110,12 +110,8 @@ const sketch = (p) => {
     p.pop();
   }
 
-  function toggleFullscreen() {
-    p.fullscreen(!p.fullscreen());
-  }
-
   function shouldDraw() {
-    return p.mouseIsPressed;
+    return !p.isBlocked && p.mouseIsPressed;
   }
 };
 

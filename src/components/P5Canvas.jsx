@@ -21,6 +21,8 @@ class P5Canvas extends React.Component {
   }
   
   passProps(props) {
+    // If the mouse is over the side bars, we should inhibit interaction.
+    this.canvas.isBlocked = props.isBlocked;
     if (this.canvas.interpretProps) {
       this.canvas.interpretProps(props);
     }
@@ -48,14 +50,14 @@ class P5Canvas extends React.Component {
 
   componentDidMount() {
     this.makeCanvas(this.props);
-    this.passProps(this.canvas, this.props);
+    this.passProps(this.props);
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.sketch !== newProps.sketch) {
       this.resetCanvas(newProps);
     }
-    this.passProps(this.canvas, newProps);
+    this.passProps(newProps);
     this.handleTriggers(newProps);
   }
 
@@ -65,6 +67,7 @@ class P5Canvas extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  isBlocked: state.navigation.barsOpen,
   trigger: {
     save: state.trigger.saveFrame,
     reset: state.trigger.resetFrame
@@ -79,10 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 P5Canvas.propTypes = {
-  name: PropTypes.string,
-  url: PropTypes.string,
-  thumb: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element)
+  
 };
 
 export default connect(
