@@ -12,7 +12,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <div id="navigation-container">
-        <div className="side-bar navigation-bar" style={this.props.style}>
+        <div className="side-bar navigation-bar" style={this.props.barStyle}>
           <NavigationSection url="/" name="Home"/>
           <NavigationSection url="/creative" name="Creative">
             <NavigationItem url="/creative/chord-art" name="Chord Art" thumb={images["chord-art"]} />
@@ -26,7 +26,7 @@ class Navigation extends React.Component {
             <NavigationItem url="/repetitive/plasma-ball" name="Plasma Ball" thumb={images["plasma-ball"]} />
           </NavigationSection>
         </div>
-        <div class="bar-tab" id="myTab"
+        <div class="bar-tab" id="myTab" style={this.props.tabStyle}
           onMouseOver={this.props.openBars}
           onClick={this.props.openBars}
         >
@@ -37,12 +37,20 @@ class Navigation extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  style : {
-    left: state.navigation.barsOpen ? "0" : "-200px",
-    opacity: state.navigation.barsOpen ? 1 : 0
-  }
-});
+const mapStateToProps = (state) => {
+  const showBars = state.navigation.barsOpen ||  state.configuration.barLock;
+  return ({
+    barStyle : {
+      left: showBars ? "0" : "-200px",
+      opacity: showBars ? 1 : 0
+    },
+    tabStyle : {
+      left: showBars ? "200px" : "0",
+      opacity: showBars || !state.configuration.barTabs ? 0 : 1,
+      width: showBars ? "0" : "30px"
+    }
+  });
+};
 
 const mapDispatchToProps = (dispatch) => ({
   openBars: () => dispatch(openBars()),

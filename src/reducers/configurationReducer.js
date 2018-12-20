@@ -10,6 +10,16 @@ export default (state = {}, action) => {
         ...state,
         fullScreen: !state.fullScreen
       }
+    case "TOGGLE_BAR_TABS":
+      return {
+        ...state,
+        barTabs: !state.barTabs
+      }
+    case "TOGGLE_BAR_LOCK":
+      return {
+        ...state,
+        barLock: !state.barLock
+      }
     default:
       return state
   }

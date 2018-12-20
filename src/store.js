@@ -12,7 +12,9 @@ const state = {
     barsOpen: false
   },
   configuration: {
-    fullScreen: false
+    fullScreen: false,
+    barTabs: true,
+    barLock: false
   },
   trigger: {
     saveFrame: false,

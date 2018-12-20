@@ -6,3 +6,12 @@ export const setFullScreen = (full) => ({
 export const toggleFullScreen = () => ({
   type: "TOGGLE_FULL_SCREEN"
 });
+
+export const toggleBarTabs = () => ({
+  type: "TOGGLE_BAR_TABS"
+});
+
+export const toggleBarLock = () => ({
+  type: "TOGGLE_BAR_LOCK"
+});
+
