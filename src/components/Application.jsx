@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import Routes from "../routes";
+import { ApplicationRoutes } from "../routes";
 import { closeBars } from "../actions/navigation.js";
 
 const Application = ({ closeBars }) => (
@@ -12,7 +12,7 @@ const Application = ({ closeBars }) => (
     onMouseOver={closeBars}
     onClick={closeBars}
   >
-    <Routes />
+    <ApplicationRoutes />
   </div>
 );
 

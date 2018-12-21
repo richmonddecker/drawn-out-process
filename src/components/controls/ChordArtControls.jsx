@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Button, Glyphicon } from "reactstrap";
 import { Control, Form, actions } from "react-redux-form";
 
-const ChordArtControl = (props) => {
+const ChordArtControls = (props) => {
   const path = (label) => `controls.chord-art.${label}`;
   return (
     <Form
@@ -34,4 +34,4 @@ const ChordArtControl = (props) => {
   );
 };
 
-export default ChordArtControl;
+export default ChordArtControls;

@@ -23,7 +23,6 @@ class P5Canvas extends React.Component {
   passProps(props) {
     // If the mouse is over the side bars, we should inhibit interaction.
     this.canvas.isBlocked = props.isBlocked;
-    console.log("PASSING: ", props.controls)
     if (this.canvas.interpretProps) {
       this.canvas.interpretProps(props);
     }

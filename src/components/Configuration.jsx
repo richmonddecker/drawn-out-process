@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import images from "../scripts/images";
 
+import { ConfigurationRoutes } from "../routes";
+
 import TwoButtons from "./TwoButtons";
 import FullscreenButton from "./FullscreenButton";
 import SidebarButtons from "./SidebarButtons";
-import ChordArtControl from "./controls/ChordArtControl";
+import ChordArtControls from "./controls/ChordArtControls";
 import { openBars, closeBars } from "../actions/navigation.js";
 
 
@@ -16,9 +18,8 @@ class Configuration extends React.Component {
       <div class="navigation-container">
         <div className="side-bar tool-bar" style={this.props.barStyle}>
           <FullscreenButton />
-          <TwoButtons />
           <SidebarButtons />
-          <ChordArtControl />
+          <ConfigurationRoutes />
         </div>
         <div class="bar-tab" style={this.props.tabStyle}
           onMouseOver={this.props.openBars}
@@ -32,7 +33,6 @@ class Configuration extends React.Component {
 };
 
 const mapStateToProps = (state) => {
-  console.log("THE STATE IS: ", state);
   const showBars = state.navigation.barsOpen ||  state.configuration.barLock;
   return ({
     barStyle : {
