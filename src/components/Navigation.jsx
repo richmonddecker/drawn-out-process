@@ -27,7 +27,7 @@ class Navigation extends React.Component {
             <NavigationItem url="/repetitive/xt-square" name="XT-Square" thumb={images["xt-square"]} />
             <NavigationItem url="/repetitive/hexagon-star" name="Hexagon Star" thumb={images["hexagon-star"]} />
             <NavigationItem url="/repetitive/pentaspiral" name="Pentaspiral" thumb={images["pentaspiral"]} />
-            <NavigationItem url="/repetitive/oscillating-rose" name="Oscillating Rose" thumb={images["oscillating-rose"]} />
+            <NavigationItem url="/repetitive/bouncy-rose" name="Bouncy Rose" thumb={images["bouncy-rose"]} />
           </NavigationSection>
         </div>
         <div class="bar-tab" id="myTab" style={this.props.tabStyle}
