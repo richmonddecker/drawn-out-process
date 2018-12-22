@@ -15,13 +15,13 @@ import { openBars, closeBars } from "../actions/navigation.js";
 class Configuration extends React.Component {
   render() {
     return (
-      <div class="navigation-container">
+      <div className="navigation-container">
         <div className="side-bar tool-bar" style={this.props.barStyle}>
           <FullscreenButton />
           <SidebarButtons />
           <ConfigurationRoutes />
         </div>
-        <div class="bar-tab" style={this.props.tabStyle}
+        <div className="bar-tab" style={this.props.tabStyle}
           onMouseOver={this.props.openBars}
           onClick={this.props.openBars}
         >

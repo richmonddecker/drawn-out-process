@@ -6,6 +6,8 @@ const order = {
   generative: [
     "targets"
   ],
+  interactive: [],
+  responsive: [],
   repetitive: [
     "kochpinski",
     "snowflake",
@@ -40,6 +42,8 @@ Object.keys(order).forEach((key) => {
   prevs[key] = mapPrev(order[key]);
   nexts[key] = mapNext(order[key]);
 });
+
+const random
 
 export prevs;
 export nexts;

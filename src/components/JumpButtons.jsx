@@ -1,17 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { Button } from "reactstrap";
 
 import { pullTrigger } from "../actions/trigger.js";
 
-const openFullScreen = () => {
 
-};
-
-const TwoButtons = (props) => (
+const JumpButtons = (props) => (
   <div>
-    <button onClick={props.save}>Save</button>
-    <button onClick={props.reset}>Reset</button>
+    <Button onClick={props.random}>Random</Button>
+    <Button onClick={props.previous}>Previous</Button>
+    <Button onClick={props.next}>Next
   </div>
 );
 
@@ -23,4 +22,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   null,
   mapDispatchToProps
-)(TwoButtons);
+)(JumpButtons);
