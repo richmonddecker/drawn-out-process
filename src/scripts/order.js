@@ -1,4 +1,5 @@
 
+
 const order = {
   creative: [
     "chord-art"
@@ -43,7 +44,6 @@ Object.keys(order).forEach((key) => {
   nexts[key] = mapNext(order[key]);
 });
 
-const random
 
 export prevs;
 export nexts;

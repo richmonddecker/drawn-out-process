@@ -10,7 +10,7 @@ const JumpButtons = (props) => (
   <div>
     <Button onClick={props.random}>Random</Button>
     <Button onClick={props.previous}>Previous</Button>
-    <Button onClick={props.next}>Next
+    <Button block onClick={props.next}>Next</Button>
   </div>
 );
 
