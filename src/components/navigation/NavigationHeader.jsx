@@ -5,27 +5,25 @@ import { CardHeader } from "reactstrap";
 
 class NavigationHeader extends React.Component {
   render() {
-    console.log("NH PROPS: ", this.props)
     const navHeader = (
       <CardHeader>
-        {this.props.title}
+        {this.props.name}
       </CardHeader>
     );
     const navLink = (
-      <NavLink to={`/${this.props.tag}`}>
+      <NavLink to={this.props.url}>
         {navHeader}
       </NavLink>
     );
-    return this.props.open || this.props.empty ? navLink : navHeader;
+    return this.props.open || !this.props.children ? navLink : navHeader;
   }
 }
 
 NavigationHeader.propTypes = {
-  empty: PropTypes.bool,
-  title: PropTypes.string,
+  children: PropTypes.arrayOf(PropTypes.element),
+  name: PropTypes.string,
   thumb: PropTypes.string,
-  open: PropTypes.string,
-  tag: PropTypes.string
+  url: PropTypes.string
 };
 
 export default NavigationHeader;

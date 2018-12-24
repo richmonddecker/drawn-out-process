@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, ButtonGroup } from "reactstrap";
+import { Button, Glyphicon } from "reactstrap";
 
 import { toggleBarTabs, toggleBarLock } from "../actions/configuration.js";
 
 const SidebarButtons = (props) => {
   const character = props.fullScreen ? <b>&#10539;</b> : <b>&#10542;</b>;
   return (
-    <ButtonGroup block>
+    <div>
       <Button
+        color="info"
         block
         outline={!props.barLock}
         onClick={props.toggleBarLock}
@@ -17,12 +18,13 @@ const SidebarButtons = (props) => {
       </Button>
       <Button
         color="info"
+        block
         outline={!props.barTabs}
         onClick={props.toggleBarTabs}
       >
         Bar Tabs
       </Button>
-    </ButtonGroup>
+    </div>
   );
 };
 

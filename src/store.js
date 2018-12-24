@@ -9,7 +9,7 @@ const history = createBrowserHistory();
 
 const state = {
   navigation: {
-    openNavSection: "repetitive",
+    openNavSection: "/repetitive",
     barsOpen: false
   },
   configuration: {

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import images from "../scripts/images";
 
 import { ConfigurationRoutes } from "../routes";
 
