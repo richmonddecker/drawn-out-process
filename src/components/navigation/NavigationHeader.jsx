@@ -7,23 +7,24 @@ class NavigationHeader extends React.Component {
   render() {
     const navHeader = (
       <CardHeader>
-        {this.props.name}
+        {this.props.title}
       </CardHeader>
     );
     const navLink = (
-      <NavLink to={this.props.url}>
+      <NavLink to={`/${this.props.tag}`}>
         {navHeader}
       </NavLink>
     );
-    return this.props.open || !this.props.children ? navLink : navHeader;
+    return this.props.open || this.props.empty ? navLink : navHeader;
   }
 }
 
 NavigationHeader.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
-  name: PropTypes.string,
+  empty: PropTypes.bool,
+  title: PropTypes.string,
   thumb: PropTypes.string,
-  url: PropTypes.string
+  open: PropTypes.string,
+  tag: PropTypes.string
 };
 
 export default NavigationHeader;
