@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import NavigationSection from "./navigation/NavigationSection";
 import NavigationHeader from "./navigation/NavigationHeader";
 import NavigationItem from "./navigation/NavigationItem";
-import images from "../scripts/images";
+import { contents } from "../scripts/organization";
 
 import { openBars, closeBars } from "../actions/navigation.js";
 
@@ -14,21 +14,22 @@ class Navigation extends React.Component {
       <div id="navigation-container">
         <div className="side-bar navigation-bar" style={this.props.barStyle}>
           <NavigationSection url="/" name="Home"/>
-          <NavigationSection url="/creative" name="Creative">
-            <NavigationItem url="/creative/chord-art" name="Chord Art" thumb={images["chord-art"]} />
-          </NavigationSection>
-          <NavigationSection url="/generative" name="Generative">
-            <NavigationItem url="/generative/targets" name="Targets" />
-          </NavigationSection>
-          <NavigationSection url="/repetitive" name="Repetitive">
-            <NavigationItem url="/repetitive/kochpinski" name="Kochpinski" thumb={images["kochpinski"]} />
-            <NavigationItem url="/repetitive/snowflake" name="Snowflake" thumb={images["snowflake"]} />
-            <NavigationItem url="/repetitive/plasma-ball" name="Plasma Ball" thumb={images["plasma-ball"]} />
-            <NavigationItem url="/repetitive/xt-square" name="XT-Square" thumb={images["xt-square"]} />
-            <NavigationItem url="/repetitive/hexagon-star" name="Hexagon Star" thumb={images["hexagon-star"]} />
-            <NavigationItem url="/repetitive/pentaspiral" name="Pentaspiral" thumb={images["pentaspiral"]} />
-            <NavigationItem url="/repetitive/bouncy-rose" name="Bouncy Rose" thumb={images["bouncy-rose"]} />
-          </NavigationSection>
+          {
+            contents.map((category) => (
+              <NavigationSection title={category.title} tag={category.tag}>
+                {
+                  category.members.map((element) => (
+                    <NavigationItem
+                      category={category.tag}
+                      element={element.tag}
+                      title={element.title}
+                      thumb={element.thumbnail}
+                    />
+                  ))
+                }
+              </NavigationSection>
+            ))
+          }
         </div>
         <div class="bar-tab" id="myTab" style={this.props.tabStyle}
           onMouseOver={this.props.openBars}

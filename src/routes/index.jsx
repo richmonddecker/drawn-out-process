@@ -2,8 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom"
 import HomePage from "../components/HomePage";
 import RepetitiveIndex from "../components/RepetitiveIndex";
-import Repetitive from "../components/Repetitive";
-import P5Container from "../components/P5Container";
 import Content from "../components/Content";
 
 import CreativeConfiguration from "../components/CreativeConfiguration";

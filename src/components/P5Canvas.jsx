@@ -40,7 +40,7 @@ class P5Canvas extends React.Component {
   handleTriggers(props) {
     if (props.trigger.save) {
       props.clearTrigger.save();
-      this.canvas.saveCanvas(props.name, "png");
+      this.canvas.saveCanvas(props.tag, "png");
     }
     if (props.trigger.reset) {
       props.clearTrigger.reset();
@@ -72,7 +72,7 @@ const mapStateToProps = (state, ownProps) => ({
     save: state.trigger.saveFrame,
     reset: state.trigger.resetFrame
   },
-  controls: state.controls[ownProps.name]
+  controls: state.controls[ownProps.tag]
 });
 
 const mapDispatchToProps = (dispatch) => ({

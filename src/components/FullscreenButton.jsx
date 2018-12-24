@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Glyphicon } from "reactstrap";
+import { Button } from "reactstrap";
 
 import { toggleFullScreen } from "../actions/configuration";
 import { getContentFromTags } from "../scripts/organization";
