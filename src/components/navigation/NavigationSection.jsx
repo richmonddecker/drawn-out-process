@@ -10,7 +10,12 @@ class NavigationSection extends React.Component {
   render() {
     return (
       <Card onClick={this.props.openSection}>
-        <NavigationHeader open={this.props.open} {...this.props} />
+        <NavigationHeader
+          open={this.props.open}
+          empty={this.props.empty}
+          title={this.props.title}
+          tag={this.props.tag}
+        />
         {this.props.children ?
           <Collapse isOpen={this.props.open}>
             {this.props.children}
@@ -24,16 +29,17 @@ class NavigationSection extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  open: ownProps.url === state.navigation.openNavSection
+  empty: !Boolean(ownProps.children),
+  open: ownProps.tag === state.navigation.openNavSection
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  openSection: () => dispatch(setOpenNavSection(ownProps.url))
+  openSection: () => dispatch(setOpenNavSection(ownProps.tag))
 });
 
 NavigationSection.propTypes = {
-  name: PropTypes.string,
-  url: PropTypes.string,
+  title: PropTypes.string,
+  tag: PropTypes.string,
   thumb: PropTypes.string,
   children: PropTypes.arrayOf(PropTypes.element)
 };

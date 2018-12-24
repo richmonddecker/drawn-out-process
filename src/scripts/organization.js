@@ -11,13 +11,13 @@ export const contents = [
     thumbnail: "",
     passive: false,
     info: "",
-    component: com("P5Container"),
+    component: com("P5Canvas"),
     configuration: "CreativeConfiguration",
     members: [
       {
         tag: "chord-art",
         title: "Chord Art",
-        thumbnail: "chord-art.png",
+        thumbnail: img("chord-art.png"),
         sketch: can("chord-art"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -30,7 +30,7 @@ export const contents = [
     thumbnail: "",
     passive: true,
     info: "",
-    component: com("P5Container"),
+    component: com("P5Canvas"),
     configuration: "GenerativeConfiguration",
     members: [
       {
@@ -55,7 +55,7 @@ export const contents = [
       {
         tag: "plasma-ball",
         title: "Plasma Ball",
-        thumbnail: "plasma-ball.png",
+        thumbnail: img("plasma-ball.png"),
         video: vid("plasma-ball.mp4"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -63,7 +63,7 @@ export const contents = [
       {
         tag: "hexagon-star",
         title: "Hexagon Star",
-        thumbnail: "hexagon-star.png",
+        thumbnail: img("hexagon-star.png"),
         video: vid("hexagon-star.mp4"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -71,7 +71,7 @@ export const contents = [
       {
         tag: "xt-square",
         title: "XT-Square",
-        thumbnail: "xt-square.png",
+        thumbnail: img("xt-square.png"),
         video: vid("xt-square.mp4"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -79,7 +79,7 @@ export const contents = [
       {
         tag: "kochpinski",
         title: "Kochpinski",
-        thumbnail: "kochpinski.png",
+        thumbnail: img("kochpinski.png"),
         video: vid("kochpinski.mp4"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -87,7 +87,7 @@ export const contents = [
       {
         tag: "snowflake",
         title: "Snowflake",
-        thumbnail: "snowflake.png",
+        thumbnail: img("snowflake.png"),
         video: vid("snowflake.mp4"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -95,7 +95,7 @@ export const contents = [
       {
         tag: "pentaspiral",
         title: "Pentaspiral",
-        thumbnail: "pentaspiral.png",
+        thumbnail: img("pentaspiral.png"),
         video: vid("pentaspiral.mp4"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -103,7 +103,7 @@ export const contents = [
       {
         tag: "bouncy-rose",
         title: "Bouncy Rose",
-        thumbnail: "bouncy-rose.png",
+        thumbnail: img("bouncy-rose.png"),
         video: vid("bouncy-rose.mp4"),
         date: new Date(2019, 1, 1),
         info: ""

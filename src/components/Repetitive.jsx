@@ -1,5 +1,4 @@
 import React from "react";
-import videos from "../scripts/videos";
 
 class Repetitive extends React.Component {
   constructor(props) {
