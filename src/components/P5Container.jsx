@@ -4,8 +4,8 @@ import sketches from "../scripts/sketches";
 
 const P5Container = (props) => (
   <P5Canvas
-    sketch={sketches[props.match.params.name]}
-    name={props.match.params.name}
+    sketch={props.sketch}
+    name={props.tag}
     {...props}
   />
 );

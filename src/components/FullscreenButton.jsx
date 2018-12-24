@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button, Glyphicon } from "reactstrap";
 
-import { toggleFullScreen } from "../actions/configuration.js";
+import { toggleFullScreen } from "../actions/configuration";
+import { getContentFromTags } from "../scripts/organization";
 
 const FullscreenButton = (props) => {
   const character = props.fullScreen ? <b>&#10539;</b> : <b>&#10542;</b>;

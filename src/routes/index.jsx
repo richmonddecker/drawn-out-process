@@ -4,6 +4,7 @@ import HomePage from "../components/HomePage";
 import RepetitiveIndex from "../components/RepetitiveIndex";
 import Repetitive from "../components/Repetitive";
 import P5Container from "../components/P5Container";
+import Content from "../components/Content";
 
 import CreativeConfiguration from "../components/CreativeConfiguration";
 import GenerativeConfiguration from "../components/GenerativeConfiguration";
@@ -17,10 +18,8 @@ const NoMatch = () => (
 export const ApplicationRoutes = () => (
   <Switch>
     <Route exact path="/" component={HomePage} />
-    <Route exact path="/repetitive" component={RepetitiveIndex} />
-    <Route path="/repetitive/:name" component={Repetitive} />
-    <Route path="/creative/:name" component={P5Container} />
-    <Route path="/generative/:name" component={P5Container} />
+    <Route exact path="/:category" component={RepetitiveIndex} />
+    <Route path="/:category/:element" component={Content} />
     <Route component={NoMatch} />
   </Switch>
 );
