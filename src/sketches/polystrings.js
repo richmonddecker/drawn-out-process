@@ -1,26 +1,22 @@
 const sketch = (p) => {
+  const aspect = 2 / p.sqrt(3);
   let radius = 0;
   let lastMillis = 0;
   let settings = {
-    hueCycles: 3,
-    hueOffset: 0,
-    lineSpeed: 1000,
-    lineThickness: 1,
-    lineOpacity: 50,
-    spanPower: 1,
-    colorPower: 2
+    numSides: 3
   }
 
-  function clearCircle() {
-    p.background(255);
-    drawBorder();
+  function clearPolygon(n) {
+    p.background(0.3);
+    drawPolygon(n);
   }
 
   p.setup = function() {
+    //if (window.innerHeight < 4)
     radius = p.min(window.innerWidth, window.innerHeight) / 2;
     p.createCanvas(2 * radius, 2 * radius);
     p.colorMode(p.HSB, 1);
-    clearCircle();
+    clearPolygon(settings.numSides);
   }
 
   p.draw = function() {
@@ -30,28 +26,40 @@ const sketch = (p) => {
     if (shouldDraw()) {
       makeLines(coords, settings, ellapsed);
     }
-    drawBorder();
+    drawPolygon(settings.numSides);
   }
 
   p.interpretProps = function({ controls }) {
-    settings.hueCycles = parseFloat(controls.hueCycles, 10);
-    settings.hueOffset = parseFloat(controls.hueOffset, 10);
-    settings.lineSpeed = parseFloat(controls.lineSpeed, 10);
-    settings.lineThickness = parseFloat(controls.lineThickness, 10);
-    settings.lineOpacity = parseFloat(controls.lineOpacity, 10);
-    settings.spanPower = parseFloat(controls.spanPower, 10);
-    settings.colorPower = parseFloat(controls.colorPower, 10);
     console.log("SETTINGS NOW: ")
   }
 
-  function drawBorder() {
-    let r = 10000;
+  function sidewaysFactor(n) {
+    // Get the horizontal factor for a polygon of n sides.
+    let cosineSum = 0;
+    for (let i = 0; i < p.floor((n + 1) / 4); i++) {
+      cosineSum += p.cos(p.TWO_PI * i / n);
+    }
+    return cosineSum * 2 * p.sin(p.PI / n);
+  }
+
+  function drawPolygon(n) {
+    const factor = sidewaysFactor(n);
+    const size = radius * factor;
+    console.log("SIZE IS: ", size, factor)
     p.push();
-    p.translate(p.width/2, p.height/2);
-    p.stroke(0);
-    p.noFill();
-    p.strokeWeight(r - 2 * radius);
-    p.ellipse(0, 0, r, r);
+    p.translate(radius, size-20);
+    p.rotate(-p.PI / 2);
+    p.noStroke();
+    p.fill(1);
+    p.beginShape();
+    let angle;
+    if (n % 2) {
+      for (let i = 0; i < n; i++) {
+        angle = p.TWO_PI * i / n;
+        p.vertex(size * p.cos(angle), size * p.sin(angle));
+      }
+    }
+    p.endShape(p.CLOSE);
     p.pop();
   }
 
@@ -127,46 +135,3 @@ const sketch = (p) => {
 };
 
 export default sketch;
-
-// function makeTheButtons() {
-//   let button;
-    
-//     button = createButton("Reset");
-//     button.mouseClicked(resizeCircle);
-//     button.position(20, 20);
-    
-//     button = createButton("Full Screen");
-//     button.mouseClicked(toggleFullscreen);
-//     button.position(20, 40);
-// }
-
-
-// function makeTheSliders() {
-//   sliders = {};
-//   sliders.hueCycles = createSlider(0, 36, 6, 1);
-//   sliders.hueCycles.position(20, 60);
-//   sliders.lineSpeed = createSlider(1, 10000, 1000);
-//   sliders.lineSpeed.position(20, 80);
-//   sliders.lineThickness = createSlider(1, 20, 1, 1);
-//   sliders.lineThickness.position(20, 100);
-//   sliders.lineOpacity = createSlider(1, 100, 50, 1);
-//   sliders.lineOpacity.position(20, 120);
-//   sliders.spanPower = createSlider(0.1, 10, 1, 0.1);
-//   sliders.spanPower.position(20, 140);
-//   sliders.colorPower = createSlider(0.1, 10, 2, 0.1);
-//   sliders.colorPower.position(20, 160);
-//   sliders.hueOffset = createSlider(0, 360, 0, 1);
-//   sliders.hueOffset.position(20, 180);
-// }
-
-// function getSettings() {
-//   return {
-//     hueCycles: sliders.hueCycles.value(),
-//     lineSpeed: sliders.lineSpeed.value(),
-//     lineThickness: sliders.lineThickness.value(),
-//     lineOpacity: sliders.lineOpacity.value(),
-//     spanPower: sliders.spanPower.value(),
-//     colorPower: sliders.colorPower.value(),
-//     hueOffset: sliders.hueOffset.value()
-//   }
-// }

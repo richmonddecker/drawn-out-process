@@ -5,7 +5,8 @@ import plasma_ball from "../images/plasma-ball.png";
 import hexagon_star from "../images/hexagon-star.png";
 import xt_square from "../images/xt-square.png";
 import bouncy_rose from "../images/bouncy-rose.png";
-import pentaspiral from "../images/pentaspiral.png";
+let per = "penta";
+const pentaspiral = require(`../images/${per}spiral.png`);
 
 export default {
   "chord-art": chord_art,
