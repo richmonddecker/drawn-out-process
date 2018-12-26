@@ -1,28 +1,29 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, ButtonGroup } from "reactstrap";
+import { Button, ButtonToolbar } from "reactstrap";
 
 import { toggleBarTabs, toggleBarLock } from "../actions/configuration.js";
 
 const SidebarButtons = (props) => {
-  const character = props.fullScreen ? <b>&#10539;</b> : <b>&#10542;</b>;
+  const lock = props.barLock ? <b>🔒</b> : <b>🔓</b>;
+  const tab = props.barTabs ? <b>⬅️</b> : <b>⚫</b>
   return (
-    <ButtonGroup block>
+    <ButtonToolbar>
       <Button
         color="info"
         outline={!props.barLock}
         onClick={props.toggleBarLock}
       >
-        Bar Lock
+        Bar Lock {lock}
       </Button>
       <Button
         color="info"
         outline={!props.barTabs}
         onClick={props.toggleBarTabs}
       >
-        Bar Tabs
+        Tabs {tab}
       </Button>
-    </ButtonGroup>
+    </ButtonToolbar>
   );
 };
 

@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,6 +30,7 @@ div.fill-screen {
   bottom: 0;
   justify-content: center;
   align-items: center;
+  background-color: black;
 }
 
 #application {

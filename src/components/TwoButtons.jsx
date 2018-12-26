@@ -1,19 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Button, ButtonGroup } from "reactstrap";
 
-import { pullTrigger } from "../actions/trigger.js";
+import { pullTrigger } from "../actions/trigger";
+import { BAR_WIDTH } from "../scripts/constants";
 
-const openFullScreen = () => {
 
+const TwoButtons = (props) => {
+  const style = {width: BAR_WIDTH / 2};
+  return (
+    <ButtonGroup>
+      <Button
+        style={style}
+        color="primary"
+        onClick={props.save}
+      >
+        Save 💾
+      </Button>
+      <Button
+        style={style}
+        color="warning"
+        onClick={props.reset}
+      >
+        Reset ↩️
+      </Button>
+    </ButtonGroup>
+  );
 };
-
-const TwoButtons = (props) => (
-  <div>
-    <button onClick={props.save}>Save</button>
-    <button onClick={props.reset}>Reset</button>
-  </div>
-);
 
 const mapDispatchToProps = (dispatch) => ({
   save: () => dispatch(pullTrigger("saveFrame")),

@@ -1,7 +1,7 @@
-const vid = file => require(`../videos/${file}`);
-const img = file => require(`../images/${file}`);
-const com = file => require(`../components/${file}`).default;
-const can = file => require(`../sketches/${file}`).default;
+const vid = name => require(`../videos/${name}`);
+const img = name => require(`../images/${name}`);
+const com = name => require(`../components/${name}`).default;
+const can = name => require(`../sketches/${name}`).default;
 
 
 export const contents = [
@@ -20,7 +20,29 @@ export const contents = [
         thumbnail: img("chord-art.png"),
         sketch: can("chord-art"),
         date: new Date(2019, 1, 1),
-        info: ""
+        info: "",
+        parameters: [
+          {
+            tag: "colorCycles",
+            title: "Color Cycles",
+            default: 1
+          }
+        ]
+      },
+      {
+        tag: "polystrings",
+        title: "Polystrings",
+        thumbnail: null,
+        sketch: can("polystrings"),
+        date: new Date(2019, 1, 1),
+        info: "",
+        parameters: [
+          {
+            tag: "colorCycles",
+            title: "Color Cycles",
+            default: 1
+          }
+        ]
       }
     ]
   },
