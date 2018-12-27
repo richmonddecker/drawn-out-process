@@ -1,18 +1,23 @@
 const sketch = (p) => {
   const aspect = 2 / p.sqrt(3);
   let radius = 0;
+  let height = 0;
+  let bigRadius = 0;
+  let littleRadius = 0;
   let lastMillis = 0;
   let points = [];
   let center;
   let settings = {
-    numSides: 3,
-    lineThickness: 4,
-    lineOpacity: 50
+    numSides: 5,
+    lineThickness: 5,
+    hueCycles: 2,
+    lineOpacity: 100
   }
 
   function clearPolygon(n) {
     p.background(0.3);
     drawPolygon(n);
+    drawOuterPolygon(n);
   }
 
   p.setup = function() {
@@ -26,11 +31,26 @@ const sketch = (p) => {
   p.draw = function() {
     if (shouldDraw()) {
       drawLines();
+      drawOuterPolygon(settings.numSides);
     }
   }
 
   p.interpretProps = function({ controls }) {
     console.log("SETTINGS NOW: ")
+  }
+
+  function drawOuterPolygon(n) {
+    p.push();
+    p.translate(center.x, center.y);
+    p.noFill();
+    p.stroke(0);
+    p.strokeWeight(2 * littleRadius);
+    p.beginShape();
+    points.forEach((point) => {
+      p.vertex(2 * point.x, 2 * point.y);
+    });
+    p.endShape(p.CLOSE);
+    p.pop();
   }
 
   function sidewaysFactor(n) {
@@ -45,8 +65,9 @@ const sketch = (p) => {
   function drawPolygon(n) {
     points = [];
     const factor = sidewaysFactor(n);
-    const h = 2 * radius;
-    const bigRadius = n % 2 ? h / (1 + p.cos(p.PI / n)) : h / 2 / p.cos(p.PI / n);
+    height = 2 * radius;
+    bigRadius = n % 2 ? height / (1 + p.cos(p.PI / n)) : height / 2 / p.cos(p.PI / n);
+    littleRadius = n % 2 ? height - bigRadius : radius;
     const yOffset = n % 2 ? bigRadius : radius;
     const angleOffset = n % 2 ? -p.PI / 2 : -p.PI / 2 + p.PI / n;
     center = {x: p.width / 2, y: yOffset};
@@ -69,14 +90,21 @@ const sketch = (p) => {
 
   function getPointIntersection(point, pa, pb) {
     // Check if the point p can intersect orthogonally with the ray pa-pb.
+    // Also we will check if the mouse is outside the polygon.
     let na = {x: pa.x - point.x, y: pa.y - point.y};
     let nb = {x: pb.x - point.x, y: pb.y - point.y};
-    const angle = -p.atan2(nb.y - na.y, nb.x - na.x);
-    let ra = {x: p.cos(angle) * na.x - p.sin(angle) * na.y, y: p.sin(angle) * na.x + p.cos(angle * na.y)};
-    let rb = {x: p.cos(angle) * nb.x - p.sin(angle) * nb.y, y: p.sin(angle) * nb.x + p.cos(angle * nb.y)};
-    if (ra.x < 0 && rb.x > 0) {
-      const fraction = p.abs(ra.x) / (rb.x - ra.x);
-      return {x: pa.x * (1 - fraction) + pb.x * fraction, y: pa.y * (1 - fraction) + pb.y * fraction};
+    const angle = -p.atan2(nb.y - na.y, nb.x - na.x) + p.PI;
+    let ra = {x: p.cos(angle) * na.x - p.sin(angle) * na.y, y: p.sin(angle) * na.x + p.cos(angle) * na.y};
+    let rb = {x: p.cos(angle) * nb.x - p.sin(angle) * nb.y, y: p.sin(angle) * nb.x + p.cos(angle) * nb.y};
+    const fraction = p.abs(ra.x) / p.abs(rb.x - ra.x);
+    const intersectX = pa.x * (1 - fraction) + pb.x * fraction;
+    const intersectY = pa.y * (1 - fraction) + pb.y * fraction;
+    if (ra.x * rb.x < 0) {
+      return {
+        x: intersectX,
+        y: intersectY,
+        outside: ra.y < 0
+      };
     }
     return null;
   }
@@ -99,6 +127,10 @@ const sketch = (p) => {
     for (let i = 0; i < settings.numSides; i++) {
       intersection = getPointIntersection(mousePoint, points[i], points[i+1]);
       if (intersection) {
+        if (intersection.outside) {
+          linePoints = [];
+          break;
+        }
         linePoints.push(intersection);
       }
     }
@@ -107,9 +139,8 @@ const sketch = (p) => {
     p.translate(center.x, center.y);
     linePoints.forEach((point) => {
       let dist = p.dist(mousePoint.x, mousePoint.y, point.x, point.y);
-      let hue = (2 * dist / (2 * radius)) % 1;
+      let hue = (settings.hueCycles * dist / (2 * radius)) % 1;
       p.stroke(hue, 1, 1, settings.lineOpacity / 100);
-      console.log("HERE:", dist / (2 * radius));
       p.line(mousePoint.x, mousePoint.y, point.x, point.y);
     });
     p.pop();
