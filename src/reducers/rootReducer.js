@@ -4,12 +4,12 @@ import { combineForms } from "react-redux-form";
 import navigationReducer from "./navigationReducer";
 import configurationReducer from "./configurationReducer";
 import triggerReducer from "./triggerReducer";
-import defaults from "../scripts/defaults";
+import controlReducer from "./controlReducer";
 
 export default (history) => combineReducers({
   router: connectRouter(history),
   navigation: navigationReducer,
   configuration: configurationReducer,
   trigger: triggerReducer,
-  controls: combineForms(defaults, "controls")
+  control: controlReducer
 });

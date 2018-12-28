@@ -23,11 +23,49 @@ export const contents = [
         info: "",
         parameters: [
           {
-            tag: "colorCycles",
+            tag: "hueCycles",
             title: "Color Cycles",
-            default: 1
+            default: 3,
+            info: ""
+          },
+          {
+            tag: "hueOffset",
+            title: "Color Offset",
+            default: 0,
+            info: ""
+          },
+          {
+            tag: "lineSpeed",
+            title: "Line Speed",
+            default: 1000,
+            info: ""
+          },
+          {
+            tag: "lineThickness",
+            title: "Line Thickness",
+            default: 1,
+            info: ""
+          },
+          {
+            tag: "lineOpacity",
+            title: "Line Opacity",
+            default: 50,
+            info: ""
+          },
+          {
+            tag: "spanPower",
+            title: "Span Power",
+            default: 1,
+            info: ""
+          },
+          {
+            tag: "colorPower",
+            title: "Color Power",
+            default: 2,
+            info: ""
           }
-        ]
+        ],
+        attributes: []
       },
       {
         tag: "polystrings",
@@ -38,9 +76,26 @@ export const contents = [
         info: "",
         parameters: [
           {
-            tag: "colorCycles",
+            tag: "hueCycles",
             title: "Color Cycles",
-            default: 1
+            default: 2
+          },
+          {
+            tag: "lineThickness",
+            title: "Line Thickness",
+            default: 2
+          },
+          {
+            tag: "lineOpacity",
+            title: "Line Opacity",
+            default: 50
+          }
+        ],
+        attributes: [
+          {
+            tag: "numSides",
+            title: "Number of Sides",
+            default: 6
           }
         ]
       }

@@ -1,3 +1,6 @@
+// TODO HERE: Handle square-shape and unrestricted shape.
+
+
 const sketch = (p) => {
   const aspect = 2 / p.sqrt(3);
   let radius = 0;
@@ -8,9 +11,9 @@ const sketch = (p) => {
   let points = [];
   let center;
   let settings = {
-    numSides: 5,
-    lineThickness: 5,
-    hueCycles: 2,
+    numSides: 17,
+    lineThickness: 1,
+    hueCycles: 4,
     lineOpacity: 100
   }
 

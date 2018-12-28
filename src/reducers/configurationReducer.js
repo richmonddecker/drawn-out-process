@@ -20,6 +20,11 @@ export default (state = {}, action) => {
         ...state,
         barLock: !state.barLock
       }
+    case "TOGGLE_SQUARE_SCREEN":
+      return {
+        ...state,
+        squareScreen: !state.squareScreen
+      }
     default:
       return state
   }

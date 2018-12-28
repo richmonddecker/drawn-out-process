@@ -6,10 +6,10 @@ export default (state = {}, action) => {
         [action.payload]: true
       }
     case "RESET_TRIGGER":
-    	return {
-    		...state,
-    		[action.payload]: false
-    	}
+      return {
+        ...state,
+        [action.payload]: false
+      }
     default:
       return state
   }

@@ -24,8 +24,7 @@ export const ApplicationRoutes = () => (
 
 export const ConfigurationRoutes = () => (
   <Switch>
-    <Route path="/repetitive/:name" component={RepetitiveConfiguration} />
-    <Route path="/creative/:name" component={CreativeConfiguration} />
-    <Route path="/generative/:name" component={GenerativeConfiguration} />
+    <Route path="/:category/:name" component={RepetitiveConfiguration} />
+    <Route path="/:category/:name" component={Control} />
   </Switch>
 );

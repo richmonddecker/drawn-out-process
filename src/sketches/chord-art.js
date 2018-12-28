@@ -26,7 +26,6 @@ const sketch = (p) => {
   p.draw = function() {
     let ellapsed = getEllapsedTime();
     let coords = getCoords();
-    //let settings = getSettings();
     if (shouldDraw()) {
       makeLines(coords, settings, ellapsed);
     }
@@ -41,7 +40,6 @@ const sketch = (p) => {
     settings.lineOpacity = parseFloat(controls.lineOpacity, 10);
     settings.spanPower = parseFloat(controls.spanPower, 10);
     settings.colorPower = parseFloat(controls.colorPower, 10);
-    console.log("SETTINGS NOW: ")
   }
 
   function drawBorder() {
@@ -128,45 +126,3 @@ const sketch = (p) => {
 
 export default sketch;
 
-// function makeTheButtons() {
-//   let button;
-    
-//     button = createButton("Reset");
-//     button.mouseClicked(resizeCircle);
-//     button.position(20, 20);
-    
-//     button = createButton("Full Screen");
-//     button.mouseClicked(toggleFullscreen);
-//     button.position(20, 40);
-// }
-
-
-// function makeTheSliders() {
-//   sliders = {};
-//   sliders.hueCycles = createSlider(0, 36, 6, 1);
-//   sliders.hueCycles.position(20, 60);
-//   sliders.lineSpeed = createSlider(1, 10000, 1000);
-//   sliders.lineSpeed.position(20, 80);
-//   sliders.lineThickness = createSlider(1, 20, 1, 1);
-//   sliders.lineThickness.position(20, 100);
-//   sliders.lineOpacity = createSlider(1, 100, 50, 1);
-//   sliders.lineOpacity.position(20, 120);
-//   sliders.spanPower = createSlider(0.1, 10, 1, 0.1);
-//   sliders.spanPower.position(20, 140);
-//   sliders.colorPower = createSlider(0.1, 10, 2, 0.1);
-//   sliders.colorPower.position(20, 160);
-//   sliders.hueOffset = createSlider(0, 360, 0, 1);
-//   sliders.hueOffset.position(20, 180);
-// }
-
-// function getSettings() {
-//   return {
-//     hueCycles: sliders.hueCycles.value(),
-//     lineSpeed: sliders.lineSpeed.value(),
-//     lineThickness: sliders.lineThickness.value(),
-//     lineOpacity: sliders.lineOpacity.value(),
-//     spanPower: sliders.spanPower.value(),
-//     colorPower: sliders.colorPower.value(),
-//     hueOffset: sliders.hueOffset.value()
-//   }
-// }

@@ -66,14 +66,16 @@ class P5Canvas extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+  console.log("MONKEY", ownProps)
+  return ({
   isBlocked: state.navigation.barsOpen,
   trigger: {
     save: state.trigger.saveFrame,
     reset: state.trigger.resetFrame
   },
-  controls: state.controls[ownProps.tag]
-});
+  controls: state.control[ownProps.category][ownProps.element]
+})}
 
 const mapDispatchToProps = (dispatch) => ({
   clearTrigger: {

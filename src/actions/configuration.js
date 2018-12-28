@@ -15,3 +15,7 @@ export const toggleBarLock = () => ({
   type: "TOGGLE_BAR_LOCK"
 });
 
+export const toggleSquareScreen = () => ({
+  type: "TOGGLE_SQUARE_SCREEN"
+});
+
