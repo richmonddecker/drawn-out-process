@@ -64,8 +64,7 @@ export const contents = [
             default: 2,
             info: ""
           }
-        ],
-        attributes: []
+        ]
       },
       {
         tag: "polystrings",
@@ -116,9 +115,7 @@ export const contents = [
         thumbnail: "",
         sketch: can("targets"),
         date: new Date(2019, 1, 1),
-        info: "",
-        parameters: [],
-        attributes: []
+        info: ""
       }
     ]
   },

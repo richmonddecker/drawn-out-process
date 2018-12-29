@@ -7,9 +7,11 @@ const Control = ({ match }) => {
   const content = getContentFromTags(match.params.category, match.params.element);
   return (
     <div>
+      {content.member.parameters ? <b>Parameters</b> : null}
       {content.member.parameters && content.member.parameters.map((parameter) => (
         <ParameterControl category={content.tag} element={content.member.tag} {...parameter} />
       ))}
+      {content.member.attributes ? <div><b>Attributes</b><span>(Must "Reset")</span></div> : null}
       {content.member.attributes && content.member.attributes.map((attribute) => (
         <AttributeControl category={content.tag} element={content.member.tag} {...attribute} />
       ))}
