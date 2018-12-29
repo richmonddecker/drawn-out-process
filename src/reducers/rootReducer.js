@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
-import { combineForms } from "react-redux-form";
 import navigationReducer from "./navigationReducer";
 import configurationReducer from "./configurationReducer";
 import triggerReducer from "./triggerReducer";

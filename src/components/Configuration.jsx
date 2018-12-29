@@ -8,7 +8,6 @@ import TwoButtons from "./TwoButtons";
 import FullscreenButton from "./FullscreenButton";
 import SquareButton from "./SquareButton";
 import SidebarButtons from "./SidebarButtons";
-import ChordArtControls from "./controls/ChordArtControls";
 import { openBars, closeBars } from "../actions/navigation.js";
 
 

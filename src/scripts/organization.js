@@ -69,7 +69,7 @@ export const contents = [
       {
         tag: "polystrings",
         title: "Polystrings",
-        thumbnail: null,
+        thumbnail: img("polystrings.png"),
         sketch: can("polystrings"),
         date: new Date(2019, 1, 1),
         info: "",
@@ -116,7 +116,15 @@ export const contents = [
         sketch: can("targets"),
         date: new Date(2019, 1, 1),
         info: ""
-      }
+      },
+      // {
+      //   tag: "dots",
+      //   title: "Dots",
+      //   thumbnail: "",
+      //   sketch: can("dots"),
+      //   date: new Date(2019, 1, 1),
+      //   info: ""
+      // }
     ]
   },
   {

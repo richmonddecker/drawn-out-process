@@ -5,11 +5,6 @@ import RepetitiveIndex from "../components/RepetitiveIndex";
 import Content from "../components/Content";
 import Control from "../components/Control";
 
-import CreativeConfiguration from "../components/CreativeConfiguration";
-import GenerativeConfiguration from "../components/GenerativeConfiguration";
-import RepetitiveConfiguration from "../components/RepetitiveConfiguration";
-
-
 const NoMatch = () => (
   <div>404</div>
 );

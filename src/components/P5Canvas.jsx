@@ -35,6 +35,7 @@ class P5Canvas extends React.Component {
       ...props.control.attributes,
       ...props.control.changes
     };
+    this.canvas.isSquare = props.isSquare;
     this.canvas.setup();
   }
 
@@ -74,6 +75,7 @@ class P5Canvas extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   isBlocked: state.navigation.barsOpen,
+  isSquare: state.configuration.squareScreen,
   trigger: {
     save: state.trigger.saveFrame,
     reset: state.trigger.resetFrame

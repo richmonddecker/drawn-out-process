@@ -1,12 +1,9 @@
-// TODO HERE: Handle square-shape and unrestricted shape.
+// TODO HERE: FIX REDUX FORM CONTROLS TO PASS REAL INTS
 
 const sketch = (p) => {
-  let radius = 0;
-  let height = 0;
-  let bigRadius = 0;
-  let littleRadius = 0;
+  let canvas;
+  let polygon;
   let points = [];
-  let center;
   p.isSquare = false;
   p.settings = {
     numSides: 6,
@@ -15,16 +12,72 @@ const sketch = (p) => {
     lineOpacity: 60
   }
 
+  function polygonRatio(n) {
+    // Return the ratio of the polygon's width to its height.
+    if (n % 4 === 0) {
+      return 1;
+    }
+    if (n % 2 === 0) {
+      return 1 / p.cos(p.PI / n);
+    }
+    console.log("TESTER: ", n, p.floor((1 + n) / 4))
+    console.log("WHAT: ", p.floor(5/4), p.floor(6/4), p.floor(7/4));
+    const top = 2 * p.sin(p.TWO_PI / n * p.floor((n + 1) / 4));
+    const bottom = 1 + p.cos(p.PI / n);
+    console.log("TOP, BOTTOM:", n, top, bottom);
+    // This is how to get the width ratio of an odd-sided polygon.
+    return 2 * p.sin(p.TWO_PI * p.floor((n + 1) / 4) / n) / (1 + p.cos(p.PI / n));
+  }
+
+  function getSizes(n, square) {
+    // Determine the appropriate canvas and polygon size.
+    // The polygon width is always equal to the canvas width.
+    const ratio = polygonRatio(n);
+    console.log("THE RATIO IS: ", n, ratio)
+    let canvas = {};
+    let polygon = {};
+    if (square) {
+      // The canvas width and height are the same.
+      canvas.height = p.min(window.innerWidth, window.innerHeight);
+      canvas.width = canvas.height;
+      polygon.height = canvas.width / ratio;
+    } else {
+      // The canvas will perfectly fit the polygon.
+      canvas.height = p.min(window.innerHeight, window.innerWidth / ratio);
+      canvas.width = canvas.height * ratio;
+      polygon.height = canvas.height;
+    }
+    polygon.width = canvas.width;
+    // Now compute where the center of the polygon will be.
+    let center = {x: canvas.width / 2};
+    let radius = {}
+    if (n % 2 === 0) {
+      radius.little = polygon.height / 2;
+      radius.big = radius.little / p.cos(p.PI / n);
+      center.y = canvas.height / 2;
+    } else {
+      const a = polygon.height / (1 / p.tan(p.PI / n) + 1 / p.sin(p.PI / n));
+      radius.little = a / p.tan(p.PI / n);
+      radius.big = a / p.sin(p.PI / n);
+      center.y = (canvas.height - polygon.height) / 2 + radius.big;
+    }
+    polygon.radius = radius;
+    polygon.center = center;
+    return {canvas, polygon};
+  }
+
   function clearPolygon(n) {
-    p.background(0.3);
+    p.background(0);
     drawPolygon(n);
     drawOuterPolygon(n);
   }
 
   p.setup = function() {
-    //if (window.innerHeight < 4)
-    radius = p.min(window.innerWidth, window.innerHeight) / 2;
-    p.createCanvas(3 * radius, 2 * radius);
+    p.settings.numSides = parseInt(p.settings.numSides, 10);
+    const answer = getSizes(p.settings.numSides, p.isSquare);
+    polygon = answer.polygon;
+    canvas = answer.canvas
+    p.createCanvas(canvas.width, canvas.height);
     p.colorMode(p.HSB, 1);
     clearPolygon(p.settings.numSides);
   }
@@ -36,12 +89,12 @@ const sketch = (p) => {
     }
   }
 
-  function drawOuterPolygon(n) {
+  function drawOuterPolygon() {
     p.push();
-    p.translate(center.x, center.y);
+    p.translate(polygon.center.x, polygon.center.y);
     p.noFill();
     p.stroke(0);
-    p.strokeWeight(2 * littleRadius);
+    p.strokeWeight(2 * polygon.radius.little);
     p.beginShape();
     points.forEach((point) => {
       p.vertex(2 * point.x, 2 * point.y);
@@ -50,33 +103,18 @@ const sketch = (p) => {
     p.pop();
   }
 
-  function sidewaysFactor(n) {
-    // Get the horizontal factor for a polygon of n sides.
-    let cosineSum = 0;
-    for (let i = 0; i < p.floor((n + 1) / 4); i++) {
-      cosineSum += p.cos(p.TWO_PI * i / n);
-    }
-    return cosineSum * 2 * p.sin(p.PI / n);
-  }
-
   function drawPolygon(n) {
-    points = [];
-    const factor = sidewaysFactor(n);
-    height = 2 * radius;
-    bigRadius = n % 2 ? height / (1 + p.cos(p.PI / n)) : height / 2 / p.cos(p.PI / n);
-    littleRadius = n % 2 ? height - bigRadius : radius;
-    const yOffset = n % 2 ? bigRadius : radius;
     const angleOffset = n % 2 ? -p.PI / 2 : -p.PI / 2 + p.PI / n;
-    center = {x: p.width / 2, y: yOffset};
+    points = [];
     p.push();
-    p.translate(center.x, center.y);
+    p.translate(polygon.center.x, polygon.center.y);
     p.noStroke();
     p.fill(1);
     p.beginShape();
     let angle;
     for (let i = 0; i < n; i++) {
       angle = angleOffset + p.TWO_PI * i / n;
-      let point = {x: bigRadius * p.cos(angle), y: bigRadius * p.sin(angle)};
+      let point = {x: polygon.radius.big * p.cos(angle), y: polygon.radius.big * p.sin(angle)};
       p.vertex(point.x, point.y);
       points.push(point);
     }
@@ -107,7 +145,7 @@ const sketch = (p) => {
   }
 
   function drawLines() {
-    const mousePoint = {x: p.mouseX - center.x, y: p.mouseY - center.y};
+    const mousePoint = {x: p.mouseX - polygon.center.x, y: p.mouseY - polygon.center.y};
     let linePoints = [];
     let intersection;
     for (let i = 0; i < p.settings.numSides; i++) {
@@ -122,10 +160,10 @@ const sketch = (p) => {
     }
     p.push();
     p.strokeWeight(p.settings.lineThickness);
-    p.translate(center.x, center.y);
+    p.translate(polygon.center.x, polygon.center.y);
     linePoints.forEach((point) => {
       let dist = p.dist(mousePoint.x, mousePoint.y, point.x, point.y);
-      let hue = (p.settings.hueCycles * dist / (2 * radius)) % 1;
+      let hue = (p.settings.hueCycles * dist / (2 * polygon.radius.little)) % 1;
       p.stroke(hue, 1, 1, p.settings.lineOpacity / 100);
       p.line(mousePoint.x, mousePoint.y, point.x, point.y);
     });

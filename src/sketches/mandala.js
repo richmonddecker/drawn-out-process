@@ -214,7 +214,7 @@ const sketch = (p) => {
     speeds = [random(-.01, .01) for i in range(numRings)]
     factspeeds = [random(-0.01, 0.01) for i in range(numRings)]
     radii = RadiiList(numRings, diagonal)
-    mouseReleased()
+    p.mouseReleased()
   }
 
   p.draw = function() {
@@ -241,7 +241,7 @@ const sketch = (p) => {
     backColor = [p.random(255), 255, 255]
     centColor = [p.random(255), 255, 255]
     p.translate(width/2, height/2)
-    diagonal = p.hypot(p.width/2, p.height/2);
+    diagonal = p.mag(p.width/2, p.height/2);
     rings = randomFlower(diagonal, numRings)
   }
 };
