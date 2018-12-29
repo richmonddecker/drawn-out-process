@@ -1,4 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import { resetTrigger } from "../actions/trigger";
 
 class Repetitive extends React.Component {
   constructor(props) {
@@ -33,4 +37,19 @@ class Repetitive extends React.Component {
   }
 }
 
-export default Repetitive;
+// TODO: Make this stuff have an effect.
+
+const mapStateToProps = (state) => ({
+  save: state.trigger.saveFrame,
+  reset: state.trigger.resetFrame
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clearSave: () => dispatch(resetTrigger("saveFrame")),
+  clearReset: () => dispatch(resetTrigger("resetFrame"))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Repetitive);

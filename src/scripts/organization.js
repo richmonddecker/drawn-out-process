@@ -116,7 +116,9 @@ export const contents = [
         thumbnail: "",
         sketch: can("targets"),
         date: new Date(2019, 1, 1),
-        info: ""
+        info: "",
+        parameters: [],
+        attributes: []
       }
     ]
   },

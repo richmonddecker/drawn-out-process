@@ -2,10 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
-import { ConfigurationRoutes } from "../routes";
+import { ControlRoutes } from "../routes";
 
 import TwoButtons from "./TwoButtons";
 import FullscreenButton from "./FullscreenButton";
+import SquareButton from "./SquareButton";
 import SidebarButtons from "./SidebarButtons";
 import ChordArtControls from "./controls/ChordArtControls";
 import { openBars, closeBars } from "../actions/navigation.js";
@@ -17,8 +18,10 @@ class Configuration extends React.Component {
       <div className="navigation-container">
         <div className="side-bar tool-bar" style={this.props.barStyle}>
           <FullscreenButton />
+          <SquareButton />
           <SidebarButtons />
-          <ConfigurationRoutes />
+          <ControlRoutes />
+          <TwoButtons />
         </div>
         <div className="bar-tab" style={this.props.tabStyle}
           onMouseOver={this.props.openBars}

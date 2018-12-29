@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom"
 import HomePage from "../components/HomePage";
 import RepetitiveIndex from "../components/RepetitiveIndex";
 import Content from "../components/Content";
+import Control from "../components/Control";
 
 import CreativeConfiguration from "../components/CreativeConfiguration";
 import GenerativeConfiguration from "../components/GenerativeConfiguration";
@@ -22,9 +23,8 @@ export const ApplicationRoutes = () => (
   </Switch>
 );
 
-export const ConfigurationRoutes = () => (
+export const ControlRoutes = () => (
   <Switch>
-    <Route path="/:category/:name" component={RepetitiveConfiguration} />
-    <Route path="/:category/:name" component={Control} />
+    <Route path="/:category/:element" component={Control} />
   </Switch>
 );

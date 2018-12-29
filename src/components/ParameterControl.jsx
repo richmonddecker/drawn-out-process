@@ -1,26 +1,29 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Glyphicon } from "reactstrap";
-import { Control, Form, actions } from "react-redux-form";
-import Slider from "@material-ui/lab/Slider";
+import { setParameter } from "../actions/control";
 
 const ParameterControl = (props) => {
-  const path = (label) => `controls.chord-art.${label}`;
   return (
     <div>
-      <label htmlFor={path("hueCycles")}>Hue Cycles:</label>
-      <Control
-        model={path("hueCycles")}
-        id={path("hueCycles")}
-        component={Slider}
-        controlProps={{
-          min: 0,
-          max: 100,
-          step: 1
-        }}
+      <label htmlFor={props.tag}>{props.title}:</label>
+      <input
+        type="text"
+        value={props.value}
+        onChange={props.update}
       />
     </div>
   );
 };
 
-export default ChordArtControls;
+const mapStateToProps = (state, ownProps) => ({
+  value: state.control[ownProps.category][ownProps.element].parameters[ownProps.tag],
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  update: ({target}) => dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, target.value))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ParameterControl);

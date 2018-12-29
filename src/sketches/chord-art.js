@@ -1,7 +1,7 @@
 const sketch = (p) => {
   let radius = 0;
   let lastMillis = 0;
-  let settings = {
+  p.settings = {
     hueCycles: 3,
     hueOffset: 0,
     lineSpeed: 1000,
@@ -27,19 +27,9 @@ const sketch = (p) => {
     let ellapsed = getEllapsedTime();
     let coords = getCoords();
     if (shouldDraw()) {
-      makeLines(coords, settings, ellapsed);
+      makeLines(coords, p.settings, ellapsed);
     }
     drawBorder();
-  }
-
-  p.interpretProps = function({ controls }) {
-    settings.hueCycles = parseFloat(controls.hueCycles, 10);
-    settings.hueOffset = parseFloat(controls.hueOffset, 10);
-    settings.lineSpeed = parseFloat(controls.lineSpeed, 10);
-    settings.lineThickness = parseFloat(controls.lineThickness, 10);
-    settings.lineOpacity = parseFloat(controls.lineOpacity, 10);
-    settings.spanPower = parseFloat(controls.spanPower, 10);
-    settings.colorPower = parseFloat(controls.colorPower, 10);
   }
 
   function drawBorder() {

@@ -7,7 +7,8 @@ contents.forEach((category) => {
   category.members.forEach((element) => {
     defaults[category.tag][element.tag] = {
       parameters: {},
-      attributes: {}
+      attributes: {},
+      changes: {}
     };
     if (element.parameters) {
       element.parameters.forEach((parameter) => {

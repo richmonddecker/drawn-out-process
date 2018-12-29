@@ -1,5 +1,5 @@
 /*
-  Modifed from Andreas Wolf's react-p5-wrapper
+  Heavily modifed from Andreas Wolf's react-p5-wrapper
   https://github.com/NeroCor/react-p5-wrapper
 */
 
@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import p5 from "p5";
 
-import { resetTrigger } from "../actions/trigger.js";
+import { resetTrigger } from "../actions/trigger";
+import { resetAttributes } from "../actions/control";
 
 class P5Canvas extends React.Component {
   constructor(props) {
@@ -23,13 +24,18 @@ class P5Canvas extends React.Component {
   passProps(props) {
     // If the mouse is over the side bars, we should inhibit interaction.
     this.canvas.isBlocked = props.isBlocked;
-    if (this.canvas.interpretProps) {
-      this.canvas.interpretProps(props);
-    }
+    this.canvas.settings = {...this.canvas.settings, ...props.control.parameters};
   }
 
   makeCanvas(props) {
     this.canvas = new p5(props.sketch, this.wrapper);
+    this.canvas.settings = {
+      ...this.canvas.settings,
+      ...props.control.parameters,
+      ...props.control.attributes,
+      ...props.control.changes
+    };
+    this.canvas.setup();
   }
 
   resetCanvas(props) {
@@ -44,13 +50,13 @@ class P5Canvas extends React.Component {
     }
     if (props.trigger.reset) {
       props.clearTrigger.reset();
-      this.resetCanvas(props);
+      props.resetAttributes();
+      this.resetCanvas(this.props);
     }
   }
 
   componentDidMount() {
     this.makeCanvas(this.props);
-    this.passProps(this.props);
   }
 
   componentWillReceiveProps(newProps) {
@@ -66,22 +72,21 @@ class P5Canvas extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log("MONKEY", ownProps)
-  return ({
+const mapStateToProps = (state, ownProps) => ({
   isBlocked: state.navigation.barsOpen,
   trigger: {
     save: state.trigger.saveFrame,
     reset: state.trigger.resetFrame
   },
-  controls: state.control[ownProps.category][ownProps.element]
-})}
+  control: state.control[ownProps.category][ownProps.element]
+});
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   clearTrigger: {
     save: () => dispatch(resetTrigger("saveFrame")),
     reset: () => dispatch(resetTrigger("resetFrame"))
-  }
+  },
+  resetAttributes: () => dispatch(resetAttributes(ownProps.category, ownProps.element))
 });
 
 P5Canvas.propTypes = {

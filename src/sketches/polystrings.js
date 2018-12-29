@@ -1,20 +1,18 @@
 // TODO HERE: Handle square-shape and unrestricted shape.
 
-
 const sketch = (p) => {
-  const aspect = 2 / p.sqrt(3);
   let radius = 0;
   let height = 0;
   let bigRadius = 0;
   let littleRadius = 0;
-  let lastMillis = 0;
   let points = [];
   let center;
-  let settings = {
-    numSides: 17,
-    lineThickness: 1,
-    hueCycles: 4,
-    lineOpacity: 100
+  p.isSquare = false;
+  p.settings = {
+    numSides: 6,
+    lineThickness: 2,
+    hueCycles: 3,
+    lineOpacity: 60
   }
 
   function clearPolygon(n) {
@@ -28,18 +26,14 @@ const sketch = (p) => {
     radius = p.min(window.innerWidth, window.innerHeight) / 2;
     p.createCanvas(3 * radius, 2 * radius);
     p.colorMode(p.HSB, 1);
-    clearPolygon(settings.numSides);
+    clearPolygon(p.settings.numSides);
   }
 
   p.draw = function() {
     if (shouldDraw()) {
       drawLines();
-      drawOuterPolygon(settings.numSides);
+      drawOuterPolygon(p.settings.numSides);
     }
-  }
-
-  p.interpretProps = function({ controls }) {
-    console.log("SETTINGS NOW: ")
   }
 
   function drawOuterPolygon(n) {
@@ -112,22 +106,11 @@ const sketch = (p) => {
     return null;
   }
 
-  function getColor(coords, settings) {
-    if (coords.r > radius) {
-      return p.color(0, 0, 0, 1);
-    }
-    let h = (settings.hueCycles * (coords.th / p.TWO_PI + 1.75) + 1 + settings.hueOffset / 360.0) % 1.0
-    let s = p.pow(coords.r / radius, 1.0 / settings.colorPower);
-    let b = (0.5 + 0.5 * p.pow(coords.r / radius, 1.0 / settings.colorPower));
-    let a = settings.lineOpacity / 100.0;
-    return p.color(h, s, b, a);
-  }
-
   function drawLines() {
     const mousePoint = {x: p.mouseX - center.x, y: p.mouseY - center.y};
     let linePoints = [];
     let intersection;
-    for (let i = 0; i < settings.numSides; i++) {
+    for (let i = 0; i < p.settings.numSides; i++) {
       intersection = getPointIntersection(mousePoint, points[i], points[i+1]);
       if (intersection) {
         if (intersection.outside) {
@@ -138,12 +121,12 @@ const sketch = (p) => {
       }
     }
     p.push();
-    p.strokeWeight(settings.lineThickness);
+    p.strokeWeight(p.settings.lineThickness);
     p.translate(center.x, center.y);
     linePoints.forEach((point) => {
       let dist = p.dist(mousePoint.x, mousePoint.y, point.x, point.y);
-      let hue = (settings.hueCycles * dist / (2 * radius)) % 1;
-      p.stroke(hue, 1, 1, settings.lineOpacity / 100);
+      let hue = (p.settings.hueCycles * dist / (2 * radius)) % 1;
+      p.stroke(hue, 1, 1, p.settings.lineOpacity / 100);
       p.line(mousePoint.x, mousePoint.y, point.x, point.y);
     });
     p.pop();
