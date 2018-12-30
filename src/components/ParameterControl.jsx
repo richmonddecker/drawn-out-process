@@ -6,10 +6,10 @@ const ParameterControl = (props) => {
   return (
     <div>
       <label htmlFor={props.tag}>{props.title}:</label>
-      <input
-        type="text"
+      <props.widget
         value={props.value}
         onChange={props.update}
+        {...props.widgetProps}
       />
     </div>
   );
@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  update: ({target}) => dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, target.value))
+  update: (val) => dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, val))
 });
 
 export default connect(

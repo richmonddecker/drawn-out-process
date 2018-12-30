@@ -9,10 +9,10 @@ const AttributeControl = (props) => {
   return (
     <div>
       <label htmlFor={props.tag}>{props.title}: {parentheses}</label>
-      <input
-        type="text"
+      <props.widget
         value={display}
         onChange={props.update}
+        {...props.widgetProps}
       />
     </div>
   );
@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  update: ({target}) => dispatch(setAttribute(ownProps.category, ownProps.element, ownProps.tag, target.value))
+  update: (val) => dispatch(setAttribute(ownProps.category, ownProps.element, ownProps.tag, val))
 });
 
 export default connect(

@@ -58,7 +58,7 @@ const sketch = (p) => {
     if (coords.r > radius) {
       return p.color(0, 0, 0, 1);
     }
-    let h = (settings.hueCycles * (coords.th / p.TWO_PI + 1.75) + 1 + settings.hueOffset / 360.0) % 1.0
+    let h = (settings.hueCycles * (coords.th / p.TWO_PI + 1.75) + 1 + settings.hueOffset / 100.0) % 1.0
     let s = p.pow(coords.r / radius, 1.0 / settings.colorPower);
     let b = (0.5 + 0.5 * p.pow(coords.r / radius, 1.0 / settings.colorPower));
     let a = settings.lineOpacity / 100.0;

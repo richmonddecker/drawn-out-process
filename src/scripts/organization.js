@@ -2,6 +2,7 @@ const vid = name => require(`../videos/${name}`);
 const img = name => require(`../images/${name}`);
 const com = name => require(`../components/${name}`).default;
 const can = name => require(`../sketches/${name}`).default;
+const wid = name => require("../components/widgets")[name];
 
 
 export const contents = [
@@ -26,43 +27,87 @@ export const contents = [
             tag: "hueCycles",
             title: "Color Cycles",
             default: 3,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
           },
           {
             tag: "hueOffset",
             title: "Color Offset",
             default: 0,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           },
           {
             tag: "lineSpeed",
             title: "Line Speed",
             default: 1000,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100000,
+              step: 100
+            }
           },
           {
             tag: "lineThickness",
             title: "Line Thickness",
             default: 1,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           },
           {
             tag: "lineOpacity",
             title: "Line Opacity",
             default: 50,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           },
           {
             tag: "spanPower",
             title: "Span Power",
             default: 1,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           },
           {
             tag: "colorPower",
             title: "Color Power",
             default: 2,
-            info: ""
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           }
         ]
       },
@@ -77,24 +122,63 @@ export const contents = [
           {
             tag: "hueCycles",
             title: "Color Cycles",
-            default: 2
+            default: 2,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "hueOffset",
+            title: "Color Offset",
+            default: 0,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           },
           {
             tag: "lineThickness",
             title: "Line Thickness",
-            default: 2
+            default: 2,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           },
           {
             tag: "lineOpacity",
             title: "Line Opacity",
-            default: 50
+            default: 50,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
           }
         ],
         attributes: [
           {
             tag: "numSides",
             title: "Number of Sides",
-            default: 6
+            default: 6,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 3,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
           }
         ]
       }

@@ -9,6 +9,7 @@ const sketch = (p) => {
     numSides: 6,
     lineThickness: 2,
     hueCycles: 3,
+    hueOffset: 0,
     lineOpacity: 60
   }
 
@@ -163,7 +164,7 @@ const sketch = (p) => {
     p.translate(polygon.center.x, polygon.center.y);
     linePoints.forEach((point) => {
       let dist = p.dist(mousePoint.x, mousePoint.y, point.x, point.y);
-      let hue = (p.settings.hueCycles * dist / (2 * polygon.radius.little)) % 1;
+      let hue = (p.settings.hueCycles * dist / (2 * polygon.radius.little) + p.settings.hueOffset / 100.0) % 1;
       p.stroke(hue, 1, 1, p.settings.lineOpacity / 100);
       p.line(mousePoint.x, mousePoint.y, point.x, point.y);
     });
