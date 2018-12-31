@@ -1,7 +1,9 @@
 import { fitPointsToSize } from "./utility/geometry";
 
+// TODO: Figure out why there's weird glitch stuff in "square" mode.
+
 const sketch = (p) => {
-  const count = 1000;
+  const count = 100;
   const count2 = 100;
   let canvas;
   let flower
@@ -71,7 +73,6 @@ const sketch = (p) => {
   p.draw = function() {
     if (shouldDraw()) {
       const point = mousePoint();
-      console.log("POINTL: ", point);
       if (checkMousePoint(point, flower.scale, p.settings.numPetals, p.settings.petalRatio)) {
         drawConnectors();
         drawOuterFlower(flower);
@@ -98,7 +99,6 @@ const sketch = (p) => {
     p.translate(flower.center.x, flower.center.y);
     p.noStroke();
     p.fill(1);
-    console.log("I'M HERE", flower);
     p.beginShape();
     flower.points.forEach((point) => {
       p.vertex(point.x, point.y);
@@ -128,11 +128,9 @@ const sketch = (p) => {
     p.rotate(angle);
     p.noFill();
     const hue = ((angle + p.PI / 2) * p.settings.hueCycles / p.TWO_PI + p.settings.hueOffset / 100.0) % 1;
-    console.log("HUE: ", hue);
     p.stroke(hue, 1, 1, p.settings.lineOpacity / 100.0);
     let factor;
     let th;
-    console.log("SHOOPS", p.settings)
     for (let i = 0; i < p.settings.numPetals - 2; i++) {
       p.rotate(p.TWO_PI / p.settings.numPetals);
       p.beginShape();

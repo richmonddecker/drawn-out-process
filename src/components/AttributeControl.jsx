@@ -25,7 +25,15 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  update: (val) => dispatch(setAttribute(ownProps.category, ownProps.element, ownProps.tag, val))
+  update: (val) => {
+    if (ownProps.widgetProps.min && val < ownProps.widgetProps.min) {
+      val = ownProps.widgetProps.min;
+    }
+    if (ownProps.widgetProps.max && val > ownProps.widgetProps.max) {
+      val = ownProps.widgetProps.max;
+    }
+    dispatch(setAttribute(ownProps.category, ownProps.element, ownProps.tag, val));
+  }
 });
 
 export default connect(

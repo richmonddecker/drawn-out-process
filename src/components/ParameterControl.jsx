@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setParameter } from "../actions/control";
+import { BAR_WIDTH } from "../scripts/constants";
 
 const ParameterControl = (props) => {
   return (
@@ -20,7 +21,17 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  update: (val) => dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, val))
+  update: (val) => {
+    console.log("VAL MIN MAX", val, ownProps.min, ownProps.max)
+    if (ownProps.widgetProps.min && val < ownProps.widgetProps.min) {
+      console.log("IT HAPPENED");
+      val = ownProps.widgetProps.min;
+    }
+    if (ownProps.widgetProps.max && val > ownProps.widgetProps.max) {
+      val = ownProps.widgetProps.max;
+    }
+    dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, val));
+  }
 });
 
 export default connect(

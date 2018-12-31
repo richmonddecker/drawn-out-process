@@ -18,7 +18,7 @@ export const contents = [
       {
         tag: "flower-webs",
         title: "Flower Webs",
-        thumbnail: "",
+        thumbnail: img("flower-webs.png"),
         sketch: can("flower-webs"),
         date: new Date(2019, 1, 1),
         info: "",
@@ -44,7 +44,8 @@ export const contents = [
             widgetProps: {
               min: 0,
               max: 100,
-              step: 1
+              step: 1,
+              strict: true
             }
           },
           {
@@ -80,21 +81,19 @@ export const contents = [
               min: 3,
               max: 20,
               step: 1,
-              snap: true,
-              strict: true
+              snap: true
             }
           },
           {
             tag: "petalRatio",
             title: "Petal Ratio",
-            default: 2,
+            default: 1,
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0.1,
               max: 10,
               step: 0.1,
-              precision: 1,
-              snap: true
+              precision: 1
             }
           }
         ]
