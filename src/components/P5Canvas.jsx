@@ -69,7 +69,7 @@ class P5Canvas extends React.Component {
   }
 
   render() {
-    return <div class="fill-screen" ref={wrapper => this.wrapper = wrapper}></div>;
+    return <div className="fill-screen" ref={wrapper => this.wrapper = wrapper}></div>;
   }
 }
 

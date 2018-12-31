@@ -1,103 +1,99 @@
 import { fitPointsToSize } from "./utility/geometry";
 
 const sketch = (p) => {
+  const count = 1000;
   let canvas;
-  let polygon;
-  let center;
+  let flower
   p.isSquare = false;
   p.settings = {
-    numSides: 6,
-    lineThickness: 2,
+    numPetals: 6,
+    petalRatio: 2,
     hueCycles: 3,
     hueOffset: 0,
     lineOpacity: 60
   }
 
-  function polygonRatio(n) {
-    // Return the ratio of the polygon's width to its height.
-    if (n % 4 === 0) {
-      return 1;
-    }
-    if (n % 2 === 0) {
-      return 1 / p.cos(p.PI / n);
-    }
-    // This is how to get the width ratio of an odd-sided polygon.
-    return 2 * p.sin(p.TWO_PI * p.floor((n + 1) / 4) / n) / (1 + p.cos(p.PI / n));
+  function flower(n, r) {
+    return (theta) => {
+      let shift = 0;
+      if (n % 2) {
+        shift += p.PI / 2;
+      } else if (n % 4 === 0) {
+        shift += p.PI / n;
+      }
+      return 1 + r * p.abs(p.cos(n * (theta + shift) / 2));
+    };
   }
 
-  function polygonPoints(n) {
-    points = [];
+  function flowerPoints(n, r, count) {
+    let points = [];
     const angleOffset = n % 2 ? -p.PI / 2 : -p.PI / 2 + p.PI / n;
     let angle;
-    for (let i = 0; i < n; i++) {
-      angle = angleOffset + p.TWO_PI * i / n;
-      points.push([p.cos(angle), p.sin(angle)]);
+    let radius;
+    for (let i = 0; i < count+1; i++) {
+      angle = p.TWO_PI * i / count;
+      radius = flower(n, r)(angle);
+      points.push([radius * p.cos(angle), radius * p.sin(angle)]);
     }
     return points;
   }
 
-  function getSizes(n, square) {
-    // Determine the appropriate canvas and polygon size.
-    // The polygon width is always equal to the canvas width.
-    const polyPoints = polygonPoints(n);
+  function getSizes(n, r, square) {
+    // Determine the appropriate canvas and flower size.
+    // The flower width is always equal to the canvas width.
+    const polyPoints = flowerPoints(n, r);
     const fit = fitPointsToSize(polyPoints, square);
     //console.log("SHEE", fit)
     canvas = fit.canvas;
-    polygon = fit.object;
-    polygon.center = fit.center;
-    polygon.points = fit.points;
-    if (n % 2 === 0) {
-      polygon.radius = polygon.height / 2;
-    } else {
-      const a = polygon.height / (1 / p.tan(p.PI / n) + 1 / p.sin(p.PI / n));
-      polygon.radius = a / p.tan(p.PI / n);
-    }
-    return {canvas, polygon};
+    flower = fit.object;
+    flower.center = fit.center;
+    flower.points = fit.points;
+    return {canvas, flower};
   }
 
-  function clearPolygon(polygon) {
+  function clearFlower(flower) {
     p.background(0);
-    drawPolygon(polygon);
-    drawOuterPolygon(polygon);
+    drawFlower(flower);
+    drawOuterFlower(flower);
   }
 
   p.setup = function() {
     const answer = getSizes(p.settings.numSides, p.isSquare);
     canvas = answer.canvas;
-    polygon = answer.polygon;
+    flower = answer.flower;
     p.createCanvas(canvas.width, canvas.height);
     p.colorMode(p.HSB, 1);
-    clearPolygon(polygon);
+    clearFlower(flower);
   }
 
   p.draw = function() {
     if (shouldDraw()) {
       drawLines();
-      drawOuterPolygon(polygon);
+      drawOuterFlower(flower);
     }
   }
 
-  function drawOuterPolygon(polygon) {
+  function drawOuterFlower(flower) {
     p.push();
-    p.translate(polygon.center.x, polygon.center.y);
+    p.translate(flower.center.x, flower.center.y);
     p.noFill();
     p.stroke(0);
-    p.strokeWeight(2 * polygon.radius);
+    p.strokeWeight(2 * flower.radius);
     p.beginShape();
-    polygon.points.forEach((point) => {
+    flower.points.forEach((point) => {
       p.vertex(2 * point.x, 2 * point.y);
     });
     p.endShape(p.CLOSE);
     p.pop();
   }
 
-  function drawPolygon(polygon) {
+  function drawFlower(flower) {
     p.push();
-    p.translate(polygon.center.x, polygon.center.y);
+    p.translate(flower.center.x, flower.center.y);
     p.noStroke();
     p.fill(1);
     p.beginShape();
-    polygon.points.forEach((point) => {
+    flower.points.forEach((point) => {
       p.vertex(point.x, point.y);
     });
     p.endShape(p.CLOSE);
@@ -107,7 +103,7 @@ const sketch = (p) => {
 
   function getPointIntersection(point, pa, pb) {
     // Check if the point p can intersect orthogonally with the ray pa-pb.
-    // Also we will check if the mouse is outside the polygon.
+    // Also we will check if the mouse is outside the flower.
     console.log(point, pa, pb);
     let na = {x: pa.x - point.x, y: pa.y - point.y};
     let nb = {x: pb.x - point.x, y: pb.y - point.y};
@@ -128,11 +124,11 @@ const sketch = (p) => {
   }
 
   function drawLines() {
-    const mousePoint = {x: p.mouseX - polygon.center.x, y: p.mouseY - polygon.center.y};
+    const mousePoint = {x: p.mouseX - flower.center.x, y: p.mouseY - flower.center.y};
     let linePoints = [];
     let intersection;
     for (let i = 0; i < p.settings.numSides; i++) {
-      intersection = getPointIntersection(mousePoint, polygon.points[i], polygon.points[(i+1)%p.settings.numSides]);
+      intersection = getPointIntersection(mousePoint, flower.points[i], flower.points[(i+1)%p.settings.numSides]);
       if (intersection) {
         if (intersection.outside) {
           linePoints = [];
@@ -143,10 +139,10 @@ const sketch = (p) => {
     }
     p.push();
     p.strokeWeight(p.settings.lineThickness);
-    p.translate(polygon.center.x, polygon.center.y);
+    p.translate(flower.center.x, flower.center.y);
     linePoints.forEach((point) => {
       let dist = p.dist(mousePoint.x, mousePoint.y, point.x, point.y);
-      let hue = (p.settings.hueCycles * dist / (2 * polygon.radius) + p.settings.hueOffset / 100.0) % 1;
+      let hue = (p.settings.hueCycles * dist / (2 * flower.radius) + p.settings.hueOffset / 100.0) % 1;
       p.stroke(hue, 1, 1, p.settings.lineOpacity / 100);
       p.line(mousePoint.x, mousePoint.y, point.x, point.y);
     });

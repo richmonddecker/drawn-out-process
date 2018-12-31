@@ -1,6 +1,4 @@
 import React from "react";
-import TwoButtons from "./TwoButtons";
-import FullscreenButton from "./FullscreenButton";
 
 const BarTab = (props) => (
   <div class="bar-tab right-tab"
@@ -10,9 +8,5 @@ const BarTab = (props) => (
     <span id="rightTab">&#8647;</span>
   </div>
 );
-
-const mapStateToProps = (state) => ({
-  
-});
 
 export default BarTab;

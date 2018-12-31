@@ -16,7 +16,7 @@ class Navigation extends React.Component {
           <NavigationSection url="/" name="Home"/>
           {
             contents.map((category) => (
-              <NavigationSection title={category.title} tag={category.tag}>
+              <NavigationSection title={category.title} tag={category.tag} key={category.tag}>
                 {
                   category.members.map((element) => (
                     <NavigationItem
@@ -24,6 +24,7 @@ class Navigation extends React.Component {
                       element={element.tag}
                       title={element.title}
                       thumb={element.thumbnail}
+                      key={element.tag}
                     />
                   ))
                 }
@@ -31,7 +32,7 @@ class Navigation extends React.Component {
             ))
           }
         </div>
-        <div class="bar-tab" id="myTab" style={this.props.tabStyle}
+        <div className="bar-tab" id="myTab" style={this.props.tabStyle}
           onMouseOver={this.props.openBars}
           onClick={this.props.openBars}
         >

@@ -23,7 +23,7 @@ NavigationHeader.propTypes = {
   empty: PropTypes.bool,
   title: PropTypes.string,
   thumb: PropTypes.string,
-  open: PropTypes.string,
+  open: PropTypes.bool,
   tag: PropTypes.string
 };
 

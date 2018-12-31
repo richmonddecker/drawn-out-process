@@ -6,8 +6,8 @@ import { CardBody } from "reactstrap";
 
 const NavigationItem = (props) => (
   <NavLink to={`/${props.category}/${props.element}`}>
-    <CardBody style={props.active ? {"background-color": "purple"} : {}}>
-      <img src={props.thumb} width={32} height={32} />
+    <CardBody style={props.active ? {"backgroundColor": "purple"} : {}}>
+      <img src={props.thumb} width={32} height={32} alt="" />
       {"    "}
       {props.active ? <b><u>{props.title}</u></b> : <i>{props.title}</i>}
     </CardBody>

@@ -8,7 +8,7 @@ import { closeBars } from "../actions/navigation.js";
 const Application = ({ closeBars }) => (
   <div
     id="application"
-    class="fill-screen"
+    className="fill-screen"
     onMouseOver={closeBars}
     onClick={closeBars}
   >

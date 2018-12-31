@@ -12,8 +12,6 @@ import "./styles/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-const history = createBrowserHistory()
-
 ReactDOM.render((
   <Provider store={configureStore()}>
     <ConnectedRouter history={createBrowserHistory()}>

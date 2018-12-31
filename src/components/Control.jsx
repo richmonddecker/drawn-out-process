@@ -12,11 +12,21 @@ const Control = ({ match }) => {
     <div>
       {areParameters ? <b>Parameters</b> : null}
       {areParameters && content.member.parameters.map((parameter) => (
-        <ParameterControl category={content.tag} element={content.member.tag} {...parameter} />
+        <ParameterControl
+          category={content.tag}
+          element={content.member.tag}
+          key={`${content.tag}.${content.member.tag}.${parameter.tag}`}
+          {...parameter}
+        />
       ))}
       {areAttributes ? <div><b>Attributes</b><span>(Must "Reset")</span></div> : null}
       {areAttributes && content.member.attributes.map((attribute) => (
-        <AttributeControl category={content.tag} element={content.member.tag} {...attribute} />
+        <AttributeControl
+          category={content.tag}
+          element={content.member.tag}
+          key={`${content.tag}.${content.member.tag}.${attribute.tag}`}
+          {...attribute}
+        />
       ))}
       {areParameters || areAttributes ? <DefaultButton category={content.tag} element={content.member.tag} /> : null}
     </div>

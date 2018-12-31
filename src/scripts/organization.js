@@ -16,6 +16,77 @@ export const contents = [
     configuration: "CreativeConfiguration",
     members: [
       {
+        tag: "polystrings",
+        title: "Polystrings",
+        thumbnail: img("polystrings.png"),
+        sketch: can("polystrings"),
+        date: new Date(2019, 1, 1),
+        info: "",
+        parameters: [
+          {
+            tag: "hueCycles",
+            title: "Color Cycles",
+            default: 2,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "hueOffset",
+            title: "Color Offset",
+            default: 0,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "lineThickness",
+            title: "Line Thickness",
+            default: 2,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "lineOpacity",
+            title: "Line Opacity",
+            default: 50,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "numSides",
+            title: "Number of Sides",
+            default: 6,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 3,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          }
+        ]
+      },
+      {
         tag: "chord-art",
         title: "Chord Art",
         thumbnail: img("chord-art.png"),
@@ -107,77 +178,6 @@ export const contents = [
               min: 0,
               max: 100,
               step: 1
-            }
-          }
-        ]
-      },
-      {
-        tag: "polystrings",
-        title: "Polystrings",
-        thumbnail: img("polystrings.png"),
-        sketch: can("polystrings"),
-        date: new Date(2019, 1, 1),
-        info: "",
-        parameters: [
-          {
-            tag: "hueCycles",
-            title: "Color Cycles",
-            default: 2,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1,
-              snap: true,
-              strict: true
-            }
-          },
-          {
-            tag: "hueOffset",
-            title: "Color Offset",
-            default: 0,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1
-            }
-          },
-          {
-            tag: "lineThickness",
-            title: "Line Thickness",
-            default: 2,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1
-            }
-          },
-          {
-            tag: "lineOpacity",
-            title: "Line Opacity",
-            default: 50,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1
-            }
-          }
-        ],
-        attributes: [
-          {
-            tag: "numSides",
-            title: "Number of Sides",
-            default: 6,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 3,
-              max: 100,
-              step: 1,
-              snap: true,
-              strict: true
             }
           }
         ]
