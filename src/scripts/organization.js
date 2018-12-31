@@ -16,6 +16,90 @@ export const contents = [
     configuration: "CreativeConfiguration",
     members: [
       {
+        tag: "flower-webs",
+        title: "Flower Webs",
+        thumbnail: "",
+        sketch: can("flower-webs"),
+        date: new Date(2019, 1, 1),
+        info: "",
+        parameters: [
+          {
+            tag: "hueCycles",
+            title: "Color Cycles",
+            default: 4,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "hueOffset",
+            title: "Color Offset",
+            default: 0,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "lineOpacity",
+            title: "Line Opacity",
+            default: 100,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "sinePower",
+            title: "Web Power",
+            default: 4,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 2,
+              max: 32,
+              step: 1
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "numPetals",
+            title: "Number of Petals",
+            default: 5,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 3,
+              max: 20,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "petalRatio",
+            title: "Petal Ratio",
+            default: 2,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.1,
+              max: 10,
+              step: 0.1,
+              precision: 1,
+              snap: true
+            }
+          }
+        ]
+      },
+      {
         tag: "polystrings",
         title: "Polystrings",
         thumbnail: img("polystrings.png"),

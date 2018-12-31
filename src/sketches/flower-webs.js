@@ -2,18 +2,20 @@ import { fitPointsToSize } from "./utility/geometry";
 
 const sketch = (p) => {
   const count = 1000;
+  const count2 = 100;
   let canvas;
   let flower
   p.isSquare = false;
   p.settings = {
-    numPetals: 6,
+    numPetals: 5,
     petalRatio: 2,
+    sinePower: 4,
     hueCycles: 3,
     hueOffset: 0,
     lineOpacity: 60
   }
 
-  function flower(n, r) {
+  function flowerFun(n, r) {
     return (theta) => {
       let shift = 0;
       if (n % 2) {
@@ -25,14 +27,14 @@ const sketch = (p) => {
     };
   }
 
-  function flowerPoints(n, r, count) {
+  function flowerPoints(n, r, cnt) {
     let points = [];
     const angleOffset = n % 2 ? -p.PI / 2 : -p.PI / 2 + p.PI / n;
     let angle;
     let radius;
-    for (let i = 0; i < count+1; i++) {
-      angle = p.TWO_PI * i / count;
-      radius = flower(n, r)(angle);
+    for (let i = 0; i < cnt+1; i++) {
+      angle = p.TWO_PI * i / cnt;
+      radius = flowerFun(n, r)(angle);
       points.push([radius * p.cos(angle), radius * p.sin(angle)]);
     }
     return points;
@@ -41,13 +43,13 @@ const sketch = (p) => {
   function getSizes(n, r, square) {
     // Determine the appropriate canvas and flower size.
     // The flower width is always equal to the canvas width.
-    const polyPoints = flowerPoints(n, r);
-    const fit = fitPointsToSize(polyPoints, square);
-    //console.log("SHEE", fit)
+    const points = flowerPoints(n, r, count);
+    const fit = fitPointsToSize(points, square);
     canvas = fit.canvas;
     flower = fit.object;
     flower.center = fit.center;
     flower.points = fit.points;
+    flower.scale = fit.scale;
     return {canvas, flower};
   }
 
@@ -58,7 +60,7 @@ const sketch = (p) => {
   }
 
   p.setup = function() {
-    const answer = getSizes(p.settings.numSides, p.isSquare);
+    const answer = getSizes(p.settings.numPetals, p.settings.petalRatio, p.isSquare);
     canvas = answer.canvas;
     flower = answer.flower;
     p.createCanvas(canvas.width, canvas.height);
@@ -68,8 +70,12 @@ const sketch = (p) => {
 
   p.draw = function() {
     if (shouldDraw()) {
-      drawLines();
-      drawOuterFlower(flower);
+      const point = mousePoint();
+      console.log("POINTL: ", point);
+      if (checkMousePoint(point, flower.scale, p.settings.numPetals, p.settings.petalRatio)) {
+        drawConnectors();
+        drawOuterFlower(flower);
+      }
     }
   }
 
@@ -92,6 +98,7 @@ const sketch = (p) => {
     p.translate(flower.center.x, flower.center.y);
     p.noStroke();
     p.fill(1);
+    console.log("I'M HERE", flower);
     p.beginShape();
     flower.points.forEach((point) => {
       p.vertex(point.x, point.y);
@@ -100,54 +107,44 @@ const sketch = (p) => {
     p.pop();
   }
 
-
-  function getPointIntersection(point, pa, pb) {
-    // Check if the point p can intersect orthogonally with the ray pa-pb.
-    // Also we will check if the mouse is outside the flower.
-    console.log(point, pa, pb);
-    let na = {x: pa.x - point.x, y: pa.y - point.y};
-    let nb = {x: pb.x - point.x, y: pb.y - point.y};
-    const angle = -p.atan2(nb.y - na.y, nb.x - na.x) + p.PI;
-    let ra = {x: p.cos(angle) * na.x - p.sin(angle) * na.y, y: p.sin(angle) * na.x + p.cos(angle) * na.y};
-    let rb = {x: p.cos(angle) * nb.x - p.sin(angle) * nb.y, y: p.sin(angle) * nb.x + p.cos(angle) * nb.y};
-    const fraction = p.abs(ra.x) / p.abs(rb.x - ra.x);
-    const intersectX = pa.x * (1 - fraction) + pb.x * fraction;
-    const intersectY = pa.y * (1 - fraction) + pb.y * fraction;
-    if (ra.x * rb.x < 0) {
-      return {
-        x: intersectX,
-        y: intersectY,
-        outside: ra.y < 0
-      };
-    }
-    return null;
+  function mousePoint() {
+    const point = {x: p.mouseX - flower.center.x, y: p.mouseY - flower.center.y};
+    point.r = p.mag(point.x, point.y);
+    point.th = p.atan2(point.y, point.x);
+    return point;
   }
 
-  function drawLines() {
+  function checkMousePoint(point, scale, n, r) {
+    return point.r < scale * flowerFun(n, r)(point.th);
+  }
+
+
+  function drawConnectors() {
     const mousePoint = {x: p.mouseX - flower.center.x, y: p.mouseY - flower.center.y};
-    let linePoints = [];
-    let intersection;
-    for (let i = 0; i < p.settings.numSides; i++) {
-      intersection = getPointIntersection(mousePoint, flower.points[i], flower.points[(i+1)%p.settings.numSides]);
-      if (intersection) {
-        if (intersection.outside) {
-          linePoints = [];
-          break;
-        }
-        linePoints.push(intersection);
-      }
-    }
+    const r = p.mag(mousePoint.x, mousePoint.y);
     p.push();
-    p.strokeWeight(p.settings.lineThickness);
+    const angle = p.TWO_PI + p.atan2(mousePoint.y, mousePoint.x);
     p.translate(flower.center.x, flower.center.y);
-    linePoints.forEach((point) => {
-      let dist = p.dist(mousePoint.x, mousePoint.y, point.x, point.y);
-      let hue = (p.settings.hueCycles * dist / (2 * flower.radius) + p.settings.hueOffset / 100.0) % 1;
-      p.stroke(hue, 1, 1, p.settings.lineOpacity / 100);
-      p.line(mousePoint.x, mousePoint.y, point.x, point.y);
-    });
+    p.rotate(angle);
+    p.noFill();
+    const hue = ((angle + p.PI / 2) * p.settings.hueCycles / p.TWO_PI + p.settings.hueOffset / 100.0) % 1;
+    console.log("HUE: ", hue);
+    p.stroke(hue, 1, 1, p.settings.lineOpacity / 100.0);
+    let factor;
+    let th;
+    console.log("SHOOPS", p.settings)
+    for (let i = 0; i < p.settings.numPetals - 2; i++) {
+      p.rotate(p.TWO_PI / p.settings.numPetals);
+      p.beginShape();
+      for (let j = 0; j < 2 * count2; j++) {
+        th = p.TWO_PI / p.settings.numPetals * j / count2;
+        factor = 1 - p.settings.petalRatio / (1.0 + p.settings.petalRatio) * p.pow(p.sin(p.settings.numPetals * th / 2), 1.0 / p.settings.sinePower);
+        p.vertex(r * factor * p.cos(th), r * factor * p.sin(th));
+      }
+      p.vertex((r - 1) * p.cos(p.TWO_PI / p.settings.numPetals), (r - 1) * p.sin(p.TWO_PI / p.settings.numPetals));
+      p.endShape();
+    }
     p.pop();
-    return {mouse: mousePoint, lines: linePoints};
   }
 
   function shouldDraw() {

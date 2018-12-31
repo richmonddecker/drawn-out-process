@@ -26,7 +26,7 @@ const sketch = (p) => {
   }
 
   function polygonPoints(n) {
-    points = [];
+    let points = [];
     const angleOffset = n % 2 ? -p.PI / 2 : -p.PI / 2 + p.PI / n;
     let angle;
     for (let i = 0; i < n; i++) {

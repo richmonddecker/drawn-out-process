@@ -62,5 +62,5 @@ export function fitPointsToSize(initialPoints, square) {
     x: (canvas.width - object.width) / 2 - mins.x * scale,
     y: (canvas.height - object.height) / 2 - mins.y * scale
   };
-  return {canvas, object, points, center}
+  return {canvas, object, points, center, scale}
 }
