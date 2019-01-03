@@ -5,6 +5,8 @@ const can = name => require(`../sketches/${name}`).default;
 const wid = name => require("../components/widgets")[name];
 
 
+// TODO: ADD A "RANDOM" BUTTON WHICH IS LIKE DEFAULTS, BUT APPLIES RANDOM SETTINGS
+
 export const contents = [
   {
     tag: "creative",

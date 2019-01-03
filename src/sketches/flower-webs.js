@@ -1,9 +1,10 @@
 import { fitPointsToSize } from "./utility/geometry";
 
 // TODO: Figure out why there's weird glitch stuff in "square" mode.
+// TODO: Fix the power parameters to be more linear or whatever.
 
 const sketch = (p) => {
-  const count = 100;
+  const count = 500;
   const count2 = 100;
   let canvas;
   let flower

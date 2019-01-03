@@ -22,9 +22,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   update: (val) => {
-    console.log("VAL MIN MAX", val, ownProps.min, ownProps.max)
     if (ownProps.widgetProps.min && val < ownProps.widgetProps.min) {
-      console.log("IT HAPPENED");
       val = ownProps.widgetProps.min;
     }
     if (ownProps.widgetProps.max && val > ownProps.widgetProps.max) {
