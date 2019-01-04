@@ -41,6 +41,7 @@ class P5Canvas extends React.Component {
 
   resetCanvas(props) {
     this.wrapper.removeChild(this.wrapper.childNodes[0]);
+    this.canvas.remove();
     this.makeCanvas(props);
   }
 
@@ -66,6 +67,11 @@ class P5Canvas extends React.Component {
     }
     this.passProps(newProps);
     this.handleTriggers(newProps);
+  }
+
+  componentWillUnmount() {
+    this.wrapper.removeChild(this.wrapper.childNodes[0]);
+    this.canvas.remove();
   }
 
   render() {

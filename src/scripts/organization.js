@@ -394,6 +394,14 @@ export const contents = [
           }
         ]
       },
+      {
+        tag: "mandala",
+        title: "Mandala",
+        thumbnail: img("mandala.png"),
+        sketch: can("mandala"),
+        date: new Date(2019, 1, 1),
+        info: ""
+      }
     ]
   },
   {
