@@ -158,7 +158,7 @@
 //       let count = counts[p.floor(p.random(counts.length))];
 //       let cp = p.color(p.random(255), 255, 255);
 //       let cr = p.color(p.random(255), 255, 255);
-//       rings.append(Ring(petal(cp), TWO_PI / count, r1, r2, color=cr));
+//       rings.push(Ring(petal(cp), p.TWO_PI / count, r1, r2, cr));
 //     }
 //     return rings;
 //   }
@@ -177,16 +177,16 @@
 //     }
     
 //     alter() {
-//       for i in range(len(self.radii)):
-//         self.radii[i] += self.speed[i]
-//         if self.radii[i] > self.radius:
-//           self.radii[i] = 2 * self.radius - self.radii[i]
-//           self.speed[i] *= -1
-//         if self.radii[i] < 0:
-//           self.radii[i] = -self.radii[i]
-//           self.speed[i] *= -1
-//         self.radii[i] = constrain(self.radii[i], 0, self.radius)
-//         self.speed[i] += random(-self.radius/10000.0, self.radius/10000.0)
+//       for i in range(len(this.radii)):
+//         this.radii[i] += this.speed[i]
+//         if this.radii[i] > this.radius:
+//           this.radii[i] = 2 * this.radius - this.radii[i]
+//           this.speed[i] *= -1
+//         if this.radii[i] < 0:
+//           this.radii[i] = -this.radii[i]
+//           this.speed[i] *= -1
+//         this.radii[i] = constrain(this.radii[i], 0, this.radius)
+//         this.speed[i] += random(-this.radius/10000.0, this.radius/10000.0)
 //     }
     
 //     getPairs() {

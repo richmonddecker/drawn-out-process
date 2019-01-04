@@ -6,6 +6,7 @@ const wid = name => require("../components/widgets")[name];
 
 
 // TODO: ADD A "RANDOM" BUTTON WHICH IS LIKE DEFAULTS, BUT APPLIES RANDOM SETTINGS
+// TODO: TRIGGERS INCORRECTLY ACTIVATE WHEN CLICKED ON A PAGE WHERE IT CAN'T BE USED
 
 export const contents = [
   {
@@ -286,14 +287,113 @@ export const contents = [
         date: new Date(2019, 1, 1),
         info: ""
       },
-      // {
-      //   tag: "dots",
-      //   title: "Dots",
-      //   thumbnail: "",
-      //   sketch: can("dots"),
-      //   date: new Date(2019, 1, 1),
-      //   info: ""
-      // }
+      {
+        tag: "dvd-sim",
+        title: "DVD Simulator",
+        thumbnail: img("dvd-sim.png"),
+        sketch: can("dvd-sim"),
+        date: new Date(2019, 1, 1),
+        info: "",
+        parameters: [
+          {
+            tag: "string",
+            title: "Text",
+            default: "GOOSE",
+            info: "",
+            map: (str) => str.toUpperCase(),
+            widget: wid("TextWidget"),
+            widgetProps: {}
+          },
+          {
+            tag: "size",
+            title: "Font Size",
+            default: 100,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 5,
+              max: 300,
+              step: 5
+            }
+          },
+          {
+            tag: "font",
+            title: "Font",
+            default: "Verdana",
+            info: "",
+            widget: wid("ChoiceWidget"),
+            widgetProps: {
+              options: [
+                {
+                  type: "group",
+                  name: "Serif",
+                  items: [
+                    "Georgia",
+                    "Palatino",
+                    "Times"
+                  ]
+                },
+                {
+                  type: "group",
+                  name: "Sans-Serif",
+                  items: [
+                    "Arial",
+                    {value: "Comic Sans MS", label: "Comic Sans"},
+                    "Impact",
+                    "Lucida Grande",
+                    "Tahoma",
+                    "Verdana"
+                  ]
+                },
+                {
+                  type: "group",
+                  name: "Monospace",
+                  items: [
+                    "Courier",
+                    "Lucida Console"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            tag: "color",
+            title: "Color",
+            default: "#FF0000",
+            info: "",
+            widget: wid("ColorWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "angle",
+            title: "Angle",
+            default: 45,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 90,
+              step: 5
+            }
+          },
+          {
+            tag: "speed",
+            title: "Speed",
+            default: 200,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 2000,
+              step: 20
+            }
+          }
+        ]
+      },
     ]
   },
   {

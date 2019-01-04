@@ -17,18 +17,20 @@ const ParameterControl = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  value: state.control[ownProps.category][ownProps.element].parameters[ownProps.tag],
+  value: state.control[ownProps.category][ownProps.element].parameters[ownProps.tag]
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   update: (val) => {
-    if (ownProps.widgetProps.min && val < ownProps.widgetProps.min) {
-      val = ownProps.widgetProps.min;
+    console.log("HEY THERE: ", val);
+    let value = val;
+    if (ownProps.widget.map) {
+      value = ownProps.widget.map(value);
     }
-    if (ownProps.widgetProps.max && val > ownProps.widgetProps.max) {
-      val = ownProps.widgetProps.max;
+    if (ownProps.map) {
+      value = ownProps.map(value);
     }
-    dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, val));
+    dispatch(setParameter(ownProps.category, ownProps.element, ownProps.tag, value))
   }
 });
 
