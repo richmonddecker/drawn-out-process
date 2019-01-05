@@ -1,4 +1,4 @@
-const sketch = (p) => {
+export default const sketch = (p) => {
 
   class Circle {
     constructor(r) {
@@ -264,6 +264,9 @@ const sketch = (p) => {
     radii.alter();
   }
 
+  // TODO: Complete the Driftable class and use it in here.
+  // TODO: Implement parameters/attributes
+
   p.mouseReleased = function() {
     if (p.isBlocked) {
       return;
@@ -276,5 +279,3 @@ const sketch = (p) => {
     rings = randomFlower(diagonal, numRings)
   }
 };
-
-export default sketch;
