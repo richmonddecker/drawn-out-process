@@ -1,4 +1,4 @@
-export default const sketch = (p) => {
+const sketch = (p) => {
 
   let RADIUS = 0.2;
   let THICK = 0.1;
@@ -124,3 +124,5 @@ export default const sketch = (p) => {
     }
 
 };
+
+export default sketch;

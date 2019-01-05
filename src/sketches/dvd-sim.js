@@ -1,7 +1,9 @@
 import { fitPointsToSize } from "./utility/geometry";
 
+// TODO: Figure out why there's weird glitch stuff in "square" mode.
+// TODO: Fix the power parameters to be more linear or whatever.
 
-export default const sketch = (p) => {
+const sketch = (p) => {
   let lastMillis = 0;
   let position = {};
   let velocity = {};
@@ -131,4 +133,7 @@ export default const sketch = (p) => {
     p.fill(p.settings.color);
     p.text(p.settings.string, position.x, position.y + p.settings.size * 0.75);
   }
+
 };
+
+export default sketch;

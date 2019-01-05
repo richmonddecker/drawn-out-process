@@ -1,4 +1,4 @@
-export default const sketch = (p) => {
+const sketch = (p) => {
   let radius = 0;
   let lastMillis = 0;
   p.settings = {
@@ -113,3 +113,5 @@ export default const sketch = (p) => {
     return !p.isBlocked && p.mouseIsPressed;
   }
 };
+
+export default sketch;

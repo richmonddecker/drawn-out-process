@@ -1,4 +1,4 @@
-export default const sketch = (p) => {
+const sketch = (p) => {
   let radius = 0;
   let word = "none";
 
@@ -23,4 +23,6 @@ export default const sketch = (p) => {
   p.interpretProps = function(props) {
     word = props.word || word;
   }
-};
+}
+
+export default sketch;

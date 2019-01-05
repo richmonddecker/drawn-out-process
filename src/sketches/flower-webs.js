@@ -3,7 +3,7 @@ import { fitPointsToSize } from "./utility/geometry";
 // TODO: Figure out why there's weird glitch stuff in "square" mode.
 // TODO: Fix the power parameters to be more linear or whatever.
 
-export default const sketch = (p) => {
+const sketch = (p) => {
   const count = 500;
   const count2 = 100;
   let canvas;
@@ -150,3 +150,5 @@ export default const sketch = (p) => {
     return !p.isBlocked && p.mouseIsPressed;
   }
 };
+
+export default sketch;

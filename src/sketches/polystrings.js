@@ -1,6 +1,6 @@
 import { fitPointsToSize } from "./utility/geometry";
 
-export default const sketch = (p) => {
+const sketch = (p) => {
   let canvas;
   let polygon;
   let center;
@@ -158,3 +158,5 @@ export default const sketch = (p) => {
     return !p.isBlocked && p.mouseIsPressed;
   }
 };
+
+export default sketch;

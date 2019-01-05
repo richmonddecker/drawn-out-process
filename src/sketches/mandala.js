@@ -1,4 +1,4 @@
-export default const sketch = (p) => {
+const sketch = (p) => {
 
   class Circle {
     constructor(r) {
@@ -279,3 +279,5 @@ export default const sketch = (p) => {
     rings = randomFlower(diagonal, numRings)
   }
 };
+
+export default sketch;
