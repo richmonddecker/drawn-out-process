@@ -119,17 +119,17 @@ const sketch = (p) => {
 
       if (!theCell.wr && !theCell.wd && p.mag(p.ceil(x) - x, p.ceil(y) - y) < bounceBuffer ||
           !theCell.wl && !theCell.wu && p.mag(p.floor(x) - x, p.floor(y) - y) < bounceBuffer) {
-        const dy = -self.dx;
-        const dx = -self.dy;
-        self.dx = dx;
-        self.dy = dy;
+        this.dx = -this.dx;
+        this.dy = -this.dy;
+        this.x = x;
+        this.y = y;
       }
       if (!theCell.wu && !theCell.wr && p.mag(p.ceil(x) - x, p.floor(y) - y) < bounceBuffer ||
           !theCell.wl && !theCell.wd && p.mag(p.floor(x) - x, p.ceil(y) - y) < bounceBuffer) {
-        const dy = self.dx;
-        const dx = self.dy;
-        self.dx = dx;
-        self.dy = dy;
+        this.dx = -this.dx;
+        this.dy = -this.dy;
+        this.x = x;
+        this.y = y;
       }
 
       if (x > this.cells.cols || y > this.cells.rows) {
@@ -230,11 +230,11 @@ const sketch = (p) => {
   let bounceBuffer;
   p.isSquare = false;
   p.settings = {
-    numRows: 12,
-    wallSize: 0.4, // max 0.5
-    ballSize: 0.4, // max 0.5
-    ballCount: 200,
-    ballSpeed: 1,
+    numRows: 30,
+    wallSize: 0.3, // max 0.5
+    ballSize: 0.3, // max 0.5
+    ballCount: 300,
+    ballSpeed: 5,
     opacity: 4
   }
 

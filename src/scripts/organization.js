@@ -209,7 +209,7 @@ export const contents = [
           {
             tag: "lineSpeed",
             title: "Line Speed",
-            default: 1000,
+            default: 500,
             info: "",
             widget: wid("NumberWidget"),
             widgetProps: {

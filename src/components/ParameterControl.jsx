@@ -22,7 +22,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   update: (val) => {
-    console.log("HEY THERE: ", val);
     let value = val;
     if (ownProps.widget.map) {
       value = ownProps.widget.map(value);
