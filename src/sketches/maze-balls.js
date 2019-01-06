@@ -1,22 +1,17 @@
 const sketch = (p) => {
 
-  let RADIUS = 0.2;
-  let THICK = 0.1;
-  let ALPHA = 0.02;
-  let SPEED = 1;
-
   class CellGrid {
     constructor(maze, thickness=1) {
       this.maze = maze;
       this.rows = (maze.length - 2) / 2;
       this.cols = (maze[0].length - 2) / 2;
       this.grid = {};
-      Array(this.cols).keys().forEach((c) => {
+      for (let c = 0; c < this.cols; c++) {
         this.grid[c] = {};
-        Array(this.rows).keys().forEach((r) => {
+        for (let r = 0; r < this.rows; r++) {
           this.grid[c][r] = new Cell(c, r, maze[2*r+1][2*c+2], maze[2*r+2][2*c+1], maze[2*r+1][2*c], maze[2*r][2*c+1]);
-        });
-      });
+        }
+      }
     }
   }
 
@@ -32,12 +27,26 @@ const sketch = (p) => {
   }
 
   class BallSet {
-    constructor(n, cells, black=False) {
+    constructor(n, cells, black=false) {
       this.balls = [];
       this.cells = cells;
-      Array(n).keys().forEach((i) => {
-        this.balls.push(new Ball(p.random(0, cells.cols), p.random(0, cells.rows), p.random(-SPEED, SPEED), p.random(-SPEED, SPEED), cells, black));
-      });
+      this.black = black;
+      for (let i = 0; i < n; i++) {
+        this.balls.push(this.randomBall());
+      }
+    }
+
+    randomBall() {
+      const row = p.floor(p.random(p.settings.numRows));
+      const col = p.floor(p.random(numCols));
+      const xOff = p.random(bounceBuffer, 1 - bounceBuffer);
+      const yOff = p.random(bounceBuffer, 1 - bounceBuffer);
+      const x = col + xOff;
+      const y = row + yOff;
+      const dx = p.random(-p.settings.ballSpeed, p.settings.ballSpeed);
+      const dy = p.random(-p.settings.ballSpeed, p.settings.ballSpeed);
+      
+      return new Ball(x, y, dx, dy, this.cells, this.black);
     }
 
     step() {
@@ -51,7 +60,7 @@ const sketch = (p) => {
 
   class Ball {
     
-    constructor(x, y, dx, dy, cells, black=false):
+    constructor(x, y, dx, dy, cells, black=false) {
       this.x = x;
       this.y = y;
       this.dx = dx;
@@ -60,51 +69,70 @@ const sketch = (p) => {
       this.clock = p.millis();
       this.hue = p.random(0, 1);
       this.black = black;
+    }
     
     step() {
-      let clock = millis()
+      let clock = p.millis()
       let ellapsed = (clock - this.clock) / 1000.0;
       let x = this.x + this.dx * ellapsed;
       let y = this.y + this.dy * ellapsed;
-      if (this.x > this.cells.cols or this.y > this.cells.rows) {
+
+      const theCell = this.cells.grid[p.floor(this.x)][p.floor(this.y)];
+
+      if (this.x > this.cells.cols || this.y > this.cells.rows) {
         console.log("PROLBME", this.x, this.y);
       }
       
-      if (x < (RADIUS + THICK)) {
-        x = 2 * (RADIUS + THICK) - x;
+      if (x < bounceBuffer) {
+        x = 2 * bounceBuffer - x;
         this.dx = -this.dx;
       }
-      if (x > (this.cells.cols - RADIUS - THICK)) {
-        x = 2 * (this.cells.cols - RADIUS - THICK) - x;
+      if (x > (this.cells.cols - bounceBuffer)) {
+        x = 2 * (this.cells.cols - bounceBuffer) - x;
         this.dx = -this.dx;
       }
-      if (y < (RADIUS + THICK)) {
-        y = 2 * (RADIUS + THICK) - y;
+      if (y < bounceBuffer) {
+        y = 2 * bounceBuffer - y;
         this.dy = -this.dy;
       }
-      if (y > (this.cells.rows - RADIUS - THICK)) {
-        y = 2 * (this.cells.rows - RADIUS - THICK) - y;
-        this.dy = -this.dy;
-      }
-
-      if (int(x + (RADIUS + THICK)) > int(this.x) and this.cells.grid[int(this.x), int(this.y)].wr) {
-        x = 2 * (int(this.x) + 1 - (RADIUS + THICK)) - x;
-        this.dx = -this.dx;
-      }
-      if (int(x - (RADIUS + THICK)) < int(this.x) and this.cells.grid[int(this.x), int(y)].wl) {
-        x = 2 * (int(this.x) + (RADIUS + THICK)) - x;
-        this.dx = -this.dx;
-      }
-      if (int(y + (RADIUS + THICK)) > int(this.y) and this.cells.grid[int(x), int(this.y)].wd) {
-        y = 2 * (int(this.y) + 1 - (RADIUS + THICK)) - y;
-        this.dy = -this.dy;
-      }
-      if (int(y - (RADIUS + THICK)) < int(this.y) and this.cells.grid[int(x), int(this.y)].wu) {
-        y = 2 * (int(this.y) + (RADIUS + THICK)) - y;
+      if (y > (this.cells.rows - bounceBuffer)) {
+        y = 2 * (this.cells.rows - bounceBuffer) - y;
         this.dy = -this.dy;
       }
 
-      if (x > this.cells.cols or y > this.cells.rows) {
+      if (p.floor(x + bounceBuffer) > p.floor(this.x) && theCell.wr) {
+        x = 2 * (p.floor(this.x) + 1 - bounceBuffer) - x;
+        this.dx = -this.dx;
+      }
+      if (p.floor(x - bounceBuffer) < p.floor(this.x) && theCell.wl) {
+        x = 2 * (p.floor(this.x) + bounceBuffer) - x;
+        this.dx = -this.dx;
+      }
+      if (p.floor(y + bounceBuffer) > p.floor(this.y) && theCell.wd) {
+        y = 2 * (p.floor(this.y) + 1 - bounceBuffer) - y;
+        this.dy = -this.dy;
+      }
+      if (p.floor(y - bounceBuffer) < p.floor(this.y) && theCell.wu) {
+        y = 2 * (p.floor(this.y) + bounceBuffer) - y;
+        this.dy = -this.dy;
+      }
+
+      if (!theCell.wr && !theCell.wd && p.mag(p.ceil(x) - x, p.ceil(y) - y) < bounceBuffer ||
+          !theCell.wl && !theCell.wu && p.mag(p.floor(x) - x, p.floor(y) - y) < bounceBuffer) {
+        const dy = -self.dx;
+        const dx = -self.dy;
+        self.dx = dx;
+        self.dy = dy;
+      }
+      if (!theCell.wu && !theCell.wr && p.mag(p.ceil(x) - x, p.floor(y) - y) < bounceBuffer ||
+          !theCell.wl && !theCell.wd && p.mag(p.floor(x) - x, p.ceil(y) - y) < bounceBuffer) {
+        const dy = self.dx;
+        const dx = self.dy;
+        self.dx = dx;
+        self.dy = dy;
+      }
+
+      if (x > this.cells.cols || y > this.cells.rows) {
         console.log("FIRST PROBLEM", this.x, this.y, x, y);
       }
       
@@ -116,12 +144,155 @@ const sketch = (p) => {
     draw() {
       p.noStroke();
       if (this.black) {
-        p.fill(0, 0, 0, ALPHA);
+        p.fill(0, 0, 0, p.settings.opacity / 100.0);
       } else {
-        p.fill(this.hue, 1, 1, ALPHA);
+        p.fill(this.hue, 1, 1, p.settings.opacity / 100.0);
       }
-      p.ellipse(this.x, this.y, 2*RADIUS, 2*RADIUS);
+      p.ellipse(this.x, this.y, p.settings.ballSize, p.settings.ballSize);
     }
+  }
+
+  function maze(h, w) {
+    // Only odd shapes
+    const nrows = h * 2 + 1;
+    const ncols = w * 2 + 1;
+    // Adjust complexity and density relative to maze size
+    const complexity = 5 * (nrows + ncols); // number of components
+    const density = p.floor(nrows / 2) * p.floor(ncols / 2); // size of components
+    // Build actual maze
+    let z = Array(nrows + 1);
+    for (let r = 0; r < nrows + 1; r++) {
+      z[r] = Array(ncols + 1);
+      for (let c = 0; c < ncols + 1; c++) {
+        z[r][c] = r === 0 || r === nrows - 1 || c === 0 || c === ncols - 1 ? 1 : 0;
+      }
+    }
+    // Fill borders
+    // Make aisles
+    let x, y, x0, y0, neighbours;
+    for (let i = 0; i < density; i++) {
+      x = p.floor(p.random(0, p.floor(ncols / 2) + 1)) * 2;
+      y = p.floor(p.random(0, p.floor(nrows / 2) + 1)) * 2; // pick a random position
+      z[y][x] = 1;
+      for(let j = 0; j < complexity; j++) {
+        neighbours = [];
+        if (x > 1) {
+          neighbours.push([y, x - 2]);
+        }
+        if (x < ncols - 2) {
+          neighbours.push([y, x + 2]);
+        }
+        if (y > 1) {
+          neighbours.push([y - 2, x]);
+        }
+        if (y < nrows - 2) {
+          neighbours.push([y + 2, x]);
+        }
+        if (neighbours.length) {
+          [y0, x0] = neighbours[p.floor(p.random(0, neighbours.length))];
+          if (z[y0][x0] === 0) {
+            z[y0][x0] = 1;
+            z[y0 + p.floor((y - y0) / 2)][x0 + p.floor((x - x0) / 2)] = 1;
+            x = x0;
+            y = y0;
+          }
+        }
+      }
+    }
+    fillEmpty(z);
+    return z;
+  }
+
+  function fillEmpty(maze) {
+    for (let r = 2; r < maze.length - 1; r += 2) {
+      for (let c = 2; c < maze[0].length; c += 2) {
+        maze[r][c] = 1;
+        let neighbors = [maze[r-1][c], maze[r+1][c], maze[r][c-1], maze[r][c+1]];
+        if (neighbors == [0, 0, 0, 0]) {
+          let choice = p.floor(p.random(0, 4));
+          if (choice === 0) {
+            maze[r-1][c] = 1;
+          } else if (choice === 1) {
+            maze[r+1][c] = 1;
+          } else if (choice === 2) {
+            maze[r][c-1] = 1;
+          } else {
+            maze[r][c+1] = 1;
+          }
+        }
+      }
+    }
+  }
+
+  let balls, blacks, theMaze;
+  let numCols;
+  let gridSize;
+  let bounceBuffer;
+  p.isSquare = false;
+  p.settings = {
+    numRows: 12,
+    wallSize: 0.4, // max 0.5
+    ballSize: 0.4, // max 0.5
+    ballCount: 200,
+    ballSpeed: 1,
+    opacity: 4
+  }
+
+  function getSizes() {
+    let height, width;
+    if (p.isSquare) {
+      numCols = p.settings.numRows;
+      height = p.min(window.innerWidth, window.innerHeight);
+      width = height;
+    } else {
+      // The nunber of rows is fixed. The columns and rows have same scale.
+      // So, find the max number of columns that can fit in this rectange.
+      // Then, set the width of the canvas to match.
+      height = window.innerHeight;
+      const totalWidth = window.innerWidth;
+      const rowHeight = height / p.settings.numRows;
+      numCols = p.floor(totalWidth / rowHeight);
+      width = numCols * rowHeight;
+    }
+    gridSize = height / p.settings.numRows;
+    bounceBuffer = (p.settings.wallSize + p.settings.ballSize) / 2;
+    return {width, height};
+  }
+
+  p.setup = function() {
+    const sizes = getSizes();
+    p.createCanvas(sizes.width, sizes.height);
+    p.background(0);
+    p.colorMode(p.HSB, 1);
+    makeBalls();
+  };
+
+  p.draw = function() {
+    p.scale(gridSize, gridSize);
+    p.strokeWeight(1);
+    p.stroke(0, 0, 0);
+    for (let i = 0; i < balls.cells.rows; i++) {
+      for (let j = 0; j < balls.cells.cols; j++) {
+        if (theMaze[2*i+1][2*j+1] === 1 && theMaze[2*i+2][2*j+1] === 1) {
+          p.line(j, i, j, (i+1))
+        }
+        if (theMaze[2*i+1][2*j+1] === 1 && theMaze[2*i+1][2*j+2] === 1) {
+          p.line(j, i, (j+1), i);
+        }
+      }
+    }
+    
+    balls.draw();
+    balls.step();
+    blacks.draw();
+    blacks.step();
+  };
+
+  function makeBalls() {
+    theMaze = maze(p.settings.numRows, numCols);
+    balls = new BallSet(p.settings.ballCount, new CellGrid(theMaze));
+    blacks = new BallSet(p.settings.ballCount, new CellGrid(theMaze), true); 
+  }
 
 };
 

@@ -205,13 +205,15 @@ const sketch = (p) => {
     }
 
   }
-    
+  
+  p.settings = {
+    numRings: 12
+  };
   let rings = [];
   let speeds = [];
   let factspeeds = [];
   let diagonal;
   let radii;
-  let backColor;
   let centColor;
   let numRings = 8;
 
@@ -240,9 +242,9 @@ const sketch = (p) => {
     const canvas = getCanvasSize();
     p.createCanvas(canvas.width, canvas.height);
     diagonal = p.mag(p.width/2, p.height/2);
-    speeds = Array(numRings).fill().map(_ => p.random(-.01, .01));
-    factspeeds = Array(numRings).fill().map(_ => p.random(-.001, .001));
-    radii = new RadiiList(numRings, diagonal);
+    speeds = Array(p.settings.numRings).fill().map(_ => p.random(-.01, .01));
+    factspeeds = Array(p.settings.numRings).fill().map(_ => p.random(-.001, .001));
+    radii = new RadiiList(p.settings.numRings, diagonal);
     p.mouseReleased();
   }
 
@@ -271,12 +273,10 @@ const sketch = (p) => {
     if (p.isBlocked) {
       return;
     }
-    // drawNodes()
-    backColor = p.color([p.random(255), 255, 255]);
     centColor = p.random(255);
     p.translate(p.width/2, p.height/2)
     diagonal = p.mag(p.width/2, p.height/2);
-    rings = randomFlower(diagonal, numRings)
+    rings = randomFlower(diagonal, p.settings.numRings)
   }
 };
 

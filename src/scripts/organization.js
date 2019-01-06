@@ -280,10 +280,10 @@ export const contents = [
     configuration: "GenerativeConfiguration",
     members: [
       {
-        tag: "targets",
-        title: "Targets",
-        thumbnail: "",
-        sketch: can("targets"),
+        tag: "maze-balls",
+        title: "Maze Balls",
+        thumbnail: "",//img("maze-balls.png"),
+        sketch: can("maze-balls"),
         date: new Date(2019, 1, 1),
         info: ""
       },
