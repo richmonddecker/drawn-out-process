@@ -7,6 +7,7 @@ const ParameterControl = (props) => {
   return (
     <div>
       <label htmlFor={props.tag}>{props.title}:</label>
+      <br/>
       <props.widget
         value={props.value}
         onChange={props.update}

@@ -15,6 +15,7 @@ class NavigationSection extends React.Component {
           empty={this.props.empty}
           title={this.props.title}
           tag={this.props.tag}
+          url={this.props.url}
         />
         {this.props.children ?
           <Collapse isOpen={this.props.open}>

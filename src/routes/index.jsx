@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 import HomePage from "../components/HomePage";
 import RepetitiveIndex from "../components/RepetitiveIndex";
 import Content from "../components/Content";
@@ -11,9 +11,13 @@ const NoMatch = () => (
 
 export const ApplicationRoutes = () => (
   <Switch>
+    <Redirect exact strict from="//" to="/" />
+    <Redirect exact strict from="/:a/" to="/:a" />
+    <Redirect exact strict from="/:a/:b/" to="/:a/:b" />
+    <Redirect exact from="/informative" to="/" />
     <Route exact path="/" component={HomePage} />
     <Route exact path="/:category" component={RepetitiveIndex} />
-    <Route path="/:category/:element" component={Content} />
+    <Route exact path="/:category/:element" component={Content} />
     <Route component={NoMatch} />
   </Switch>
 );

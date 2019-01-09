@@ -1,17 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { CardHeader } from "reactstrap";
 
 class NavigationHeader extends React.Component {
   render() {
+    let style = {"cursor": "pointer"};
+    if (this.props.active) {
+      style = {...style, "backgroundColor": "purple", "color": "white", "fontWeight": "bold"};
+    } else if (this.props.parental) {
+      style = {...style, "backgroundColor": "violet", "color": "white", "fontWeight": "bold"};
+    }
     const navHeader = (
-      <CardHeader>
+      <CardHeader style={style}>
         {this.props.title}
       </CardHeader>
     );
     const navLink = (
-      <NavLink to={`/${this.props.tag}`}>
+      <NavLink to={this.props.match}>
         {navHeader}
       </NavLink>
     );
@@ -19,12 +26,21 @@ class NavigationHeader extends React.Component {
   }
 }
 
-NavigationHeader.propTypes = {
-  empty: PropTypes.bool,
-  title: PropTypes.string,
-  thumb: PropTypes.string,
-  open: PropTypes.bool,
-  tag: PropTypes.string
+const mapStateToProps = (state, ownProps) => {
+  const match = ownProps.url || `/${ownProps.tag}`;
+  return ({
+    match: match,
+    active: state.router.location.pathname === match,
+    parental: state.router.location.pathname.startsWith(`/${ownProps.tag}`)
+  });
 };
 
-export default NavigationHeader;
+NavigationHeader.propTypes = {
+  category: PropTypes.string,
+  element: PropTypes.string,
+  url: PropTypes.string
+};
+
+export default connect(
+  mapStateToProps
+)(NavigationHeader);

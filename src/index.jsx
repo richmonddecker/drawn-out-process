@@ -5,12 +5,16 @@ import { Provider } from "react-redux";
 import { createBrowserHistory } from "history"
 import { ConnectedRouter } from "connected-react-router/immutable";
 
+import * as bob from "connected-react-router";
+
 import configureStore from "./store";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+console.log("BOB IS: ", bob)
 
 ReactDOM.render((
   <Provider store={configureStore()}>

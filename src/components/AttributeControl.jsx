@@ -9,6 +9,7 @@ const AttributeControl = (props) => {
   return (
     <div>
       <label htmlFor={props.tag}>{props.title}: {parentheses}</label>
+      <br/>
       <props.widget
         value={display}
         onChange={props.update}

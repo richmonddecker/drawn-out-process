@@ -5,18 +5,22 @@ import { NavLink } from "react-router-dom";
 import { CardBody } from "reactstrap";
 
 const NavigationItem = (props) => (
-  <NavLink to={`/${props.category}/${props.element}`}>
-    <CardBody style={props.active ? {"backgroundColor": "purple"} : {}}>
+  <NavLink to={props.match}>
+    <CardBody style={props.active ? {"backgroundColor": "purple", "color": "white", "fontWeight": "bold"} : {}}>
       <img src={props.thumb} width={32} height={32} alt="" />
       {"    "}
-      {props.active ? <b><u>{props.title}</u></b> : <i>{props.title}</i>}
+      <span>{props.title}</span>
     </CardBody>
   </NavLink>
 );
 
-const mapStateToProps = (state, ownProps) => ({
-  active: `/${ownProps.category}/${ownProps.element}` === state.router.location.pathname
-});
+const mapStateToProps = (state, ownProps) => {
+  const match = ownProps.url || `/${ownProps.category}/${ownProps.element}`;
+  return ({
+    match: match,
+    active: match === state.router.location.pathname
+  });
+};
 
 NavigationItem.propTypes = {
   category: PropTypes.string,

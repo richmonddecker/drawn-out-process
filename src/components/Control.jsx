@@ -4,6 +4,8 @@ import ParameterControl from "./ParameterControl";
 import AttributeControl from "./AttributeControl";
 import DefaultButton from "./DefaultButton";
 
+
+
 const Control = ({ match }) => {
   const content = getContentFromTags(match.params.category, match.params.element);
   const areParameters = Boolean(content.member.parameters);

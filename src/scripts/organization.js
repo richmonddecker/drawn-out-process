@@ -3,12 +3,29 @@ const img = name => require(`../images/${name}`);
 const com = name => require(`../components/${name}`).default;
 const can = name => require(`../sketches/${name}`).default;
 const wid = name => require("../components/widgets")[name];
+const pag = name => require(`../components/pages/${name}`).default;
 
 
 // TODO: ADD A "RANDOM" BUTTON WHICH IS LIKE DEFAULTS, BUT APPLIES RANDOM SETTINGS
 // TODO: TRIGGERS INCORRECTLY ACTIVATE WHEN CLICKED ON A PAGE WHERE IT CAN'T BE USED
 
 export const contents = [
+  {
+    tag: "informative",
+    title: "Informative",
+    url: "/",
+    thumbnail: "",
+    passive: false,
+    info: "",
+    configuration: "CreativeConfiguration",
+    members: [
+      {
+        tag: "instructions",
+        title: "Instructions",
+        component: pag("Instructions")
+      }
+    ]
+  },
   {
     tag: "creative",
     title: "Creative",
@@ -282,7 +299,7 @@ export const contents = [
       {
         tag: "maze-balls",
         title: "Maze Balls",
-        thumbnail: "",//img("maze-balls.png"),
+        thumbnail: undefined,//img("maze-balls.png"),
         sketch: can("maze-balls"),
         date: new Date(2019, 1, 1),
         info: ""

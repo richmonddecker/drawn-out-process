@@ -13,10 +13,14 @@ class Navigation extends React.Component {
     return (
       <div id="navigation-container">
         <div className="side-bar navigation-bar" style={this.props.barStyle}>
-          <NavigationSection url="/" name="Home"/>
           {
             contents.map((category) => (
-              <NavigationSection title={category.title} tag={category.tag} key={category.tag}>
+              <NavigationSection
+                title={category.title}
+                tag={category.tag}
+                key={category.tag}
+                url={category.url}
+              >
                 {
                   category.members.map((element) => (
                     <NavigationItem
@@ -25,6 +29,7 @@ class Navigation extends React.Component {
                       title={element.title}
                       thumb={element.thumbnail}
                       key={element.tag}
+                      url={element.url}
                     />
                   ))
                 }
@@ -47,11 +52,11 @@ const mapStateToProps = (state) => {
   const showBars = state.navigation.barsOpen ||  state.configuration.barLock;
   return ({
     barStyle : {
-      left: showBars ? "0" : "-200px",
+      left: showBars ? "0" : "-250px",
       opacity: showBars ? 1 : 0
     },
     tabStyle : {
-      left: showBars ? "200px" : "0",
+      left: showBars ? "250px" : "0",
       opacity: showBars || !state.configuration.barTabs ? 0 : 1,
       width: showBars ? "0" : "30px"
     }

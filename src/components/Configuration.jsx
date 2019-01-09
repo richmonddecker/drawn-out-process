@@ -36,11 +36,11 @@ const mapStateToProps = (state) => {
   const showBars = state.navigation.barsOpen ||  state.configuration.barLock;
   return ({
     barStyle : {
-      right: showBars ? "0" : "-200px",
+      right: showBars ? "0" : "-250px",
       opacity: showBars ? 1 : 0
     },
     tabStyle : {
-      right: showBars ? "200px" : "0",
+      right: showBars ? "250px" : "0",
       opacity: showBars || !state.configuration.barTabs ? 0 : 1,
       width: showBars ? "0" : "30px"
     }
