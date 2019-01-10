@@ -86,7 +86,7 @@ const mapStateToProps = (state, ownProps) => ({
     save: state.trigger.saveFrame,
     reset: state.trigger.resetFrame
   },
-  control: state.control[ownProps.category][ownProps.element]
+  control: state.control[ownProps.category] ? state.control[ownProps.category][ownProps.element] : {}
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     save: () => dispatch(resetTrigger("saveFrame")),
     reset: () => dispatch(resetTrigger("resetFrame"))
   },
-  resetAttributes: () => dispatch(resetAttributes(ownProps.category, ownProps.element))
+  resetAttributes: ownProps.category ? () => dispatch(resetAttributes(ownProps.category, ownProps.element)) : () => null
 });
 
 P5Canvas.propTypes = {

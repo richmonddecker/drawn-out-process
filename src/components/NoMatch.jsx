@@ -1,7 +1,9 @@
 import React from "react";
+import P5Canvas from "./P5Canvas";
+import sketch from "../sketches/no-match";
 
 const NoMatch = () => (
-  <h1>There ain't nothing here.</h1>
+  <P5Canvas sketch={sketch} />
 );
 
 export default NoMatch;
