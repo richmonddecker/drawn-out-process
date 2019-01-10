@@ -31,7 +31,7 @@ export const contents = [
     title: "Creative",
     thumbnail: "",
     passive: false,
-    info: "",
+    info: "Here are Creative Projects",
     component: com("P5Canvas"),
     configuration: "CreativeConfiguration",
     members: [

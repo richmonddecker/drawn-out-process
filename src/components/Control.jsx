@@ -8,6 +8,9 @@ import DefaultButton from "./DefaultButton";
 
 const Control = ({ match }) => {
   const content = getContentFromTags(match.params.category, match.params.element);
+  if (content === undefined) {
+    return null;
+  }
   const areParameters = Boolean(content.member.parameters);
   const areAttributes = Boolean(content.member.attributes);
   return (
