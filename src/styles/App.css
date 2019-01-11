@@ -19,7 +19,7 @@ html, body {
   color: orange;
 }
 
-div.fill-screen {
+div.fillScreen {
   position: fixed;
   display: flex;
   margin: 0;
@@ -35,6 +35,10 @@ div.fill-screen {
 
 #application {
   z-index: 2;
+}
+
+#application.mouseGone {
+  cursor: none;
 }
 
 .sideBar {
@@ -84,7 +88,7 @@ div.fill-screen {
   top: 0;
   bottom: 0;
   transition-property: z-index, width, left, right, opacity;
-  transition-duration: 1s, 1s, 1s, 1s, .75s;
+  transition-duration: 1s, 1s, 1s, 1s, .7s;
   transition-timing-function: linear, ease, ease, ease, linear;
 }
 

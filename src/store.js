@@ -9,7 +9,7 @@ const history = createBrowserHistory();
 
 const state = {
   interface: {
-    openNavSection: "repetitive",
+    openNavSection: "informative",
     barsOpen: false,
     cursorHidden: false
   },

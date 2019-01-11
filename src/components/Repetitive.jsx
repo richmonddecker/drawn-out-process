@@ -14,7 +14,7 @@ class Repetitive extends React.Component {
 
   render() {
     return (
-      <div className="fill-screen">
+      <div className="fillScreen">
         <video id="repetitiveVideo" src={this.props.video} height={this.state.height} width={this.state.width} autoPlay loop muted>
         </video>
       </div>
