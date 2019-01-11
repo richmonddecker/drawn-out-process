@@ -80,7 +80,7 @@ class P5Canvas extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  isBlocked: state.navigation.barsOpen,
+  isBlocked: state.interface.barsOpen,
   isSquare: state.configuration.squareScreen,
   trigger: {
     save: state.trigger.saveFrame,

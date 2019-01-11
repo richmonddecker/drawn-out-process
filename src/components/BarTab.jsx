@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import left from "../images/left.png";
 import right from "../images/right.png";
 
-import { openBars } from "../actions/navigation";
+import { openBars } from "../actions/interface";
 
 
 const BarTab = (props) => (
@@ -23,7 +23,6 @@ const BarTab = (props) => (
 );
 
 const mapStateToProps = (state) => ({
-  isOpen: state.navigation.barsOpen,
   isHidden: !state.configuration.barTabs
 });
 

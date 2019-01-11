@@ -10,3 +10,11 @@ export const openBars = () => ({
 export const closeBars = () => ({
   type: "CLOSE_BARS"
 });
+
+export const hideCursor = () => ({
+  type: "HIDE_CURSOR"
+});
+
+export const showCursor = () => ({
+  type: "SHOW_CURSOR"
+});

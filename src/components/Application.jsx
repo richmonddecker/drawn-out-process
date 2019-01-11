@@ -3,18 +3,20 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { ApplicationRoutes } from "../routes";
-import { closeBars } from "../actions/navigation.js";
+import { closeBars } from "../actions/interface";
 
-const Application = ({ closeBars }) => (
-  <div
-    id="application"
-    className="fill-screen"
-    onMouseOver={closeBars}
-    onClick={closeBars}
-  >
-    <ApplicationRoutes />
-  </div>
-);
+const Application = ({ closeBars }) => {
+  return (
+    <div
+      id="application"
+      className="fill-screen"
+      onMouseOver={closeBars}
+      onClick={closeBars}
+    >
+      <ApplicationRoutes />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => ({
   

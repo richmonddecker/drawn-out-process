@@ -1,6 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
 import NavigationSection from "./navigation/NavigationSection";
 import NavigationHeader from "./navigation/NavigationHeader";
 import NavigationItem from "./navigation/NavigationItem";
@@ -8,9 +6,9 @@ import { contents } from "../scripts/organization";
 import BarTab from "./BarTab";
 
 
-const Navigation = ({ barClass }) => (
+const Navigation = ({ isOpen }) => (
   <div>
-    <div id="leftBar" className={barClass}>
+    <div id="leftBar" className={`sideBar ${isOpen ? "barOpen" : "barClosed"}`}>
       {
         contents.map((category) => (
           <NavigationSection
@@ -35,14 +33,8 @@ const Navigation = ({ barClass }) => (
         ))
       }
     </div>
-    <BarTab />
+    <BarTab isOpen={isOpen} />
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  barClass: `sideBar ${state.navigation.barsOpen ? "barOpen" : "barClosed"}`
-});
-
-export default connect(
-  mapStateToProps
-)(Navigation);
+export default Navigation;

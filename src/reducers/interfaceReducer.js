@@ -15,6 +15,16 @@ export default (state = {}, action) => {
         ...state,
         barsOpen: false
       }
+    case "SHOW_CURSOR":
+      return {
+        ...state,
+        cursorHidden: false
+      }
+    case "HIDE_CURSOR":
+      return {
+        ...state,
+        cursorHidden: true
+      }
     default:
       return state
   }

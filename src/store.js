@@ -8,9 +8,10 @@ import defaults from "./scripts/defaults";
 const history = createBrowserHistory();
 
 const state = {
-  navigation: {
+  interface: {
     openNavSection: "repetitive",
-    barsOpen: false
+    barsOpen: false,
+    cursorHidden: false
   },
   configuration: {
     fullScreen: false,

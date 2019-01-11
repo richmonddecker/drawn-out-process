@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import { ControlRoutes } from "../routes";
 
@@ -10,23 +9,17 @@ import SidebarButtons from "./SidebarButtons";
 import BarTab from "./BarTab";
 
 
-const Configuration = ({ barClass }) => (
+const Configuration = ({ isOpen }) => (
   <div>
-    <div id="rightBar" className={barClass}>
+    <div id="rightBar" className={`sideBar ${isOpen ? "barOpen" : "barClosed"}`}>
       <FullscreenButton />
       <SquareButton />
       <SidebarButtons />
       <ControlRoutes />
       <TwoButtons />
     </div>
-    <BarTab right />
+    <BarTab right isOpen={isOpen} />
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  barClass: `sideBar ${state.navigation.barsOpen ? "barOpen" : "barClosed"}`
-});
-
-export default connect(
-  mapStateToProps
-)(Configuration);
+export default Configuration;

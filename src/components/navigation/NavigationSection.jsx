@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { Card, Collapse } from "reactstrap";
 import NavigationHeader from "./NavigationHeader";
-import { setOpenNavSection } from "../../actions/navigation.js"
+import { setOpenNavSection } from "../../actions/interface";
 
 class NavigationSection extends React.Component {
   render() {
@@ -31,7 +31,7 @@ class NavigationSection extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   empty: !Boolean(ownProps.children),
-  open: ownProps.tag === state.navigation.openNavSection
+  open: ownProps.tag === state.interface.openNavSection
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

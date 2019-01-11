@@ -14,14 +14,15 @@ const App = (props) => (
       enabled={props.fullScreen}
       onChange={isFull => props.setFullScreen(isFull)}
     >
-      <Navigation />
+      <Navigation isOpen={props.barsOpen} />
       <Application />
-      <Configuration />
+      <Configuration isOpen={props.barsOpen} />
     </Fullscreen>
   </div>
 );
 
 const mapStateToProps = (state) => ({
+  barsOpen: state.interface.barsOpen || state.configuration.barLock,
   fullScreen: state.configuration.fullScreen
 });
 
