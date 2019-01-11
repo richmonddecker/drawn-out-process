@@ -1,12 +1,37 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import left from "../images/left.png";
+import right from "../images/right.png";
+
+import { openBars } from "../actions/navigation";
+
 
 const BarTab = (props) => (
-  <div class="bar-tab right-tab"
-    onMouseOver={this.props.openBars}
-    onClick={this.props.openBars}
+  <div
+    id={props.right ? "rightTab" : "leftTab"}
+    className={`barTab ${props.isOpen ? "tabOpen" : "tabClosed"}${props.isHidden ? " tabHidden" : ""}`}
+    onMouseOver={props.isOpen ? null : props.openBars}
+    onClick={props.isOpen ? null : props.openBars}
   >
-    <span id="rightTab">&#8647;</span>
+    <img
+      width={50}
+      height={50}
+      src={props.right ? left : right}
+    />
   </div>
 );
 
-export default BarTab;
+const mapStateToProps = (state) => ({
+  isOpen: state.navigation.barsOpen,
+  isHidden: !state.configuration.barTabs
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  openBars: () => dispatch(openBars())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BarTab);

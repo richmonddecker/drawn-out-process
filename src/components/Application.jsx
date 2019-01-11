@@ -16,6 +16,10 @@ const Application = ({ closeBars }) => (
   </div>
 );
 
+const mapStateToProps = (state) => ({
+  
+})
+
 const mapDispatchToProps = (dispatch) => ({
   closeBars: () => dispatch(closeBars())
 });

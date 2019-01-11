@@ -5,12 +5,12 @@ import { Button } from "reactstrap";
 import defaults from "../scripts/defaults";
 import { setAttributes, setParameters } from "../actions/control";
 
-const DefaultButton = (props) => {
+const DefaultButton = ({ setDefaults }) => {
   return (
     <Button
       block
       color="success"
-      onClick={props.setDefaults}
+      onClick={setDefaults}
     >
       Defaults
     </Button>
