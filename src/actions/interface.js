@@ -18,3 +18,8 @@ export const hideCursor = () => ({
 export const showCursor = () => ({
   type: "SHOW_CURSOR"
 });
+
+export const setInvalidUrl = (value) => ({
+  type: "SET_INVALID_URL",
+  payload: value
+});

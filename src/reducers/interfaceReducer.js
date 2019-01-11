@@ -25,6 +25,11 @@ export default (state = {}, action) => {
         ...state,
         cursorHidden: true
       }
+    case "SET_INVALID_URL":
+      return {
+        ...state,
+        invalidUrl: action.payload
+      }
     default:
       return state
   }

@@ -9,7 +9,7 @@ class NavigationHeader extends React.Component {
     let style = {"cursor": "pointer"};
     if (this.props.active) {
       style = {...style, "backgroundColor": "purple", "color": "white", "fontWeight": "bold"};
-    } else if (this.props.parental) {
+    } else if (this.props.parental && !this.props.invalidUrl) {
       style = {...style, "backgroundColor": "violet", "color": "white", "fontWeight": "bold"};
     }
     const navHeader = (
@@ -31,6 +31,7 @@ const mapStateToProps = (state, ownProps) => {
   return ({
     match: match,
     active: state.router.location.pathname === match,
+    invalidUrl: state.interface.invalidUrl,
     parental: state.router.location.pathname.startsWith(`/${ownProps.tag}`)
   });
 };

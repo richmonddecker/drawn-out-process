@@ -11,7 +11,8 @@ const state = {
   interface: {
     openNavSection: "informative",
     barsOpen: false,
-    cursorHidden: false
+    cursorHidden: false,
+    invalidUrl: false
   },
   configuration: {
     fullScreen: false,
