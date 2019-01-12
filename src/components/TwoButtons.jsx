@@ -3,22 +3,20 @@ import { connect } from "react-redux";
 import { Button, ButtonGroup } from "reactstrap";
 
 import { pullTrigger } from "../actions/trigger";
-import { BAR_WIDTH } from "../scripts/constants";
 
 
 const TwoButtons = (props) => {
-  const style = {width: BAR_WIDTH / 2};
   return (
     <ButtonGroup>
       <Button
-        style={style}
+        className="halfButton"
         color="primary"
         onClick={props.save}
       >
         Save 💾
       </Button>
       <Button
-        style={style}
+        className="halfButton"
         color="warning"
         onClick={props.reset}
       >

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, ButtonToolbar } from "reactstrap";
+import { Button, ButtonGroup } from "reactstrap";
 
 import { toggleBarTabs, toggleBarLock } from "../actions/configuration.js";
 
@@ -8,8 +8,9 @@ const SidebarButtons = (props) => {
   const lock = props.barLock ? <b>🔒</b> : <b>🔓</b>;
   const tab = props.barTabs ? <b>⬅️</b> : <b>⚫</b>
   return (
-    <ButtonToolbar>
+    <ButtonGroup>
       <Button
+        className="halfButton"
         color="info"
         outline={!props.barLock}
         onClick={props.toggleBarLock}
@@ -17,13 +18,14 @@ const SidebarButtons = (props) => {
         Bar Lock {lock}
       </Button>
       <Button
+        className="halfButton"
         color="info"
         outline={!props.barTabs}
         onClick={props.toggleBarTabs}
       >
         Tabs {tab}
       </Button>
-    </ButtonToolbar>
+    </ButtonGroup>
   );
 };
 

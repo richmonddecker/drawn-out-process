@@ -4,7 +4,13 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { SketchPicker } from "react-color";
 
-export const NumberWidget = NumericInput;
+export const NumberWidget = (props) => (
+  <NumericInput
+    className="numberWidget"
+    
+    {...props}
+  />
+);
 
 export class ChoiceWidget extends React.Component {
   render() {

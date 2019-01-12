@@ -43,7 +43,7 @@ div.fillScreen {
 
 .sideBar {
   height: 100%;
-  width: 250px;
+  width: 200px;
   position: fixed;
   z-index: 101;
   top: 0;
@@ -66,7 +66,7 @@ div.fillScreen {
 }
 
 #leftBar.barClosed {
-  left: -250px;
+  left: -200px;
 }
 
 #rightBar.barOpen {
@@ -74,7 +74,7 @@ div.fillScreen {
 }
 
 #rightBar.barClosed {
-  right: -250px;
+  right: -200px;
 }
 
 .barTab {
@@ -92,6 +92,14 @@ div.fillScreen {
   transition-timing-function: linear, ease, ease, ease, linear;
 }
 
+.fullButton {
+  width: 200px;
+}
+
+.halfButton {
+  width: 100px;
+}
+
 .tabOpen {
   opacity: 0;
   z-index: -25;
@@ -107,7 +115,7 @@ div.fillScreen {
 }
 
 #leftTab.tabOpen {
-  left: 250px;
+  left: 200px;
   width: 0;
 }
 
@@ -117,9 +125,20 @@ div.fillScreen {
 }
 
 #rightTab.tabOpen {
-  right: 250px;
+  right: 200px;
 }
 
 #rightTab.tabClosed {
   right: 0;
+}
+
+.numberWidget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+input {
+  width: 200px;
 }

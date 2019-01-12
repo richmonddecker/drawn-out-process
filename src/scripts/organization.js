@@ -36,17 +36,18 @@ export const contents = [
     configuration: "CreativeConfiguration",
     members: [
       {
-        tag: "flower-webs",
-        title: "Flower Webs",
-        thumbnail: img("flower-webs.png"),
-        sketch: can("flower-webs"),
+        tag: "chord-art",
+        title: "Chord Art",
+        thumbnail: img("chord-art.png"),
+        sketch: can("chord-art"),
         date: new Date(2019, 1, 1),
         info: "",
         parameters: [
           {
             tag: "hueCycles",
             title: "Color Cycles",
-            default: 4,
+            default: 3,
+            info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -60,18 +61,55 @@ export const contents = [
             tag: "hueOffset",
             title: "Color Offset",
             default: 0,
+            info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
               max: 100,
-              step: 1,
-              strict: true
+              step: 1
+            }
+          },
+          {
+            tag: "lineSpeed",
+            title: "Line Speed",
+            default: 500,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100000,
+              step: 100
+            }
+          },
+          {
+            tag: "lineThickness",
+            title: "Line Thickness",
+            default: 1,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 1
             }
           },
           {
             tag: "lineOpacity",
             title: "Line Opacity",
-            default: 100,
+            default: 50,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "spanPower",
+            title: "Span Power",
+            default: 1,
+            info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -80,40 +118,15 @@ export const contents = [
             }
           },
           {
-            tag: "sinePower",
-            title: "Web Power",
-            default: 4,
+            tag: "colorPower",
+            title: "Color Power",
+            default: 2,
+            info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 2,
-              max: 32,
+              min: 0,
+              max: 100,
               step: 1
-            }
-          }
-        ],
-        attributes: [
-          {
-            tag: "numPetals",
-            title: "Number of Petals",
-            default: 5,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 3,
-              max: 20,
-              step: 1,
-              snap: true
-            }
-          },
-          {
-            tag: "petalRatio",
-            title: "Petal Ratio",
-            default: 1,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0.1,
-              max: 10,
-              step: 0.1,
-              precision: 1
             }
           }
         ]
@@ -156,7 +169,7 @@ export const contents = [
             default: 2,
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 0,
+              min: 1,
               max: 100,
               step: 1
             }
@@ -167,7 +180,7 @@ export const contents = [
             default: 50,
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 0,
+              min: 1,
               max: 100,
               step: 1
             }
@@ -190,18 +203,17 @@ export const contents = [
         ]
       },
       {
-        tag: "chord-art",
-        title: "Chord Art",
-        thumbnail: img("chord-art.png"),
-        sketch: can("chord-art"),
+        tag: "flower-webs",
+        title: "Flower Webs",
+        thumbnail: img("flower-webs.png"),
+        sketch: can("flower-webs"),
         date: new Date(2019, 1, 1),
         info: "",
         parameters: [
           {
             tag: "hueCycles",
             title: "Color Cycles",
-            default: 3,
-            info: "",
+            default: 4,
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -215,75 +227,82 @@ export const contents = [
             tag: "hueOffset",
             title: "Color Offset",
             default: 0,
-            info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
               max: 100,
-              step: 1
-            }
-          },
-          {
-            tag: "lineSpeed",
-            title: "Line Speed",
-            default: 500,
-            info: "",
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100000,
-              step: 100
-            }
-          },
-          {
-            tag: "lineThickness",
-            title: "Line Thickness",
-            default: 1,
-            info: "",
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1
+              step: 1,
+              strict: true
             }
           },
           {
             tag: "lineOpacity",
             title: "Line Opacity",
-            default: 50,
-            info: "",
+            default: 100,
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 0,
+              min: 1,
               max: 100,
               step: 1
             }
           },
           {
-            tag: "spanPower",
-            title: "Span Power",
-            default: 1,
-            info: "",
+            tag: "sinePower",
+            title: "Web Power",
+            default: 4,
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1
-            }
-          },
-          {
-            tag: "colorPower",
-            title: "Color Power",
-            default: 2,
-            info: "",
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
+              min: 2,
+              max: 32,
               step: 1
             }
           }
+        ],
+        attributes: [
+          {
+            tag: "numPetals",
+            title: "Number of Petals",
+            default: 5,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 3,
+              max: 20,
+              step: 1,
+              snap: true
+            }
+          },
+          {
+            tag: "petalRatio",
+            title: "Petal Ratio",
+            default: 1,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.1,
+              max: 10,
+              step: 0.1,
+              precision: 1
+            }
+          }
         ]
+      }
+    ]
+  },
+  {
+    tag: "interactive",
+    title: "Interactive",
+    thumbnail: "",
+    passive: false,
+    info: "",
+    component: com("P5Canvas"),
+    configuration: "CreativeConfiguration",
+    members: [
+      {
+        tag: "pointers",
+        title: "Pointers",
+        thumbnail: undefined,
+        sketch: can("pointers"),
+        date: new Date(2019, 1, 1),
+        info: ""
       }
     ]
   },

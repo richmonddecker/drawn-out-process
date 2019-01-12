@@ -1,13 +1,12 @@
 import { fitPointsToSize } from "./utility/geometry";
 
-// LINES THAT ROTATE AND POINT AT MY BOY THE MOUSE CURSOR
-// THEY OSCILLATE A BIT, AND COLOR DEPENDS ON STUFF
-
 const sketch = (p) => {
-  let lastMillis = 0;
+
+  let pointers = [];
   let position = {};
   let velocity = {};
   let sizes = {};
+  let infoSpeed = 400;
   p.isSquare = false;
   p.settings = {
     string: "",
@@ -16,6 +15,54 @@ const sketch = (p) => {
     font: "Arial",
     angle: 45,
     speed: 200
+  }
+
+  class Pointer {
+    constructor(x, y, length, thickness, colorFun) {
+      this.x = x;
+      this.y = y;
+      this.length = length;
+      this.thickness = thickness;
+      this.angle = p.atan2(y - p.mouseY, x - p.mouseX);
+      this.velocity = 0;
+      this.colorFun = colorFun;
+      this.trigger = Infinity;
+    }
+
+    armTrigger(x, y) {
+      this.setTriggerTime(p.millis() + 1000 * p.mag(x - this.x, y - this.y) / infoSpeed);
+    }
+
+    setTriggerTime(time) {
+      if (time < this.trigger) {
+        this.trigger = time;
+      }
+    }
+
+    checkTrigger() {
+      if (p.millis() >= this.trigger) {
+        this.angle = this.newAngle;
+        this.trigger = Infinity;
+      }
+    }
+
+    defaultColorFun() {
+      const hue = (this.angle + p.PI) / p.TWO_PI;
+      const difference = (p.atan2(p.mouseX - p.width / 2, p.mouseY - p.height / 2) + p.PI) / p.TWO_PI;
+      return p.color((hue + difference) % 1, 1, 1);
+    }
+
+    pointTo(x, y) {
+      this.newAngle = p.atan2(y - this.y, x - this.x);
+    }
+
+    draw() {
+      const dx = this.length * p.cos(this.angle) / 2;
+      const dy = this.length * p.sin(this.angle) / 2;
+      p.strokeWeight(this.thickness);
+      p.stroke(this.defaultColorFun());
+      p.line(this.x + dx, this.y + dy, this.x - dx, this.y - dy);
+    }
   }
 
   function getTextSize(string, size, font) {
@@ -27,13 +74,11 @@ const sketch = (p) => {
   function getCanvasSize() {
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const canvas = (
-      p.isSquare ?
-        {width: p.min(width, height), height: p.min(width, height)}
-      :
-        {width, height}
-    );
-    return {canvas};
+    if (p.isSquare) {
+      console.log("IS SAWUER)");
+      return {width: p.min(width, height), height: p.min(width, height)}
+    }
+    return {width, height};
   }
 
   function getSizes(string, size, font, canvas) {
@@ -57,81 +102,49 @@ const sketch = (p) => {
     }
   }
 
-  function setVelocity(speed, angle) {
-    velocity.x = (velocity.x < 0 ? -speed : speed) * p.cos(p.PI / 180 * angle);
-    velocity.y = (velocity.y < 0 ? -speed : speed) * p.sin(p.PI / 180 * angle);
-  }
-
-  function getEllapsedTime() {
-    const currentMillis = p.millis();
-    const ellapsed = (currentMillis - lastMillis) / 1000.0;
-    lastMillis = currentMillis;
-    return ellapsed;
-  }
-
-  function isInField(x, y, width, height) {
-    return !(x > width || x < 0 || y > height || y < 0);
-  }
-
-  function canFit() {
-    // Check if the word can even fit in this field.
-    return sizes.field.height > 0 && sizes.field.width > 0;
-  }
-
-  function bounceWord() {
-    if (position.x > sizes.field.width) {
-      position.x -= 2 * (position.x - sizes.field.width);
-      velocity.x = -velocity.x;
-    }
-    if (position.y > sizes.field.height) {
-      position.y -= 2 * (position.y - sizes.field.height);
-      velocity.y = -velocity.y;
-    }
-    if (position.x < 0) {
-      position.x = -position.x;
-      velocity.x = -velocity.x;
-    }
-    if (position.y < 0) {
-      position.y = -position.y;
-      velocity.y = -velocity.y;
+  function makePointers() {
+    const count = 16;
+    const thick = 4;
+    const countX = p.floor(count * p.width / p.height);
+    pointers = [];
+    for (let i = 0; i < countX; i++) {
+      for (let j = 0; j < count; j++) {
+        pointers.push(new Pointer(p.width * i / countX, p.height * j / count, p.height / count - thick, thick));
+      }
     }
   }
 
-  function stepWord(ellapsed) {
-    position.x += ellapsed * velocity.x;
-    position.y += ellapsed * velocity.y;
-    if (!isInField(position.x, position.y, sizes.field.width, sizes.field.height)) {
-      bounceWord();
+  p.mouseMoved = function() {
+    console.log(p.mouseX, p.mouseY);
+    if (p.mouseX > p.width || p.mouseY > p.height || p.mouseX < 0 || p.mouseY < 0) {
+      return;
     }
-    if (sizes.field.height <= 0) {
-      position.y = 0;
-    }
-    if (sizes.field.width <= 0) {
-      position.x = 0;
-    }
+    pointers.forEach((x) => {x.armTrigger(p.mouseX, p.mouseY); x.pointTo(p.mouseX, p.mouseY)});
+  }
+
+  p.touchMoved = function() {
+    p.mouseMoved();
   }
 
   p.windowResized = function() {
     sizes = getCanvasSize();
-    p.resizeCanvas(sizes.canvas.width, sizes.canvas.height);
+    p.resizeCanvas(sizes.width, sizes.height);
+    makePointers();
   }
 
   p.setup = function() {
-    console.log("SETTING UP");
+    p.colorMode(p.HSB, 1);
     sizes = getCanvasSize();
-    p.createCanvas(sizes.canvas.width, sizes.canvas.height);
-    sizes = {...sizes, ...getSizes(p.settings.string, p.settings.size, p.settings.font, sizes.canvas)};
-    randomPlacement(sizes.field.width, sizes.field.height, p.settings.speed, p.settings.angle);
+    p.resizeCanvas(sizes.width, sizes.height);
+    makePointers();
   }
 
   p.draw = function() {
-    //console.log("HERE DAWG");
-    sizes = {...sizes, ...getSizes(p.settings.string, p.settings.size, p.settings.font, sizes.canvas)};
-    setVelocity(p.settings.speed, p.settings.angle);
-    stepWord(getEllapsedTime());
     p.background(0);
-    p.fill(p.settings.color);
-    p.text(p.settings.string, position.x, position.y + p.settings.size * 0.75);
+    pointers.forEach((x) => {
+      x.checkTrigger();
+      x.draw();
+    });
   }
 
 };
