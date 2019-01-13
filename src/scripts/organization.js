@@ -299,7 +299,7 @@ export const contents = [
       {
         tag: "pointers",
         title: "Pointers",
-        thumbnail: undefined,
+        thumbnail: img("pointers.png"),
         sketch: can("pointers"),
         date: new Date(2019, 1, 1),
         info: ""
@@ -316,12 +316,140 @@ export const contents = [
     configuration: "GenerativeConfiguration",
     members: [
       {
+        tag: "mandala",
+        title: "Mandala",
+        thumbnail: img("mandala.png"),
+        sketch: can("mandala"),
+        date: new Date(2019, 1, 1),
+        info: "",
+        parameters: [
+          {
+            tag: "hueCycles",
+            title: "Color Cycles",
+            default: 2,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "hueOffset",
+            title: "Color Offset",
+            default: 0,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 1
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "numRings",
+            title: "Number of Rings",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 2,
+              max: 30,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          }
+        ]
+      },
+      {
         tag: "maze-balls",
         title: "Maze Balls",
-        thumbnail: undefined,//img("maze-balls.png"),
+        thumbnail: img("maze-balls.png"),
         sketch: can("maze-balls"),
         date: new Date(2019, 1, 1),
-        info: ""
+        info: "",
+        parameters: [
+          {
+            tag: "ballSize",
+            title: "Ball Size (%)",
+            default: 25,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 49,
+              step: 1,
+              strict: true
+            }
+          },
+          {
+            tag: "ballSpeed",
+            title: "Ball Speed",
+            default: 3,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.5,
+              max: 10,
+              step: 0.5
+            }
+          },
+          {
+            tag: "opacity",
+            title: "Opacity",
+            default: 5,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 2
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "numRows",
+            title: "Number of Rows",
+            default: 10,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 2,
+              max: 50,
+              step: 1,
+              strict: true
+            }
+          },
+          {
+            tag: "wallSize",
+            title: "Wall Size (%)",
+            default: 25,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 49,
+              step: 1,
+              strict: true
+            }
+          },
+          {
+            tag: "ballDensity",
+            title: "Ball Density (%)",
+            default: 25,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 3
+            }
+          }
+        ]
       },
       {
         tag: "dvd-sim",
@@ -429,14 +557,6 @@ export const contents = [
             }
           }
         ]
-      },
-      {
-        tag: "mandala",
-        title: "Mandala",
-        thumbnail: img("mandala.png"),
-        sketch: can("mandala"),
-        date: new Date(2019, 1, 1),
-        info: ""
       }
     ]
   },

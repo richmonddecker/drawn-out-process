@@ -207,7 +207,7 @@ const sketch = (p) => {
   }
   
   p.settings = {
-    numRings: 12
+    numRings: 10
   };
   let rings = [];
   let speeds = [];
@@ -215,7 +215,6 @@ const sketch = (p) => {
   let diagonal;
   let radii;
   let centColor;
-  let numRings = 8;
 
   function getCanvasSize() {
     const width = window.innerWidth;

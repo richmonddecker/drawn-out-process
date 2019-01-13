@@ -11,9 +11,9 @@ const sketch = (p) => {
   p.isSquare = false;
   p.settings = {
     thickness: 1,
-    length: 1,
-    count: 30,
-    speed: 400
+    length: 3,
+    count: 50,
+    speed: 100
   }
 
   class Pointer {
@@ -26,22 +26,26 @@ const sketch = (p) => {
       this.velocity = 0;
       this.colorFun = colorFun;
       this.trigger = Infinity;
+      this.triggers = [];
+    }
+
+    addTrigger(time, x, y) {
+      this.triggers.unshift({x, y, t: time});
     }
 
     armTrigger(x, y) {
-      this.setTriggerTime(p.millis() + 1000 * p.mag(x - this.x, y - this.y) / p.settings.speed, x, y);
+      this.setTriggerTime(p.millis() + 1000 * p.mag(x - this.x, y - this.y) / p.settings.speed);
     }
 
-    setTriggerTime(time, x, y) {
+    setTriggerTime(time) {
       if (time < this.trigger) {
         this.trigger = time;
-        this.nextPoint = {x, y};
       }
     }
 
     checkTrigger() {
       if (p.millis() >= this.trigger) {
-        this.pointTo(this.nextPoint.x, this.nextPoint.y);
+        this.angle = this.newAngle;
         this.trigger = Infinity;
       }
     }
@@ -53,7 +57,7 @@ const sketch = (p) => {
     }
 
     pointTo(x, y) {
-      this.angle = p.atan2(y - this.y, x - this.x);
+      this.newAngle = p.atan2(y - this.y, x - this.x);
     }
 
     draw() {
@@ -69,14 +73,13 @@ const sketch = (p) => {
     // Figure out how many pointers in the x and y directions.
     if (p.width > p.height) {
       counts.x = p.settings.count;
-      counts.y = p.floor(counts.x * p.height / p.width);
+      counts.y = p.ceil(counts.x * p.height / p.width);
       spacing = p.width / (counts.x - 1);
     } else {
       counts.y = p.settings.count;
-      counts.x = p.floor(counts.y * p.width / p.height);
+      counts.x = p.ceil(counts.y * p.width / p.height);
       spacing = p.height / (counts.y - 1);
     }
-
   }
 
 
@@ -93,11 +96,11 @@ const sketch = (p) => {
     const count = p.settings.count;
     const countX = p.floor(count * p.width / p.height);
     pointers = [];
-    for (let i = 0; i < countX; i++) {
-      for (let j = 0; j < count; j++) {
+    for (let i = 0; i < counts.x; i++) {
+      for (let j = 0; j < counts.y; j++) {
         pointers.push(new Pointer(
-          p.width * i / countX,
-          p.height * j / count,
+          spacing * i,
+          spacing * j,
           (p.height / count - p.settings.thickness) * p.settings.length,
           p.settings.thickness
         ));
@@ -120,6 +123,7 @@ const sketch = (p) => {
     }
     pointers.forEach((x) => {
       x.armTrigger(p.mouseX, p.mouseY);
+      x.pointTo(p.mouseX, p.mouseY);
     });
   }
 
@@ -130,6 +134,7 @@ const sketch = (p) => {
   p.windowResized = function() {
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
+    getCounts();
     makePointers();
   }
 
@@ -137,6 +142,7 @@ const sketch = (p) => {
     p.colorMode(p.HSB, 1);
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
+    getCounts()
     makePointers();
   }
 
