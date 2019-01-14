@@ -11,17 +11,15 @@ const sketch = (p) => {
   p.isSquare = false;
   p.settings = {
     thickness: 1,
-    length: 3,
+    length: 1,
     count: 50,
-    speed: 100
+    speed: 10
   }
 
   class Pointer {
-    constructor(x, y, length, thickness, colorFun) {
+    constructor(x, y, colorFun) {
       this.x = x;
       this.y = y;
-      this.length = length;
-      this.thickness = thickness;
       this.angle = p.atan2(y - p.height / 2, x - p.width / 2);
       this.velocity = 0;
       this.colorFun = colorFun;
@@ -34,7 +32,7 @@ const sketch = (p) => {
     }
 
     armTrigger(x, y) {
-      this.setTriggerTime(p.millis() + 1000 * p.mag(x - this.x, y - this.y) / p.settings.speed);
+      this.setTriggerTime(p.millis() + 1000 * p.mag(x - this.x, y - this.y) / (spacing * p.settings.speed));
     }
 
     setTriggerTime(time) {
@@ -60,10 +58,11 @@ const sketch = (p) => {
       this.newAngle = p.atan2(y - this.y, x - this.x);
     }
 
-    draw() {
-      const dx = this.length * p.cos(this.angle) / 2;
-      const dy = this.length * p.sin(this.angle) / 2;
-      p.strokeWeight(this.thickness);
+    draw(length, thickness) {
+      const theLength = (p.height / (p.settings.count - 1) - thickness) * length;
+      const dx = theLength * p.cos(this.angle) / 2;
+      const dy = theLength * p.sin(this.angle) / 2;
+      p.strokeWeight(thickness);
       p.stroke(this.defaultColorFun());
       p.line(this.x + dx, this.y + dy, this.x - dx, this.y - dy);
     }
@@ -71,15 +70,9 @@ const sketch = (p) => {
 
   function getCounts() {
     // Figure out how many pointers in the x and y directions.
-    if (p.width > p.height) {
-      counts.x = p.settings.count;
-      counts.y = p.ceil(counts.x * p.height / p.width);
-      spacing = p.width / (counts.x - 1);
-    } else {
-      counts.y = p.settings.count;
-      counts.x = p.ceil(counts.y * p.width / p.height);
-      spacing = p.height / (counts.y - 1);
-    }
+    counts.y = p.settings.count;
+    counts.x = p.ceil(counts.y * p.width / p.height);
+    spacing = p.height / (counts.y - 1);
   }
 
 
@@ -100,9 +93,7 @@ const sketch = (p) => {
       for (let j = 0; j < counts.y; j++) {
         pointers.push(new Pointer(
           spacing * i,
-          spacing * j,
-          (p.height / count - p.settings.thickness) * p.settings.length,
-          p.settings.thickness
+          spacing * j
         ));
       }
     }
@@ -150,7 +141,7 @@ const sketch = (p) => {
     p.background(0);
     pointers.forEach((x) => {
       x.checkTrigger();
-      x.draw();
+      x.draw(p.settings.length, p.settings.thickness);
     });
   }
 

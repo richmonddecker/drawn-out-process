@@ -302,7 +302,60 @@ export const contents = [
         thumbnail: img("pointers.png"),
         sketch: can("pointers"),
         date: new Date(2019, 1, 1),
-        info: ""
+        info: "",
+        parameters: [
+          {
+            tag: "length",
+            title: "Pointer Length",
+            default: 1,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.25,
+              max: 10,
+              step: 0.25
+            }
+          },
+          {
+            tag: "thickness",
+            title: "Pointer Thickness",
+            default: 2,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 20,
+              step: 1
+            }
+          },
+          {
+            tag: "speed",
+            title: "Wave Speed",
+            default: 10,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 2,
+              max: 100,
+              step: 2
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "count",
+            title: "Pointer Count",
+            default: 25,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 1,
+              strict: true
+            }
+          }
+        ]
       }
     ]
   },
