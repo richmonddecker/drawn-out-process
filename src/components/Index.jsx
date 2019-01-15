@@ -4,7 +4,6 @@ import NoMatch from "./NoMatch";
 
 const Index = ({ match }) => {
   const content = getContentFromTag(match.params.category);
-  console.log("CONTENT IS: ", content);
   if (content === undefined) {
     return <NoMatch />;
   }

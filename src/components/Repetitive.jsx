@@ -22,7 +22,6 @@ class Repetitive extends React.Component {
   }
 
   handleTriggers(props) {
-    console.log("ALL PROPSL ", props)
     if (props.save) {
       props.clearSave();
       // This will download/save the current video.

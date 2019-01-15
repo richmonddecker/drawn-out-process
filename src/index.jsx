@@ -14,7 +14,6 @@ import "./styles/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-console.log("BOB IS: ", bob)
 
 ReactDOM.render((
   <Provider store={configureStore()}>

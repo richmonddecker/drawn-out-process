@@ -108,7 +108,6 @@ const sketch = (p) => {
   }
 
   p.mouseMoved = function() {
-    console.log(p.mouseX, p.mouseY);
     if (p.mouseX > p.width || p.mouseY > p.height || p.mouseX < 0 || p.mouseY < 0) {
       return;
     }

@@ -375,32 +375,32 @@ export const contents = [
         sketch: can("mandala"),
         date: new Date(2019, 1, 1),
         info: "",
-        parameters: [
-          {
-            tag: "hueCycles",
-            title: "Color Cycles",
-            default: 2,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1,
-              snap: true,
-              strict: true
-            }
-          },
-          {
-            tag: "hueOffset",
-            title: "Color Offset",
-            default: 0,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 1
-            }
-          }
-        ],
+        // parameters: [
+        //   {
+        //     tag: "hueCycles",
+        //     title: "Color Cycles",
+        //     default: 2,
+        //     widget: wid("NumberWidget"),
+        //     widgetProps: {
+        //       min: 0,
+        //       max: 100,
+        //       step: 1,
+        //       snap: true,
+        //       strict: true
+        //     }
+        //   },
+        //   {
+        //     tag: "hueOffset",
+        //     title: "Color Offset",
+        //     default: 0,
+        //     widget: wid("NumberWidget"),
+        //     widgetProps: {
+        //       min: 0,
+        //       max: 100,
+        //       step: 1
+        //     }
+        //   }
+        // ],
         attributes: [
           {
             tag: "numRings",
