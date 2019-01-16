@@ -9,6 +9,8 @@ class Application extends React.Component {
   constructor(props) {
     super(props);
     this.resetInterval = this.resetInterval.bind(this);
+    this.startBarTimer = this.startBarTimer.bind(this);
+    this.clearBarTimer = this.clearBarTimer.bind(this);
   }
 
   resetInterval() {
@@ -17,13 +19,22 @@ class Application extends React.Component {
     this.mouseTimer = setTimeout(this.props.hideCursor, 2000);
   }
 
+  startBarTimer() {
+    this.barTimer = setTimeout(this.props.closeBars, 1000);
+  }
+
+  clearBarTimer() {
+    clearTimeout(this.barTimer);
+  }
+
   render() {
     return (
       <div
         id="application"
         className={`fillScreen${this.props.cursorHidden ? " mouseGone" : ""}`}
-        onMouseOver={this.props.closeBars}
-        onClick={this.props.closeBars}
+        onMouseOver={this.startBarTimer}
+        onMouseLeave={this.clearBarTimer}
+        onMouseDown={this.props.closeBars}
         onMouseMove={this.resetInterval}
       >
         <ApplicationRoutes />

@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import left from "../images/left.png";
-import right from "../images/right.png";
+import left from "../images/interface/left.png";
+import right from "../images/interface/right.png";
 
 import { openBars } from "../actions/interface";
 

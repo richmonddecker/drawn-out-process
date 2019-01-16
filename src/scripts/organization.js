@@ -1,5 +1,5 @@
 const vid = name => require(`../videos/${name}`);
-const img = name => require(`../images/${name}`);
+const img = name => require(`../images/index/${name}`);
 const com = name => require(`../components/${name}`).default;
 const can = name => require(`../sketches/${name}`).default;
 const wid = name => require("../components/widgets")[name];
