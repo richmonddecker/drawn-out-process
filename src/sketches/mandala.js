@@ -176,22 +176,22 @@ const sketch = (p) => {
       this.radius = radius;
       this.radii = Array(count).fill().map(_ => p.random(radius));
       this.radii.sort((a, b) => a - b);
-      this.speed = Array(count).fill().map(_ => p.random(-radius/1000, radius/1000));
+      this.speed = Array(count).fill().map(_ => new (Driftable(p))(-1, 1, 0.1));
     }
     
-    alter() {
+    alter(ellapsed) {
       for (let i = 0; i < this.radii.length; i++) {
-        this.radii[i] += this.speed[i];
+        this.radii[i] += ellapsed * this.speed[i].value * p.settings.radialSpeed * this.radius / radialDivisor;
         if (this.radii[i] > this.radius) {
           this.radii[i] = 2 * this.radius - this.radii[i];
-          this.speed[i] *= -1;
+          this.speed[i].value *= -1;
         }
         if (this.radii[i] < 0) {
           this.radii[i] = -this.radii[i];
-          this.speed[i] *= -1;
+          this.speed[i].value *= -1;
         }
         this.radii[i] = p.constrain(this.radii[i], 0, this.radius);
-        this.speed[i] += p.random(-this.radius/10000.0, this.radius/10000.0);
+        this.speed[i].step();
       }
     }
 
@@ -211,8 +211,18 @@ const sketch = (p) => {
   
   p.settings = {
     numRings: 10,
-    
+    axialSpeed: 10,
+    petalSpeed: 10,
+    radialSpeed: 10,
+    changeRate: 6
   };
+
+  const axialDivisor = 25;
+  const petalDivisor = 20;
+  const radialDivisor = 120;
+
+  let lastChange = 0;
+  let lastMillis = 0;
   let rings = [];
   let speeds = [];
   let factspeeds = [];
@@ -233,6 +243,23 @@ const sketch = (p) => {
     return canvas;
   }
 
+  function checkChange() {
+    // Checks if it is time to change the mandala.
+    const changeEllapsed = p.millis() - lastChange;
+    if (changeEllapsed > 60000 / p.settings.changeRate) {
+      makeChange();
+    }
+  }
+
+  function makeChange() {
+    // Implements the change by generating a random mandala.
+    centColor = p.random(255);
+    p.translate(p.width/2, p.height/2)
+    diagonal = p.mag(p.width/2, p.height/2);
+    rings = randomFlower(diagonal, p.settings.numRings);
+    lastChange = p.millis();
+  }
+
   p.windowResized = function() {
     const newCanvas = getCanvasSize();
     p.resizeCanvas(newCanvas.width, newCanvas.height);
@@ -246,42 +273,40 @@ const sketch = (p) => {
     const canvas = getCanvasSize();
     p.createCanvas(canvas.width, canvas.height);
     diagonal = p.mag(p.width/2, p.height/2);
-    speeds = Array(p.settings.numRings).fill().map(_ => p.random(-.01, .01));
-    factspeeds = Array(p.settings.numRings).fill().map(_ => p.random(-.001, .001));
+    speeds = Array(p.settings.numRings).fill().map(_ => new (Driftable(p))(-1, 1, 0.1));
+    factspeeds = Array(p.settings.numRings).fill().map(_ => new (Driftable(p))(-1, 1, 0.1));
     radii = new RadiiList(p.settings.numRings, diagonal);
     driftable = new (Driftable(p))(4.5, 5, 1);
-    p.mouseReleased();
+    makeChange();
   }
 
   p.draw = function() {
+    const millis = p.millis();
+    const ellapsed = (millis - lastMillis) / 1000;
+    lastMillis = millis;
     p.background(0);
     p.translate(p.width/2, p.height/2);
     const radiiPairs = radii.getPairs();
     for (let i = 0; i < rings.length; i++) {
-      rings[i].offset += speeds[i];
-      rings[i].factor = p.abs(((rings[i].factor + factspeeds[i]) + 1) % 2) - 1;
+      rings[i].offset += ellapsed * speeds[i].value * p.settings.axialSpeed / axialDivisor;
+      rings[i].factor = p.abs(((rings[i].factor + ellapsed * factspeeds[i].value * p.settings.petalSpeed / petalDivisor) + 3) % 2) - 1;
       rings[i].outer = radiiPairs[i][0];
       rings[i].inner = radiiPairs[i][1];
-      speeds[i] += p.random(-0.001, 0.001);
-      factspeeds[i] += p.random(-0.001, 0.001);
+      speeds[i].step();
+      factspeeds[i].step();
       rings[i].drawRing();
     }
     p.fill(centColor, 255, 255);
     (new Circle(radiiPairs[radiiPairs.length - 1][1])).drawCircle();
-    radii.alter();
+    radii.alter(ellapsed);
+    checkChange();
   }
-
-  // TODO: Complete the Driftable class and use it in here.
-  // TODO: Implement parameters/attributes
 
   p.mouseReleased = function() {
     if (p.isBlocked) {
       return;
     }
-    centColor = p.random(255);
-    p.translate(p.width/2, p.height/2)
-    diagonal = p.mag(p.width/2, p.height/2);
-    rings = randomFlower(diagonal, p.settings.numRings)
+    makeChange();
   }
 };
 

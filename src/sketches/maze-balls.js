@@ -83,6 +83,22 @@ const sketch = (p) => {
       this.dx = randoms.dx;
       this.dy = randoms.dy;
     }
+
+    getSpeed() {
+      return p.mag(this.dx, this.dy);
+    }
+
+    randomDirectionWithSameSpeed(signX=1, signY=1) {
+      // This is for bouncing off corners. It will alter the direction of the ball
+      // while maintaing the speed. Is to be directed at a certain quadrant.
+      const newDx = p.random(0.00001, 1);
+      const newDy = p.random(0.00001, 1);
+      const newMag = p.mag(newDx, newDy);
+      const normDx = newDx * this.getSpeed() / newMag;
+      const normDy = newDy * this.getSpeed() / newMag;
+      this.dx = signX * normDx;
+      this.dy = signY * normDy;
+    }
     
     step() {
       let clock = p.millis()
@@ -100,13 +116,19 @@ const sketch = (p) => {
       }
 
       const theCell = this.cells.grid[p.floor(this.x)][p.floor(this.y)];
+      const ballSpeed = this.getSpeed();
 
-      if ((!theCell.wr && !theCell.wd && p.mag(p.ceil(x) - x, p.ceil(y) - y) < bounceBuffer) ||
-          (!theCell.wl && !theCell.wu && p.mag(p.floor(x) - x, p.floor(y) - y) < bounceBuffer) ||
-          (!theCell.wu && !theCell.wr && p.mag(p.ceil(x) - x, p.floor(y) - y) < bounceBuffer) ||
-          (!theCell.wl && !theCell.wd && p.mag(p.floor(x) - x, p.ceil(y) - y) < bounceBuffer)) {
-        this.randomize();
-        return;
+      if (!theCell.wr && !theCell.wd && p.mag(p.ceil(x) - x, p.ceil(y) - y) < bounceBuffer) {
+        this.randomDirectionWithSameSpeed(-1, -1);
+      }
+      if (!theCell.wl && !theCell.wu && p.mag(p.floor(x) - x, p.floor(y) - y) < bounceBuffer) {
+        this.randomDirectionWithSameSpeed(1, 1);
+      }
+      if (!theCell.wr && !theCell.wu && p.mag(p.ceil(x) - x, p.floor(y) - y) < bounceBuffer) {
+        this.randomDirectionWithSameSpeed(-1, 1);
+      }
+      if (!theCell.wl && !theCell.wd && p.mag(p.floor(x) - x, p.ceil(y) - y) < bounceBuffer) {
+        this.randomDirectionWithSameSpeed(1, -1);
       }
       
       if (x < bounceBuffer) {
@@ -242,7 +264,8 @@ const sketch = (p) => {
     ballSize: 0.4, // max 0.5
     ballDensity: 21, // percentage
     ballSpeed: 4,
-    opacity: 5 // percentage
+    opacity: 5, // percentage
+    darkSide: true
   }
 
   function getSizes() {
@@ -293,7 +316,9 @@ const sketch = (p) => {
     
     balls.draw();
     balls.step();
-    blacks.draw();
+    if (p.settings.darkSide) {
+      blacks.draw();
+    }
     blacks.step();
   };
 

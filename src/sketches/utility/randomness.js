@@ -11,6 +11,7 @@ export const Driftable = (p) => {
     step() {
       const newTime = p.millis();
       const ellapsed = (newTime - this.time) / 1000;
+      this.time = newTime;
       const newValue = this.value + p.random(-ellapsed * this.delta, ellapsed * this.delta);
       this.value = p.constrain(newValue, this.minValue, this.maxValue);
     }

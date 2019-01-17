@@ -375,32 +375,56 @@ export const contents = [
         sketch: can("mandala"),
         date: new Date(2019, 1, 1),
         info: "",
-        // parameters: [
-        //   {
-        //     tag: "hueCycles",
-        //     title: "Color Cycles",
-        //     default: 2,
-        //     widget: wid("NumberWidget"),
-        //     widgetProps: {
-        //       min: 0,
-        //       max: 100,
-        //       step: 1,
-        //       snap: true,
-        //       strict: true
-        //     }
-        //   },
-        //   {
-        //     tag: "hueOffset",
-        //     title: "Color Offset",
-        //     default: 0,
-        //     widget: wid("NumberWidget"),
-        //     widgetProps: {
-        //       min: 0,
-        //       max: 100,
-        //       step: 1
-        //     }
-        //   }
-        // ],
+        parameters: [
+          {
+            tag: "axialSpeed",
+            title: "Axial Speed",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 5,
+              strict: true
+            }
+          },
+          {
+            tag: "petalSpeed",
+            title: "Petal Speed",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 5,
+              strict: true
+            }
+          },
+          {
+            tag: "radialSpeed",
+            title: "Radial Speed",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 5,
+              strict: true
+            }
+          },
+          {
+            tag: "changeRate",
+            title: "Change Rate",
+            default: 5,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 5,
+              strict: true
+            }
+          }
+        ],
         attributes: [
           {
             tag: "numRings",
@@ -428,12 +452,12 @@ export const contents = [
           {
             tag: "ballSize",
             title: "Ball Size (%)",
-            default: 25,
+            default: 20,
             info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
-              max: 49,
+              max: 30,
               step: 1,
               strict: true
             }
@@ -446,7 +470,7 @@ export const contents = [
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0.5,
-              max: 10,
+              max: 6,
               step: 0.5
             }
           },
@@ -459,8 +483,15 @@ export const contents = [
             widgetProps: {
               min: 1,
               max: 100,
-              step: 2
+              step: 4
             }
+          },
+          {
+            tag: "darkSide",
+            title: "Dark Side",
+            default: false,
+            info: "",
+            widget: wid("CheckboxWidget")
           }
         ],
         attributes: [
@@ -485,7 +516,7 @@ export const contents = [
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
-              max: 49,
+              max: 50,
               step: 1,
               strict: true
             }
