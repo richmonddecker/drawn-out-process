@@ -1,10 +1,6 @@
-import { fitPointsToSize } from "./utility/geometry";
-
 const sketch = (p) => {
 
   let pointers = [];
-  let position = {};
-  let velocity = {};
   let sizes = {};
   let counts = {}; // how many pointers in x/y directions
   let spacing = 0; // spacing between pointers
@@ -86,8 +82,6 @@ const sketch = (p) => {
   }
 
   function makePointers() {
-    const count = p.settings.count;
-    const countX = p.floor(count * p.width / p.height);
     pointers = [];
     for (let i = 0; i < counts.x; i++) {
       for (let j = 0; j < counts.y; j++) {

@@ -1,6 +1,5 @@
 import React from "react";
 import NavigationSection from "./navigation/NavigationSection";
-import NavigationHeader from "./navigation/NavigationHeader";
 import NavigationItem from "./navigation/NavigationItem";
 import { contents } from "../scripts/organization";
 import BarTab from "./BarTab";

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setParameter } from "../actions/control";
-import { BAR_WIDTH } from "../scripts/constants";
 
 const ParameterControl = (props) => {
   return (

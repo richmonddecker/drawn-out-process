@@ -1,3 +1,6 @@
+import { fitPointsToSize } from "./utility/geometry";
+import { Driftable } from "./utility/randomness";
+
 const sketch = (p) => {
 
   class Circle {
@@ -163,9 +166,9 @@ const sketch = (p) => {
   }
 
 
-  class CustomPetal extends Petal {
-    constructor(r1, r2, f) {}
-  }
+  // class CustomPetal extends Petal {
+  //   constructor(r1, r2, f) {}
+  // }
 
   class RadiiList {
     
@@ -207,7 +210,8 @@ const sketch = (p) => {
   }
   
   p.settings = {
-    numRings: 10
+    numRings: 10,
+    
   };
   let rings = [];
   let speeds = [];
@@ -215,6 +219,7 @@ const sketch = (p) => {
   let diagonal;
   let radii;
   let centColor;
+  let driftable;
 
   function getCanvasSize() {
     const width = window.innerWidth;
@@ -244,6 +249,7 @@ const sketch = (p) => {
     speeds = Array(p.settings.numRings).fill().map(_ => p.random(-.01, .01));
     factspeeds = Array(p.settings.numRings).fill().map(_ => p.random(-.001, .001));
     radii = new RadiiList(p.settings.numRings, diagonal);
+    driftable = new (Driftable(p))(4.5, 5, 1);
     p.mouseReleased();
   }
 

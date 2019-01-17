@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Button, ButtonGroup } from "reactstrap";
 
 import { toggleSquareScreen, toggleFullScreen } from "../actions/configuration";
-import { getContentFromTags } from "../scripts/organization";
 
 const SizeButtons = (props) => {
   return (

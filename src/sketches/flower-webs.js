@@ -32,7 +32,6 @@ const sketch = (p) => {
 
   function flowerPoints(n, r, cnt) {
     let points = [];
-    const angleOffset = n % 2 ? -p.PI / 2 : -p.PI / 2 + p.PI / n;
     let angle;
     let radius;
     for (let i = 0; i < cnt+1; i++) {

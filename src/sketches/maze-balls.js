@@ -101,10 +101,10 @@ const sketch = (p) => {
 
       const theCell = this.cells.grid[p.floor(this.x)][p.floor(this.y)];
 
-      if (!theCell.wr && !theCell.wd && p.mag(p.ceil(x) - x, p.ceil(y) - y) < bounceBuffer ||
-          !theCell.wl && !theCell.wu && p.mag(p.floor(x) - x, p.floor(y) - y) < bounceBuffer ||
-          !theCell.wu && !theCell.wr && p.mag(p.ceil(x) - x, p.floor(y) - y) < bounceBuffer ||
-          !theCell.wl && !theCell.wd && p.mag(p.floor(x) - x, p.ceil(y) - y) < bounceBuffer) {
+      if ((!theCell.wr && !theCell.wd && p.mag(p.ceil(x) - x, p.ceil(y) - y) < bounceBuffer) ||
+          (!theCell.wl && !theCell.wu && p.mag(p.floor(x) - x, p.floor(y) - y) < bounceBuffer) ||
+          (!theCell.wu && !theCell.wr && p.mag(p.ceil(x) - x, p.floor(y) - y) < bounceBuffer) ||
+          (!theCell.wl && !theCell.wd && p.mag(p.floor(x) - x, p.ceil(y) - y) < bounceBuffer)) {
         this.randomize();
         return;
       }
@@ -214,7 +214,7 @@ const sketch = (p) => {
       for (let c = 2; c < maze[0].length; c += 2) {
         maze[r][c] = 1;
         let neighbors = [maze[r-1][c], maze[r+1][c], maze[r][c-1], maze[r][c+1]];
-        if (neighbors == [0, 0, 0, 0]) {
+        if (neighbors === [0, 0, 0, 0]) {
           let choice = p.floor(p.random(0, 4));
           if (choice === 0) {
             maze[r-1][c] = 1;

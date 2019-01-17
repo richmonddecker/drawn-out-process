@@ -18,6 +18,7 @@ const BarTab = (props) => (
       width={50}
       height={50}
       src={props.right ? left : right}
+      alt=""
     />
   </div>
 );

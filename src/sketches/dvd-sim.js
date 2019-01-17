@@ -1,8 +1,3 @@
-import { fitPointsToSize } from "./utility/geometry";
-
-// TODO: Figure out why there's weird glitch stuff in "square" mode.
-// TODO: Fix the power parameters to be more linear or whatever.
-
 const sketch = (p) => {
   let lastMillis = 0;
   let position = {};
@@ -73,10 +68,10 @@ const sketch = (p) => {
     return !(x > width || x < 0 || y > height || y < 0);
   }
 
-  function canFit() {
-    // Check if the word can even fit in this field.
-    return sizes.field.height > 0 && sizes.field.width > 0;
-  }
+  // function canFit() {
+  //   // Check if the word can even fit in this field.
+  //   return sizes.field.height > 0 && sizes.field.width > 0;
+  // }
 
   function bounceWord() {
     if (position.x > sizes.field.width) {

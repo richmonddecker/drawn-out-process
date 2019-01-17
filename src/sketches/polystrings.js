@@ -3,7 +3,6 @@ import { fitPointsToSize } from "./utility/geometry";
 const sketch = (p) => {
   let canvas;
   let polygon;
-  let center;
   p.isSquare = false;
   p.settings = {
     numSides: 6,
@@ -11,18 +10,6 @@ const sketch = (p) => {
     hueCycles: 3,
     hueOffset: 0,
     lineOpacity: 60
-  }
-
-  function polygonRatio(n) {
-    // Return the ratio of the polygon's width to its height.
-    if (n % 4 === 0) {
-      return 1;
-    }
-    if (n % 2 === 0) {
-      return 1 / p.cos(p.PI / n);
-    }
-    // This is how to get the width ratio of an odd-sided polygon.
-    return 2 * p.sin(p.TWO_PI * p.floor((n + 1) / 4) / n) / (1 + p.cos(p.PI / n));
   }
 
   function polygonPoints(n) {

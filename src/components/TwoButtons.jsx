@@ -13,14 +13,16 @@ const TwoButtons = (props) => {
         color="primary"
         onClick={props.save}
       >
-        Save 💾
+        <span>Save </span>
+        <span role="emoji" ariaLabel="save">💾</span>
       </Button>
       <Button
         className="halfButton"
         color="warning"
         onClick={props.reset}
       >
-        Reset ↩️
+        <span>Reset </span>
+        <span role="emoji" ariaLabel="reset">↩️</span>
       </Button>
     </ButtonGroup>
   );

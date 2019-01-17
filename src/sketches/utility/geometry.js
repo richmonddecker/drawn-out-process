@@ -54,7 +54,7 @@ export function getCanvasAndObjectSize(ratio, square) {
 
 export function fitPointsToSize(initialPoints, square) {
   // Given a set of points to fit inside a canvas, we return a scale, and an offset to help position.
-  const {mins, maxs, ratios, dimensions} = getInfoFromPoints(initialPoints);
+  const {mins, ratios, dimensions} = getInfoFromPoints(initialPoints);
   const {canvas, object} = getCanvasAndObjectSize(ratios.aspect, square);
   const scale = object.width / dimensions.width;
   const points = initialPoints.map((xy) => ({x: scale * xy[0], y: scale * xy[1]}));
