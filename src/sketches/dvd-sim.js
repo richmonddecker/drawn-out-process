@@ -112,7 +112,6 @@ const sketch = (p) => {
   }
 
   p.setup = function() {
-    console.log("SETTING UP");
     sizes = getCanvasSize();
     p.createCanvas(sizes.canvas.width, sizes.canvas.height);
     sizes = {...sizes, ...getSizes(p.settings.string, p.settings.size, p.settings.font, sizes.canvas)};
@@ -120,7 +119,6 @@ const sketch = (p) => {
   }
 
   p.draw = function() {
-    //console.log("HERE DAWG");
     sizes = {...sizes, ...getSizes(p.settings.string, p.settings.size, p.settings.font, sizes.canvas)};
     setVelocity(p.settings.speed, p.settings.angle);
     stepWord(getEllapsedTime());

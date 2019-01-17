@@ -11,6 +11,7 @@ class Application extends React.Component {
     this.resetInterval = this.resetInterval.bind(this);
     this.startBarTimer = this.startBarTimer.bind(this);
     this.clearBarTimer = this.clearBarTimer.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   resetInterval() {
@@ -27,6 +28,10 @@ class Application extends React.Component {
     clearTimeout(this.barTimer);
   }
 
+  handleKeyPress(e) {
+    console.log("DUUUDE", e);
+  }
+
   render() {
     return (
       <div
@@ -36,6 +41,7 @@ class Application extends React.Component {
         onMouseLeave={this.clearBarTimer}
         onMouseDown={this.props.closeBars}
         onMouseMove={this.resetInterval}
+        onKeyPressed={this.handleKeyPress}
       >
         <ApplicationRoutes />
       </div>

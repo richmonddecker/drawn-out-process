@@ -1,49 +1,30 @@
+import { contents, getContentFromTag } from "organization";
+
+class Tracker {
+  constructor(members, shuffled=false) {
+    this.length = members.length;
+    this.array = Array(this.length).fill().map((_, i) => i);
+    this.index = 0;
+  }
 
 
-const order = {
-  creative: [
-    "chord-art"
-  ],
-  generative: [
-    "targets"
-  ],
-  interactive: [],
-  responsive: [],
-  repetitive: [
-    "kochpinski",
-    "snowflake",
-    "plasma-ball",
-    "xt-square",
-    "hexagon-star",
-    "pentaspiral",
-    "bouncy-rose"
-  ]
+}
+
+
+const getMembersFromCategory = (category) => (
+  getContentFromTag(category).members
+);
+
+const getMembersFromPassivity = (passivity) => {
+  let members = [];
+  contents.filter(item => item.passive === passivity).forEach((category) => {
+    members = members.concat(category.members);
+  });
 };
 
-const mapPrev = (array) => {
-  const prevMap = {[array[0]]: array[array.length - 1]};
-  for (let i = 1; i < array.length; i++) {
-    prevMap[array[i]] = array[i - 1];
+const getAllMembers = (category, sameCategory=false) => {
+  if (sameCategory) {
+    return getMembersFromCategory(category);
   }
-  return prevMap;
-}
-
-const mapNext = (array) => {
-  const nextMap = {[array[array.length - 1]]: array[0]};
-  for (let i = 0; i < array.length - 1; i++) {
-    nextMap[array[i]] = array[i + 1];
-  }
-  return nextMap;
-}
-
-let prevs = {};
-let nexts = {};
-
-Object.keys(order).forEach((key) => {
-  prevs[key] = mapPrev(order[key]);
-  nexts[key] = mapNext(order[key]);
-});
-
-
-export prevs;
-export nexts;
+  return getMembersFromPassivity(getContentFromTag(category).passive);
+};

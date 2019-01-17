@@ -15,7 +15,6 @@ export const contents = [
     title: "Informative",
     url: "/",
     thumbnail: "",
-    passive: false,
     info: "",
     configuration: "CreativeConfiguration",
     members: [
@@ -243,7 +242,8 @@ export const contents = [
             widgetProps: {
               min: 1,
               max: 100,
-              step: 1
+              step: 1,
+              strict: true
             }
           },
           {
@@ -254,7 +254,8 @@ export const contents = [
             widgetProps: {
               min: 2,
               max: 32,
-              step: 1
+              step: 1,
+              strict: true
             }
           }
         ],
@@ -268,7 +269,7 @@ export const contents = [
               min: 3,
               max: 20,
               step: 1,
-              snap: true
+              strict: true
             }
           },
           {
@@ -277,7 +278,7 @@ export const contents = [
             default: 1,
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 0.1,
+              min: 0,
               max: 10,
               step: 0.1,
               precision: 1
@@ -470,7 +471,7 @@ export const contents = [
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0.5,
-              max: 6,
+              max: 5,
               step: 0.5
             }
           },

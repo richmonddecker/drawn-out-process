@@ -42,13 +42,14 @@ export class ColorWidget extends React.Component {
   }
 }
 
+
+// TODO: FIX THIS
 export class CheckboxWidget extends React.Component {
   render() {
     return <input type="checkbox" {...this.props} />;
   }
 
   static map(thing) {
-    console.log("WHAT: ", thing, thing.target, thing.target.value)
     return thing.target.value;
   }
 }

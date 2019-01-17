@@ -28,7 +28,6 @@ const sketch = (p) => {
     // The polygon width is always equal to the canvas width.
     const polyPoints = polygonPoints(n);
     const fit = fitPointsToSize(polyPoints, square);
-    //console.log("SHEE", fit)
     canvas = fit.canvas;
     polygon = fit.object;
     polygon.center = fit.center;
@@ -95,7 +94,6 @@ const sketch = (p) => {
   function getPointIntersection(point, pa, pb) {
     // Check if the point p can intersect orthogonally with the ray pa-pb.
     // Also we will check if the mouse is outside the polygon.
-    console.log(point, pa, pb);
     let na = {x: pa.x - point.x, y: pa.y - point.y};
     let nb = {x: pb.x - point.x, y: pb.y - point.y};
     const angle = -p.atan2(nb.y - na.y, nb.x - na.x) + p.PI;
