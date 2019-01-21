@@ -23,3 +23,14 @@ export const setInvalidUrl = (value) => ({
   type: "SET_INVALID_URL",
   payload: value
 });
+
+export const setCurrentElement = (category, element) => ({
+  type: "SET_CURRENT_ELEMENT",
+  payload: {category, element}
+});
+
+export const setCurrentCategory = (category) => ({
+  type: "SET_CURRENT_CATEGORY",
+  payload: {category}
+});
+

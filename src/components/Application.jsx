@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { ApplicationRoutes } from "../routes";
 import { closeBars, hideCursor, showCursor } from "../actions/interface";
+import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock } from "../actions/configuration";
+import { pullTrigger } from "../actions/trigger";
 
 class Application extends React.Component {
   constructor(props) {
@@ -28,20 +30,40 @@ class Application extends React.Component {
     clearTimeout(this.barTimer);
   }
 
-  handleKeyPress(e) {
-    console.log("DUUUDE", e);
+  handleKeyPress(event) {
+    if (["b", "B"].includes(event.key)) {
+      this.props.toggleBarLock();
+    }
+    if (["t", "T"].includes(event.key)) {
+      this.props.toggleBarTabs();
+    }
+    if (["f", "F"].includes(event.key)) {
+      this.props.toggleFullScreen();
+      setTimeout(() => this.props.pullTrigger("resetFrame"), 500);
+    }
+    if (["x", "X"].includes(event.key)) {
+      this.props.toggleSquareScreen();
+      setTimeout(() => this.props.pullTrigger("resetFrame"), 200);
+    }
+    if (["s", "S"].includes(event.key)) {
+      this.props.pullTrigger("saveFrame");
+    }
+    if (["r", "R"].includes(event.key)) {
+      this.props.pullTrigger("resetFrame");
+    }
   }
 
   render() {
     return (
       <div
         id="application"
+        tabIndex="0"
         className={`fillScreen${this.props.cursorHidden ? " mouseGone" : ""}`}
         onMouseOver={this.startBarTimer}
         onMouseLeave={this.clearBarTimer}
         onMouseDown={this.props.closeBars}
         onMouseMove={this.resetInterval}
-        onKeyPressed={this.handleKeyPress}
+        onKeyPress={this.handleKeyPress}
       >
         <ApplicationRoutes />
       </div>
@@ -56,7 +78,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   closeBars: () => dispatch(closeBars()),
   hideCursor: () => dispatch(hideCursor()),
-  showCursor: () => dispatch(showCursor())
+  showCursor: () => dispatch(showCursor()),
+  toggleFullScreen: () => dispatch(toggleFullScreen()),
+  toggleBarTabs: () => dispatch(toggleBarTabs()),
+  toggleBarLock: () => dispatch(toggleBarLock()),
+  toggleSquareScreen: () => dispatch(toggleSquareScreen()),
+  pullTrigger: (name) => dispatch(pullTrigger(name))
 });
 
 export default connect(

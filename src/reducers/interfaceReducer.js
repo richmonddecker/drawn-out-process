@@ -30,6 +30,18 @@ export default (state = {}, action) => {
         ...state,
         invalidUrl: action.payload
       }
+    case "SET_CURRENT_ELEMENT":
+      return {
+        ...state,
+        category: action.payload.category,
+        element: action.payload.element
+      }
+    case "SET_CURRENT_CATEGORY":
+      return {
+        ...state,
+        category: action.payload.category,
+        element: null
+      }
     default:
       return state
   }

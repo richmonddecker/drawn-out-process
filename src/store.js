@@ -12,7 +12,9 @@ const state = {
     openNavSection: "informative",
     barsOpen: false,
     cursorHidden: false,
-    invalidUrl: false
+    invalidUrl: false,
+    category: "informative",
+    element: null
   },
   configuration: {
     fullScreen: false,
