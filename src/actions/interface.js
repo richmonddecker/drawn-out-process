@@ -29,8 +29,27 @@ export const setCurrentElement = (category, element) => ({
   payload: {category, element}
 });
 
+export const setCurrentPassivity = (passivity) => ({
+  type: "SET_CURRENT_PASSIVITY",
+  payload: {passivity}
+})
+
 export const setCurrentCategory = (category) => ({
   type: "SET_CURRENT_CATEGORY",
   payload: {category}
 });
 
+export const setNext = (category, element) => ({
+  type: "SET_NEXT",
+  payload: {category, element}
+});
+
+export const setPrevious = (category, element) => ({
+  type: "SET_PREVIOUS",
+  payload: {category, element}
+});
+
+export const setSlideshow = (setting) => ({
+  type: "SET_SLIDESHOW",
+  payload: setting
+})

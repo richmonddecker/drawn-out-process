@@ -5,7 +5,6 @@ import AttributeControl from "./AttributeControl";
 import DefaultButton from "./DefaultButton";
 
 
-
 const Control = ({ match }) => {
   const content = getContentFromTags(match.params.category, match.params.element);
   if (content === undefined) {

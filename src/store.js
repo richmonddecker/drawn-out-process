@@ -14,13 +14,24 @@ const state = {
     cursorHidden: false,
     invalidUrl: false,
     category: "informative",
-    element: null
+    element: null,
+    passivity: false,
+    next: {
+      category: null,
+      element: null
+    },
+    previous: {
+      category: null,
+      element: null
+    }
   },
   configuration: {
     fullScreen: false,
     barTabs: true,
     barLock: false,
-    squareScreen: false
+    squareScreen: false,
+    keepCategory: true,
+    shuffle: false
   },
   trigger: {
     saveFrame: false,

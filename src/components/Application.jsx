@@ -39,7 +39,7 @@ class Application extends React.Component {
     }
     if (["f", "F"].includes(event.key)) {
       this.props.toggleFullScreen();
-      setTimeout(() => this.props.pullTrigger("resetFrame"), 500);
+      setTimeout(() => this.props.pullTrigger("resetFrame"), 800);
     }
     if (["x", "X"].includes(event.key)) {
       this.props.toggleSquareScreen();

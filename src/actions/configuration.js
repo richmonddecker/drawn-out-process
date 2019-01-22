@@ -19,3 +19,10 @@ export const toggleSquareScreen = () => ({
   type: "TOGGLE_SQUARE_SCREEN"
 });
 
+export const toggleKeepCategory = () => ({
+  type: "TOGGLE_KEEP_CATEGORY"
+});
+
+export const toggleShuffle = () => ({
+  type: "TOGGLE_SHUFFLE"
+});

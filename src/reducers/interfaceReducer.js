@@ -42,6 +42,16 @@ export default (state = {}, action) => {
         category: action.payload.category,
         element: null
       }
+    case "SET_NEXT":
+      return {
+        ...state,
+        next: action.payload
+      }
+    case "SET_PREVIOUS":
+      return {
+        ...state,
+        previous: action.payload
+      }
     default:
       return state
   }

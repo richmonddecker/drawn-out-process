@@ -25,6 +25,16 @@ export default (state = {}, action) => {
         ...state,
         squareScreen: !state.squareScreen
       }
+    case "TOGGLE_KEEP_CATEGORY":
+      return {
+        ...state,
+        keepCategory: !state.keepCategory
+      }
+    case "TOGGLE_SHUFFLE":
+      return {
+        ...state,
+        shuffle: !state.shuffle
+      }
     default:
       return state
   }
