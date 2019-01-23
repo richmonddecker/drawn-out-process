@@ -7,6 +7,7 @@ import SizeButtons from "./SizeButtons";
 import SidebarButtons from "./SidebarButtons";
 import JumpButtons from "./JumpButtons";
 import JumpConfig from "./JumpConfig";
+import Slideshow from "./Slideshow";
 import BarTab from "./BarTab";
 
 
@@ -17,6 +18,7 @@ const Configuration = ({ isOpen }) => (
       <SidebarButtons />
       <JumpConfig />
       <JumpButtons />
+      <Slideshow />
       <ControlRoutes />
       <TwoButtons />
     </div>

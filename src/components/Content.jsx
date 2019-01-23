@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getContentFromTags } from "../scripts/organization";
-import { setCurrentElement, setCurrentPassivity, setNext, setPrevious } from "../actions/interface";
+import { setCurrentElement, setCurrentPassivity, setNext, setPrevious, setSlideshow } from "../actions/interface";
 import { resetTrigger } from "../actions/trigger";
 import { Tracker } from "../scripts/order";
 import NoMatch from "./NoMatch";
@@ -46,30 +46,35 @@ class Content extends React.Component {
 
   componentDidMount() {
     this.tracker = new Tracker(this.props.category, this.props.element, this.props.keepCategory, this.props.shuffle);
+    this.props.setTheElement(this.props);
     this.updateNextPrevious();
   }
 
   updateNextPrevious() {
     const next = this.tracker.nextElement();
     const previous = this.tracker.previousElement();
-    console.log("NEXZT PREV", next, previous)
     this.props.setNext(next.category, next.tag);
     this.props.setPrevious(previous.category, previous.tag); 
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+  console.log("SLIDE", state.interface.slideshow)
+  return ({
   category: ownProps.match.params.category,
   element: ownProps.match.params.element,
   keepCategory: state.configuration.keepCategory,
   shuffle: state.configuration.shuffle
-});
+});}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setTheElement: (props) => {
     const content = getContentFromTags(props.match.params.category, props.match.params.element);
     dispatch(setCurrentElement(content.tag, content.member.tag));
-    dispatch(setCurrentPassivity(content.passivity));
+    dispatch(setCurrentPassivity(content.passive));
+    if (content.passive !== true) {
+      dispatch(setSlideshow(0));
+    }
   },
   resetTriggers: (props) => {
     dispatch(resetTrigger("saveFrame"));

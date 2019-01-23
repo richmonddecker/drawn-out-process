@@ -23,7 +23,8 @@ const state = {
     previous: {
       category: null,
       element: null
-    }
+    },
+    slideshow: 0
   },
   configuration: {
     fullScreen: false,

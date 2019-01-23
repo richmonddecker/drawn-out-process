@@ -42,6 +42,11 @@ export default (state = {}, action) => {
         category: action.payload.category,
         element: null
       }
+    case "SET_CURRENT_PASSIVITY":
+      return {
+        ...state,
+        passivity: action.payload.passivity
+      }
     case "SET_NEXT":
       return {
         ...state,
@@ -51,6 +56,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         previous: action.payload
+      }
+    case "SET_SLIDESHOW":
+      return {
+        ...state,
+        slideshow: action.payload
       }
     default:
       return state
