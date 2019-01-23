@@ -37,7 +37,6 @@ const mapStateToProps = (state, ownProps) => {
   if (!nextMember || !previousMember) {
     return {nextUrl: "", previousUrl: ""};
   }
-  console.log("RUMP", nextMember)
   return ({
     nextTitle: nextMember.member.title,
     previousTitle: previousMember.member.title,

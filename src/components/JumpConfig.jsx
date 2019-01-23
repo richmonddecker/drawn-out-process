@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleKeepCategory: () => {console.log("HIO"); dispatch(toggleKeepCategory())},
+  toggleKeepCategory: () => dispatch(toggleKeepCategory()),
   toggleShuffle: () => dispatch(toggleShuffle())
 });
 

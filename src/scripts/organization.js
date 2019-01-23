@@ -8,6 +8,7 @@ const pag = name => require(`../components/pages/${name}`).default;
 
 // TODO: ADD A "RANDOM" BUTTON WHICH IS LIKE DEFAULTS, BUT APPLIES RANDOM SETTINGS
 // TODO: TRIGGERS INCORRECTLY ACTIVATE WHEN CLICKED ON A PAGE WHERE IT CAN'T BE USED
+// TODO: FIX maze-balls dark side
 
 export const contents = [
   {

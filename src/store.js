@@ -24,7 +24,8 @@ const state = {
       category: null,
       element: null
     },
-    slideshow: 0
+    slideshow: 0,
+    timer: 0
   },
   configuration: {
     fullScreen: false,

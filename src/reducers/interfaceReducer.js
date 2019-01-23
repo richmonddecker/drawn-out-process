@@ -60,7 +60,18 @@ export default (state = {}, action) => {
     case "SET_SLIDESHOW":
       return {
         ...state,
-        slideshow: action.payload
+        slideshow: action.payload,
+        timer: 0
+      }
+    case "RESET_TIMER":
+      return {
+        ...state,
+        timer: 0
+      }
+    case "INCREMENT_TIMER":
+      return {
+        ...state,
+        timer: state.timer + 1
       }
     default:
       return state

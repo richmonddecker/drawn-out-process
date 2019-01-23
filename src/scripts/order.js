@@ -5,14 +5,11 @@ export class Tracker {
   constructor(category, element, keepCategory, shuffle) {
     this.category = category;
     this.element = element;
-    console.log("Keep category:", keepCategory)
     this.keepCategory = keepCategory;
     this.orderedMembers = getAllMembers(category, keepCategory);
-    console.log("MEMBERS", this.orderedMembers)
     this.length = this.orderedMembers.length;
     this.shuffle = shuffle;
     this.handleShuffle(shuffle);
-    console.log(this.orderedMembers);
   }
 
   findIndex(category, element) {
@@ -20,7 +17,6 @@ export class Tracker {
   }
 
   handleShuffle(shuffle) {
-    console.log("Handle shuffle")
     this.shuffle = shuffle;
     if (!shuffle) {
       this.members = this.orderedMembers;
@@ -37,7 +33,6 @@ export class Tracker {
   }
   
   handleKeepCategory(keepCategory) {
-    console.log("HANDLE KEEP category", keepCategory)
     this.keepCategory = keepCategory;
     this.orderedMembers = getAllMembers(this.category, keepCategory);
     this.handleShuffle(this.shuffle);
@@ -46,12 +41,9 @@ export class Tracker {
   changeElement(category, element) {
     this.category = category;
     this.element = element;
-    console.log("THIS KEEP CAT:")
     const newOrderedMembers = getAllMembers(category, this.keepCategory);
-    console.log("NEW ORD: ", newOrderedMembers, "ORD", this.orderedMembers)
     if (JSON.stringify(newOrderedMembers) !== JSON.stringify(this.orderedMembers)) {
       this.orderedMembers = newOrderedMembers;
-      console.log("INSIDE");
       this.length = this.orderedMembers.length;
       this.handleShuffle(this.shuffle);
     }

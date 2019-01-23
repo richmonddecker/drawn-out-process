@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getContentFromTags } from "../scripts/organization";
-import { setCurrentElement, setCurrentPassivity, setNext, setPrevious, setSlideshow } from "../actions/interface";
+import { setCurrentElement, setCurrentPassivity, setNext, setPrevious, setSlideshow, resetTimer } from "../actions/interface";
 import { resetTrigger } from "../actions/trigger";
 import { Tracker } from "../scripts/order";
 import NoMatch from "./NoMatch";
@@ -58,14 +58,12 @@ class Content extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log("SLIDE", state.interface.slideshow)
-  return ({
+const mapStateToProps = (state, ownProps) => ({
   category: ownProps.match.params.category,
   element: ownProps.match.params.element,
   keepCategory: state.configuration.keepCategory,
   shuffle: state.configuration.shuffle
-});}
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setTheElement: (props) => {
@@ -74,6 +72,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(setCurrentPassivity(content.passive));
     if (content.passive !== true) {
       dispatch(setSlideshow(0));
+      dispatch(resetTimer());
     }
   },
   resetTriggers: (props) => {

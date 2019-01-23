@@ -53,3 +53,11 @@ export const setSlideshow = (setting) => ({
   type: "SET_SLIDESHOW",
   payload: setting
 })
+
+export const resetTimer = () => ({
+  type: "RESET_TIMER"
+})
+
+export const incrementTimer = () => ({
+  type: "INCREMENT_TIMER"
+})

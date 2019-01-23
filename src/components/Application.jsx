@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { push } from "connected-react-router";
+import { withRouter } from "react-router";
 
 import { ApplicationRoutes } from "../routes";
-import { closeBars, hideCursor, showCursor } from "../actions/interface";
-import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock } from "../actions/configuration";
+import { closeBars, hideCursor, showCursor, incrementTimer, resetTimer } from "../actions/interface";
+import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock, toggleShuffle, toggleKeepCategory } from "../actions/configuration";
 import { pullTrigger } from "../actions/trigger";
 
 class Application extends React.Component {
@@ -14,6 +16,20 @@ class Application extends React.Component {
     this.startBarTimer = this.startBarTimer.bind(this);
     this.clearBarTimer = this.clearBarTimer.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.goNext = this.goNext.bind(this);
+    this.goPrevious = this.goPrevious.bind(this);
+  }
+
+  startSlideshowCounter() {
+    this.slideshowCounter = setInterval(
+      () => {
+        this.props.incrementTimer();
+        if (this.props.slideshow && this.props.timer >= this.props.slideshow) {
+          this.goNext();
+        }
+      },
+      1000
+    );
   }
 
   resetInterval() {
@@ -28,6 +44,15 @@ class Application extends React.Component {
 
   clearBarTimer() {
     clearTimeout(this.barTimer);
+  }
+
+  goNext() {
+    this.props.push(`/${this.props.next.category}/${this.props.next.element}`);
+  }
+
+  goPrevious() {
+    // TODO: This assumes no custom URLS.
+    this.props.push(`/${this.props.previous.category}/${this.props.previous.element}`);
   }
 
   handleKeyPress(event) {
@@ -48,10 +73,33 @@ class Application extends React.Component {
     if (["s", "S"].includes(event.key)) {
       this.props.pullTrigger("saveFrame");
     }
-    if (["r", "R"].includes(event.key)) {
-      this.props.pullTrigger("resetFrame");
+    if (["p", "P"].includes(event.key)) {
+      this.goPrevious();
+    }
+    if (["n", "N"].includes(event.key)) {
+      this.goNext();
+    }
+    if (["c", "C"].includes(event.key)) {
+      this.props.toggleKeepCategory();
+    }
+    if (["m", "M"].includes(event.key)) {
+      this.props.toggleShuffle();
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      this.props.resetTimer();
+      clearInterval(this.slideshowCounter);
+      this.startSlideshowCounter();
+    }
+  }
+
+  componentDidMount() {
+    this.props.resetTimer();
+    this.startSlideshowCounter();
+  }
+
 
   render() {
     return (
@@ -72,10 +120,14 @@ class Application extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  cursorHidden: state.interface.cursorHidden
+  cursorHidden: state.interface.cursorHidden,
+  next: state.interface.next,
+  previous: state.interface.previous,
+  timer: state.interface.timer,
+  slideshow: state.interface.slideshow
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   closeBars: () => dispatch(closeBars()),
   hideCursor: () => dispatch(hideCursor()),
   showCursor: () => dispatch(showCursor()),
@@ -83,10 +135,25 @@ const mapDispatchToProps = (dispatch) => ({
   toggleBarTabs: () => dispatch(toggleBarTabs()),
   toggleBarLock: () => dispatch(toggleBarLock()),
   toggleSquareScreen: () => dispatch(toggleSquareScreen()),
-  pullTrigger: (name) => dispatch(pullTrigger(name))
+  toggleShuffle: () => dispatch(toggleShuffle()),
+  toggleKeepCategory: () => dispatch(toggleKeepCategory()),
+  incrementTimer: () => dispatch(incrementTimer()),
+  resetTimer: () => dispatch(resetTimer()),
+  pullTrigger: (name) => dispatch(pullTrigger(name)),
+  push: (path) => dispatch({
+    type: "@@router/LOCATION_CHANGE",
+    payload: {
+      location: {
+        pathname: path,
+        search: ownProps.location.search,
+        hash: ownProps.location.hash
+      },
+      action: "PUSH"
+    }
+  })
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Application);
+)(Application));
