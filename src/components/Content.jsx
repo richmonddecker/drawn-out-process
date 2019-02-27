@@ -42,6 +42,7 @@ class Content extends React.Component {
 
   componentDidMount() {
     this.tracker = new Tracker(this.props.category, this.props.element, this.props.keepCategory, this.props.shuffle);
+    this.props.resetTriggers();
     this.props.setTheElement(this.props);
     this.updateNextPrevious();
   }

@@ -6,7 +6,7 @@ import { withRouter } from "react-router";
 
 import { ApplicationRoutes } from "../routes";
 import { closeBars, hideCursor, showCursor, incrementTimer, resetTimer } from "../actions/interface";
-import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock, toggleShuffle, toggleKeepCategory } from "../actions/configuration";
+import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock, toggleShuffle, toggleKeepCategory, toggleInfo } from "../actions/configuration";
 import { pullTrigger } from "../actions/trigger";
 
 class Application extends React.Component {
@@ -70,20 +70,28 @@ class Application extends React.Component {
       this.props.toggleSquareScreen();
       setTimeout(() => this.props.pullTrigger("resetFrame"), 200);
     }
+    if (["r", "R"].includes(event.key)) {
+      this.props.pullTrigger("resetFrame");
+    }
     if (["s", "S"].includes(event.key)) {
       this.props.pullTrigger("saveFrame");
-    }
-    if (["p", "P"].includes(event.key)) {
-      this.goPrevious();
-    }
-    if (["n", "N"].includes(event.key)) {
-      this.goNext();
     }
     if (["c", "C"].includes(event.key)) {
       this.props.toggleKeepCategory();
     }
     if (["m", "M"].includes(event.key)) {
       this.props.toggleShuffle();
+    }
+    if (this.props.interactivity) {
+      if (["p", "P"].includes(event.key)) {
+        this.goPrevious();
+      }
+      if (["n", "N"].includes(event.key)) {
+        this.goNext();
+      }
+      if (["i", "I"].includes(event.key)) {
+        this.props.toggleInfo();
+      }
     }
   }
 
@@ -124,7 +132,8 @@ const mapStateToProps = (state) => ({
   next: state.interface.next,
   previous: state.interface.previous,
   timer: state.interface.timer,
-  slideshow: state.interface.slideshow
+  slideshow: state.interface.slideshow,
+  interactivity: state.interface.interactivity
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -134,6 +143,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   toggleFullScreen: () => dispatch(toggleFullScreen()),
   toggleBarTabs: () => dispatch(toggleBarTabs()),
   toggleBarLock: () => dispatch(toggleBarLock()),
+  toggleInfo: () => dispatch(toggleInfo()),
   toggleSquareScreen: () => dispatch(toggleSquareScreen()),
   toggleShuffle: () => dispatch(toggleShuffle()),
   toggleKeepCategory: () => dispatch(toggleKeepCategory()),
