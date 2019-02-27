@@ -8,33 +8,54 @@ import { getContentFromTags } from "../scripts/organization";
 import { pullTrigger } from "../actions/trigger.js";
 
 
-const JumpButtons = (props) => (
-  <ButtonGroup>
-    <Link to={props.previousUrl}>
-      <Button
-        color="success"
-        className="halfButton"
-      >
-        <span>Prev </span>
-        <img src={props.previousThumb} width={24} height={24} alt={props.previousTitle} />
-      </Button>
-    </Link>
-    <Link to={props.nextUrl}>
-      <Button
-        color="success"
-        className="halfButton"
-      >
-        <span>Next </span>
-        <img src={props.nextThumb} width={24} height={24} alt={props.nextTitle} />
-      </Button>
-    </Link>
-  </ButtonGroup>
-);
+const JumpButtons = (props) => {
+  const prevButton = (
+    <Button
+      color="success"
+      className="halfButton"
+    >
+      <span>Prev </span>
+      <img src={props.previousThumb} width={24} height={24} />
+    </Button>
+  );
+  const nextButton = (
+    <Button
+      color="success"
+      className="halfButton"
+    >
+      <span>Next </span>
+      <img src={props.nextThumb} width={24} height={24} />
+    </Button>
+  );
+  return (
+    <ButtonGroup>
+      <Link to={props.previousUrl}>
+        <Button
+          color="success"
+          className="halfButton"
+        >
+          <span>Prev </span>
+          <img src={props.previousThumb} width={24} height={24} />
+        </Button>
+      </Link>
+      <Link to={props.nextUrl}>
+        <Button
+          color="success"
+          className="halfButton"
+        >
+          <span>Next </span>
+          <img src={props.nextThumb} width={24} height={24} />
+        </Button>
+      </Link>
+    </ButtonGroup>
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   const nextMember = getContentFromTags(state.interface.next.category, state.interface.next.element);
   const previousMember = getContentFromTags(state.interface.previous.category, state.interface.previous.element);
   if (!nextMember || !previousMember) {
+    console.log("DERES NUTHIN")
     return {nextUrl: "", previousUrl: ""};
   }
   return ({

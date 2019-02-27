@@ -1,6 +1,7 @@
 import React from "react";
 import NumericInput from "react-numeric-input";
 import Dropdown from "react-dropdown";
+import Switch from "react-switch";
 import "react-dropdown/style.css";
 import { SketchPicker } from "react-color";
 
@@ -43,13 +44,12 @@ export class ColorWidget extends React.Component {
 }
 
 
-// TODO: FIX THIS
 export class CheckboxWidget extends React.Component {
   render() {
-    return <input type="checkbox" {...this.props} />;
+    return <Switch checked={this.props.value} {...this.props} />;
   }
 
   static map(thing) {
-    return thing.target.value;
+    return thing;
   }
 }

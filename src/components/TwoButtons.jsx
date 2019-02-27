@@ -11,6 +11,7 @@ const TwoButtons = (props) => {
       <Button
         className="halfButton"
         color="primary"
+        disabled={!props.interactivity}
         onClick={props.save}
       >
         <span>Save </span>
@@ -18,7 +19,8 @@ const TwoButtons = (props) => {
       </Button>
       <Button
         className="halfButton"
-        color="warning"
+        color="danger"
+        disabled={!props.interactivity}
         onClick={props.reset}
       >
         <span>Reset </span>
@@ -28,12 +30,16 @@ const TwoButtons = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  interactivity: state.interface.interactivity
+});
+
 const mapDispatchToProps = (dispatch) => ({
   save: () => dispatch(pullTrigger("saveFrame")),
-  reset: () => dispatch(pullTrigger("resetFrame"))
+  reset: () => dispatch(pullTrigger("resetFrame")),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TwoButtons);

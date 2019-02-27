@@ -106,7 +106,7 @@ class Application extends React.Component {
       <div
         id="application"
         tabIndex="0"
-        className={`fillScreen${this.props.cursorHidden ? " mouseGone" : ""}`}
+        className={this.props.cursorHidden ? " mouseGone" : ""}
         onMouseOver={this.startBarTimer}
         onMouseLeave={this.clearBarTimer}
         onMouseDown={this.props.closeBars}

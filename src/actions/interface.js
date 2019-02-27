@@ -34,6 +34,11 @@ export const setCurrentPassivity = (passivity) => ({
   payload: {passivity}
 })
 
+export const setCurrentInteractivity = (interactivity) => ({
+  type: "SET_CURRENT_INTERACTIVITY",
+  payload: {interactivity}
+})
+
 export const setCurrentCategory = (category) => ({
   type: "SET_CURRENT_CATEGORY",
   payload: {category}

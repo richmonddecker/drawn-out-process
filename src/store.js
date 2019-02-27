@@ -16,6 +16,7 @@ const state = {
     category: "informative",
     element: null,
     passivity: false,
+    interactivity: false,
     next: {
       category: null,
       element: null
@@ -33,7 +34,8 @@ const state = {
     barLock: false,
     squareScreen: false,
     keepCategory: true,
-    shuffle: false
+    shuffle: false,
+    info: false
   },
   trigger: {
     saveFrame: false,

@@ -14,11 +14,14 @@ import BarTab from "./BarTab";
 const Configuration = ({ isOpen }) => (
   <div>
     <div id="rightBar" className={`sideBar ${isOpen ? "barOpen" : "barClosed"}`}>
+      <h5 className="line"><span className="line">Display</span></h5>
       <SizeButtons />
       <SidebarButtons />
+      <h5 className="line"><span className="line">Route</span></h5>
       <JumpConfig />
       <JumpButtons />
       <Slideshow />
+      <h5 className="line"><span className="line">Control</span></h5>
       <ControlRoutes />
       <TwoButtons />
     </div>

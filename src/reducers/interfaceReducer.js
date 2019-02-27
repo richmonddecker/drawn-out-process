@@ -47,6 +47,11 @@ export default (state = {}, action) => {
         ...state,
         passivity: action.payload.passivity
       }
+    case "SET_CURRENT_INTERACTIVITY":
+      return {
+        ...state,
+        interactivity: action.payload.interactivity
+      }
     case "SET_NEXT":
       return {
         ...state,

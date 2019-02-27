@@ -1,18 +1,39 @@
 import React from "react";
+import { connect } from "react-redux";
 import { getContentFromTag } from "../scripts/organization";
-import NoMatch from "./NoMatch";
+import { setCurrentElement, setCurrentInteractivity } from "../actions/interface";
 
-const Index = ({ match }) => {
-  const content = getContentFromTag(match.params.category);
-  if (content === undefined) {
-    return <NoMatch />;
+class Index extends React.Component {
+
+  render() {
+    const content = getContentFromTag(this.props.match.params.category);
+    return (
+      <div className="page">
+        <h1 className="pageTitle">{content.title}</h1>
+        <br />
+        <p>{content.info}</p>
+      </div>
+    );
   }
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.info}</p>
-    </div>
-  );
-};
 
-export default Index;
+  componentDidMount() {
+    this.props.setTheElement(this.props.category)
+  }
+};
+  
+const mapStateToProps = (state, ownProps) => ({
+  category: ownProps.match.params.category
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setTheElement: (category) => {
+    const content = getContentFromTag(category);
+    dispatch(setCurrentElement(content.tag, content.tag));
+    dispatch(setCurrentInteractivity(false));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Index);

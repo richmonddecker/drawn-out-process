@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getContentFromTags } from "../scripts/organization";
-import { setCurrentElement, setCurrentPassivity, setNext, setPrevious, setSlideshow, resetTimer } from "../actions/interface";
+import { setCurrentElement, setCurrentPassivity, setCurrentInteractivity, setNext, setPrevious, setSlideshow, resetTimer } from "../actions/interface";
 import { resetTrigger } from "../actions/trigger";
 import { Tracker } from "../scripts/order";
-import NoMatch from "./NoMatch";
 
 class Content extends React.Component {
   constructor(props) {
@@ -14,9 +13,6 @@ class Content extends React.Component {
 
   render() {
     const content = getContentFromTags(this.props.category, this.props.element);
-    if (content === undefined) {
-      return <NoMatch />;
-    }
     if (content.component) {
       return <content.component {...this.props.match.params} {...content.member} />;
     }
@@ -70,6 +66,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const content = getContentFromTags(props.match.params.category, props.match.params.element);
     dispatch(setCurrentElement(content.tag, content.member.tag));
     dispatch(setCurrentPassivity(content.passive));
+    dispatch(setCurrentInteractivity(!content.noInteraction));
     if (content.passive !== true) {
       dispatch(setSlideshow(0));
       dispatch(resetTimer());

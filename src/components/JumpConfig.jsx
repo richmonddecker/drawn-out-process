@@ -7,7 +7,7 @@ const JumpConfig = (props) => (
   <ButtonGroup>
     <Button
       className="halfButton"
-      color="info"
+      color="secondary"
       outline={!props.keepCategory}
       onClick={props.toggleKeepCategory}
     >
@@ -15,7 +15,7 @@ const JumpConfig = (props) => (
     </Button>
     <Button
       className="halfButton"
-      color="info"
+      color="secondary"
       outline={!props.shuffle}    
       onClick={props.toggleShuffle}
     >

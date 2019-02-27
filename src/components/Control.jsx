@@ -1,12 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 import { getContentFromTags } from "../scripts/organization";
 import ParameterControl from "./ParameterControl";
 import AttributeControl from "./AttributeControl";
 import DefaultButton from "./DefaultButton";
+import ControlTitle from "./ControlTitle";
 
 
-const Control = ({ match }) => {
-  const content = getContentFromTags(match.params.category, match.params.element);
+const Control = ({ category, element }) => {
+  const content = getContentFromTags(category, element);
+  console.log("CATEGORY ELEM", category, element);
   if (content === undefined) {
     return null;
   }
@@ -14,7 +17,8 @@ const Control = ({ match }) => {
   const areAttributes = Boolean(content.member.attributes);
   return (
     <div>
-      {areParameters ? <b>Parameters</b> : null}
+      <ControlTitle member={content.member} />
+      {areParameters ? <h6 className="line"><span className="line">Parameters</span></h6> : null}
       {areParameters && content.member.parameters.map((parameter) => (
         <ParameterControl
           category={content.tag}
@@ -23,7 +27,7 @@ const Control = ({ match }) => {
           {...parameter}
         />
       ))}
-      {areAttributes ? <div><b>Attributes</b><span>(Must "Reset")</span></div> : null}
+      {areAttributes ? <h6 className="line"><span className="line">Attributes <i>("Reset")</i></span></h6> : null}
       {areAttributes && content.member.attributes.map((attribute) => (
         <AttributeControl
           category={content.tag}
@@ -37,4 +41,9 @@ const Control = ({ match }) => {
   );
 };
 
-export default Control;
+const mapStateToProps = (state) => ({
+  category: state.interface.category,
+  element: state.interface.element
+});
+
+export default connect(mapStateToProps)(Control);

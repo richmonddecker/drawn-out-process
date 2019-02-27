@@ -18,6 +18,7 @@ export const contents = [
     thumbnail: "",
     info: "",
     configuration: "CreativeConfiguration",
+    noInteraction: true,
     members: [
       {
         tag: "instructions",

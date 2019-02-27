@@ -35,6 +35,11 @@ export default (state = {}, action) => {
         ...state,
         shuffle: !state.shuffle
       }
+    case "TOGGLE_INFO":
+      return {
+        ...state,
+        info: !state.info
+      }
     default:
       return state
   }
