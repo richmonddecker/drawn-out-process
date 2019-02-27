@@ -40,6 +40,11 @@ export default (state = {}, action) => {
         ...state,
         info: !state.info
       }
+    case "SET_CURRENT_INTERACTIVITY":
+      return {
+        ...state,
+        info: !action.payload.interactivity ? false : state.info
+      }
     default:
       return state
   }

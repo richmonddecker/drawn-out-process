@@ -24,9 +24,9 @@ export const setInvalidUrl = (value) => ({
   payload: value
 });
 
-export const setCurrentElement = (category, element) => ({
+export const setCurrentElement = (category, element, title) => ({
   type: "SET_CURRENT_ELEMENT",
-  payload: {category, element}
+  payload: {category, element, title}
 });
 
 export const setCurrentPassivity = (passivity) => ({

@@ -5,7 +5,7 @@ import Dropdown from "react-dropdown";
 import { setSlideshow } from "../actions/interface";
 
 
-const Slideshow = ({slideshow, setSlideshow, passivity}) => {
+const Slideshow = ({slideshow, setSlideshow, passivity, interactivity}) => {
   const options = [
     {value: 0, label: "Slideshow: Off"},
     {value: 10, label: "Slideshow: 10 sec"},
@@ -20,7 +20,7 @@ const Slideshow = ({slideshow, setSlideshow, passivity}) => {
   return (
     <div>
       <Dropdown
-        disabled={passivity !== true}
+        disabled={passivity !== true || interactivity !== true}
         options={[
           {value: 0, label: "Slideshow: Off"},
           {value: 10, label: "Slideshow: 10 sec"},
@@ -41,7 +41,8 @@ const Slideshow = ({slideshow, setSlideshow, passivity}) => {
 
 const mapStateToProps = (state) => ({
   slideshow: state.interface.slideshow,
-  passivity: state.interface.passivity
+  passivity: state.interface.passivity,
+  interactivity: state.interface.interactivity
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

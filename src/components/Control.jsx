@@ -4,12 +4,10 @@ import { getContentFromTags } from "../scripts/organization";
 import ParameterControl from "./ParameterControl";
 import AttributeControl from "./AttributeControl";
 import DefaultButton from "./DefaultButton";
-import ControlTitle from "./ControlTitle";
 
 
 const Control = ({ category, element }) => {
   const content = getContentFromTags(category, element);
-  console.log("CATEGORY ELEM", category, element);
   if (content === undefined) {
     return null;
   }
@@ -17,7 +15,6 @@ const Control = ({ category, element }) => {
   const areAttributes = Boolean(content.member.attributes);
   return (
     <div>
-      <ControlTitle member={content.member} />
       {areParameters ? <h6 className="line"><span className="line">Parameters</span></h6> : null}
       {areParameters && content.member.parameters.map((parameter) => (
         <ParameterControl

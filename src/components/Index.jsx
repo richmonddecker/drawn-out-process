@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setTheElement: (category) => {
     const content = getContentFromTag(category);
-    dispatch(setCurrentElement(content.tag, content.tag));
+    dispatch(setCurrentElement(content.tag, content.tag, content.title));
     dispatch(setCurrentInteractivity(false));
   }
 });

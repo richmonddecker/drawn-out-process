@@ -15,6 +15,7 @@ const state = {
     invalidUrl: false,
     category: "informative",
     element: null,
+    title: "Home",
     passivity: false,
     interactivity: false,
     next: {

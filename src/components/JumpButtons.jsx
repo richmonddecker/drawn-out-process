@@ -13,40 +13,36 @@ const JumpButtons = (props) => {
     <Button
       color="success"
       className="halfButton"
+      disabled={!props.interactivity}
     >
       <span>Prev </span>
-      <img src={props.previousThumb} width={24} height={24} />
+      <img src={props.interactivity ? props.previousThumb : null} width={24} height={24} />
     </Button>
   );
   const nextButton = (
     <Button
       color="success"
       className="halfButton"
+      disabled={!props.interactivity}
     >
       <span>Next </span>
-      <img src={props.nextThumb} width={24} height={24} />
+      <img src={props.interactivity ? props.nextThumb : null} width={24} height={24} />
     </Button>
   );
+
+  const showButton = (url, button) => (
+    props.interactivity ?
+      <Link to={url}>
+        {button}
+      </Link>
+    :
+      button
+  )
+
   return (
     <ButtonGroup>
-      <Link to={props.previousUrl}>
-        <Button
-          color="success"
-          className="halfButton"
-        >
-          <span>Prev </span>
-          <img src={props.previousThumb} width={24} height={24} />
-        </Button>
-      </Link>
-      <Link to={props.nextUrl}>
-        <Button
-          color="success"
-          className="halfButton"
-        >
-          <span>Next </span>
-          <img src={props.nextThumb} width={24} height={24} />
-        </Button>
-      </Link>
+      {showButton(props.previousUrl, prevButton)}
+      {showButton(props.nextUrl, nextButton)}
     </ButtonGroup>
   );
 };
@@ -56,9 +52,14 @@ const mapStateToProps = (state, ownProps) => {
   const previousMember = getContentFromTags(state.interface.previous.category, state.interface.previous.element);
   if (!nextMember || !previousMember) {
     console.log("DERES NUTHIN")
-    return {nextUrl: "", previousUrl: ""};
+    return {
+      interactivity: state.interface.interactivity,
+      nextUrl: "",
+      previousUrl: ""
+    };
   }
   return ({
+    interactivity: state.interface.interactivity,
     nextTitle: nextMember.member.title,
     previousTitle: previousMember.member.title,
     nextUrl: nextMember.url || `/${state.interface.next.category}/${state.interface.next.element}`,

@@ -64,7 +64,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setTheElement: (props) => {
     const content = getContentFromTags(props.match.params.category, props.match.params.element);
-    dispatch(setCurrentElement(content.tag, content.member.tag));
+    dispatch(setCurrentElement(content.tag, content.member.tag, content.member.title));
     dispatch(setCurrentPassivity(content.passive));
     dispatch(setCurrentInteractivity(!content.noInteraction));
     if (content.passive !== true) {

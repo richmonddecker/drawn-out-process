@@ -1,7 +1,5 @@
 import React from "react";
 
-import { ControlRoutes } from "../routes";
-
 import TwoButtons from "./TwoButtons";
 import SizeButtons from "./SizeButtons";
 import SidebarButtons from "./SidebarButtons";
@@ -9,6 +7,8 @@ import JumpButtons from "./JumpButtons";
 import JumpConfig from "./JumpConfig";
 import Slideshow from "./Slideshow";
 import BarTab from "./BarTab";
+import Control from "./Control";
+import ControlTitle from "./ControlTitle";
 
 
 const Configuration = ({ isOpen }) => (
@@ -22,7 +22,8 @@ const Configuration = ({ isOpen }) => (
       <JumpButtons />
       <Slideshow />
       <h5 className="line"><span className="line">Control</span></h5>
-      <ControlRoutes />
+      <ControlTitle />
+      <Control />
       <TwoButtons />
     </div>
     <BarTab right isOpen={isOpen} />

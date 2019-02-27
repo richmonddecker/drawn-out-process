@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; 
 import { Button } from "reactstrap";
 import { toggleInfo } from "../actions/configuration";
 
@@ -10,20 +10,21 @@ const ControlTitle = (props) => (
       color="warning"
       block
       size="lg"
-      outline={!props.info}
+      outline={!props.showInfo}
       onClick={props.toggleInfo}
       disabled={!props.interactivity}
     >
-      {props.member.title}
+      {props.title}
       {" "}
-      <span role="emoji" ariaLabel="info">{props.info ? "ℹ️" : "❓"}</span>
+      <span role="emoji" ariaLabel="info">{props.showInfo ? "ℹ️" : "❓"}</span>
     </Button>
   </div>
 );
 
 
 const mapStateToProps = (state) => ({
-  info: state.configuration.info,
+  showInfo: state.configuration.info,
+  title: state.interface.title,
   interactivity: state.interface.interactivity
 });
 

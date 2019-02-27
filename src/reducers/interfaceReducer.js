@@ -34,7 +34,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         category: action.payload.category,
-        element: action.payload.element
+        element: action.payload.element,
+        title: action.payload.title
       }
     case "SET_CURRENT_CATEGORY":
       return {
