@@ -11,7 +11,7 @@ const TwoButtons = (props) => {
       <Button
         className="halfButton"
         color="primary"
-        disabled={!props.interactivity}
+        disabled={!props.interactivity && !props.invalidUrl}
         onClick={props.save}
       >
         <span>Save </span>
@@ -20,7 +20,7 @@ const TwoButtons = (props) => {
       <Button
         className="halfButton"
         color="danger"
-        disabled={!props.interactivity}
+        disabled={!props.interactivity && !props.invalidUrl}
         onClick={props.reset}
       >
         <span>Reset </span>
@@ -31,7 +31,8 @@ const TwoButtons = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  interactivity: state.interface.interactivity
+  interactivity: state.interface.interactivity,
+  invalidUrl: state.interface.invalidUrl
 });
 
 const mapDispatchToProps = (dispatch) => ({
