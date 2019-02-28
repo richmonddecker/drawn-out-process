@@ -8,7 +8,7 @@ import JumpConfig from "./JumpConfig";
 import Slideshow from "./Slideshow";
 import BarTab from "./BarTab";
 import Control from "./Control";
-import ControlTitle from "./ControlTitle";
+import InfoButton from "./InfoButton";
 
 
 const Configuration = ({ isOpen }) => (
@@ -22,9 +22,9 @@ const Configuration = ({ isOpen }) => (
       <JumpButtons />
       <Slideshow />
       <h5 className="line"><span className="line">Control</span></h5>
-      <ControlTitle />
-      <Control />
+      <InfoButton />
       <TwoButtons />
+      <Control />
     </div>
     <BarTab right isOpen={isOpen} />
   </div>

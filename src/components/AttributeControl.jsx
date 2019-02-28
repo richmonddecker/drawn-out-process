@@ -5,7 +5,7 @@ import { setAttribute } from "../actions/control";
 const AttributeControl = (props) => {
   const display = props.change !== undefined ? props.change : props.value;
   const current = props.change !== undefined && props.change !== props.value ? props.value : null;
-  const parentheses = current ? <span>({current})</span> : <span />
+  const parentheses = current ? <span><i>({current})</i></span> : <span />
   return (
     <div>
       <label htmlFor={props.tag}>{props.title}: {parentheses}</label>

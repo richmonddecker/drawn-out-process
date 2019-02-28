@@ -66,3 +66,7 @@ export const resetTimer = () => ({
 export const incrementTimer = () => ({
   type: "INCREMENT_TIMER"
 })
+
+export const toggleInfo = () => ({
+  type: "TOGGLE_INFO"
+});

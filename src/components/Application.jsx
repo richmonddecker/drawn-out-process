@@ -5,8 +5,8 @@ import { push } from "connected-react-router";
 import { withRouter } from "react-router";
 
 import { ApplicationRoutes } from "../routes";
-import { closeBars, hideCursor, showCursor, incrementTimer, resetTimer } from "../actions/interface";
-import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock, toggleShuffle, toggleKeepCategory, toggleInfo } from "../actions/configuration";
+import { closeBars, hideCursor, showCursor, incrementTimer, resetTimer, toggleInfo } from "../actions/interface";
+import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock, toggleShuffle, toggleKeepCategory } from "../actions/configuration";
 import { pullTrigger } from "../actions/trigger";
 import InfoDialog from "./InfoDialog";
 
@@ -102,8 +102,13 @@ class Application extends React.Component {
       clearInterval(this.slideshowCounter);
       this.startSlideshowCounter();
     }
+    if (!this.props.infoShown && nextProps.infoShown) {
+      this.props.resetTimer();
+      clearInterval(this.slideshowCounter);
+    }
     if (this.props.infoShown && !nextProps.infoShown) {
       this.clearBarTimer();
+      this.startSlideshowCounter();
     }
   }
 
@@ -121,7 +126,7 @@ class Application extends React.Component {
         className={this.props.cursorHidden ? " mouseGone" : ""}
         onMouseOver={this.startBarTimer}
         onMouseLeave={this.clearBarTimer}
-        onMouseDown={this.props.infoShown ? () => null : this.closeBars}
+        onMouseDown={this.props.infoShown ? () => null : this.props.closeBars}
         onMouseMove={this.resetInterval}
         onKeyPress={this.handleKeyPress}
       >
@@ -139,7 +144,7 @@ const mapStateToProps = (state) => ({
   timer: state.interface.timer,
   slideshow: state.interface.slideshow,
   interactivity: state.interface.interactivity,
-  infoShown: state.configuration.info
+  infoShown: state.interface.info
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

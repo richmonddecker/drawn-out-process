@@ -26,7 +26,3 @@ export const toggleKeepCategory = () => ({
 export const toggleShuffle = () => ({
   type: "TOGGLE_SHUFFLE"
 });
-
-export const toggleInfo = () => ({
-  type: "TOGGLE_INFO"
-});

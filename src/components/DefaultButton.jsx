@@ -9,7 +9,7 @@ const DefaultButton = ({ setDefaults }) => {
   return (
     <Button
       block
-      color="success"
+      color="warning"
       onClick={setDefaults}
     >
       Defaults

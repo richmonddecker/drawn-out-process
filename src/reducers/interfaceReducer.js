@@ -51,7 +51,8 @@ export default (state = {}, action) => {
     case "SET_CURRENT_INTERACTIVITY":
       return {
         ...state,
-        interactivity: action.payload.interactivity
+        interactivity: action.payload.interactivity,
+        info: !action.payload.interactivity ? false : state.info
       }
     case "SET_NEXT":
       return {
@@ -78,6 +79,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         timer: state.timer + 1
+      }
+    case "TOGGLE_INFO":
+      return {
+        ...state,
+        info: !state.info
       }
     default:
       return state

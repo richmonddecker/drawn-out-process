@@ -55,7 +55,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  barsOpen: state.interface.barsOpen || state.configuration.barLock || state.configuration.info,
+  barsOpen: state.interface.barsOpen || state.configuration.barLock || state.interface.info,
   fullScreen: state.configuration.fullScreen,
   category: state.router.location.pathname.split("/")[1]
 });

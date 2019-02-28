@@ -27,7 +27,8 @@ const state = {
       element: null
     },
     slideshow: 0,
-    timer: 0
+    timer: 0,
+    info: false
   },
   configuration: {
     fullScreen: false,
@@ -35,8 +36,7 @@ const state = {
     barLock: false,
     squareScreen: false,
     keepCategory: true,
-    shuffle: false,
-    info: false
+    shuffle: false
   },
   trigger: {
     saveFrame: false,

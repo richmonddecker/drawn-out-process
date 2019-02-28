@@ -4,7 +4,6 @@ import { getContentFromTag } from "../scripts/organization";
 import { setCurrentElement, setCurrentInteractivity } from "../actions/interface";
 
 class Index extends React.Component {
-
   render() {
     const content = getContentFromTag(this.props.match.params.category);
     return (

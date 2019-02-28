@@ -42,13 +42,14 @@ export const contents = [
         thumbnail: img("chord-art.png"),
         sketch: can("chord-art"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Draw colorful strings across a circular surface.",
+        info: "This POD allows you to make colorful string art on a circular canvas. When you click on a point, lines are generated randomly to fill in an angled section around this point. The color changes based on the angle around the circle. Closer to the center, the angle span is greater, and the lines less colorful. By changing the controls, you can produce a large number of different styles.",
         parameters: [
           {
             tag: "hueCycles",
             title: "Color Cycles",
             default: 3,
-            info: "",
+            info: "How many color cycles there are around the circle. With a higher number, the color hue changes more rapidly as the mouse moves around the circle.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -62,19 +63,19 @@ export const contents = [
             tag: "hueOffset",
             title: "Color Offset",
             default: 0,
-            info: "",
+            info: "This is to shift the base hue by a percentage, to change what colors correspond to what point. For example, at 50%, what is normally red will be cyan.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
               max: 100,
-              step: 1
+              step: 2
             }
           },
           {
             tag: "lineSpeed",
             title: "Line Speed",
             default: 500,
-            info: "",
+            info: "How fast the lines are drawn on the image. Specifically, how many lines are drawn per second.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -86,7 +87,7 @@ export const contents = [
             tag: "lineThickness",
             title: "Line Thickness",
             default: 1,
-            info: "",
+            info: "The thickness in pixels of the lines.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -98,19 +99,19 @@ export const contents = [
             tag: "lineOpacity",
             title: "Line Opacity",
             default: 50,
-            info: "",
+            info: "The opacity percentage of the lines.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
               max: 100,
-              step: 1
+              step: 3
             }
           },
           {
             tag: "spanPower",
             title: "Span Power",
             default: 1,
-            info: "",
+            info: "How constrained the angle of the lines in. For a higher number, the lines are constrained to a tighter ankle.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -122,7 +123,7 @@ export const contents = [
             tag: "colorPower",
             title: "Color Power",
             default: 2,
-            info: "",
+            info: "How strongly the color fades towards the center. With a higher value, the color fades less noticeably.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -138,11 +139,13 @@ export const contents = [
         thumbnail: img("polystrings.png"),
         sketch: can("polystrings"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Draw using orthogonal lines inside a polygon.",
+        info: "Here we explore the effects of orthogonal lines inside a polygon. When you click the mouse inside the polygon, a line will be drawn to project onto each edge possible. The color of the line depends on its length. Tap or drag your pointer around to see what interesting patterns you can make.",
         parameters: [
           {
             tag: "hueCycles",
             title: "Color Cycles",
+            info: "How many color cycles exist along the span of this polygon. For higher numbers, the color changes more quickly with mouse movement.",
             default: 2,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -156,6 +159,7 @@ export const contents = [
           {
             tag: "hueOffset",
             title: "Color Offset",
+            info: "This is to shift the base hue by a percentage, to change what colors correspond to what point. For example, at 50%, what is normally red will be cyan.",
             default: 0,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -167,6 +171,7 @@ export const contents = [
           {
             tag: "lineThickness",
             title: "Line Thickness",
+            info: "The thickness in pixels of the lines.",
             default: 2,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -178,6 +183,7 @@ export const contents = [
           {
             tag: "lineOpacity",
             title: "Line Opacity",
+            info: "The opacity percentage of the lines.",
             default: 50,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -191,6 +197,7 @@ export const contents = [
           {
             tag: "numSides",
             title: "Number of Sides",
+            info: "The number of sides of the polygon.",
             default: 6,
             widget: wid("NumberWidget"),
             widgetProps: {

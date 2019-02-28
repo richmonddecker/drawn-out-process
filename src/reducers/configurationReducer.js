@@ -35,16 +35,6 @@ export default (state = {}, action) => {
         ...state,
         shuffle: !state.shuffle
       }
-    case "TOGGLE_INFO":
-      return {
-        ...state,
-        info: !state.info
-      }
-    case "SET_CURRENT_INTERACTIVITY":
-      return {
-        ...state,
-        info: !action.payload.interactivity ? false : state.info
-      }
     default:
       return state
   }
