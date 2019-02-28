@@ -8,6 +8,7 @@ import { ApplicationRoutes } from "../routes";
 import { closeBars, hideCursor, showCursor, incrementTimer, resetTimer } from "../actions/interface";
 import { toggleFullScreen, toggleBarTabs, toggleSquareScreen, toggleBarLock, toggleShuffle, toggleKeepCategory, toggleInfo } from "../actions/configuration";
 import { pullTrigger } from "../actions/trigger";
+import InfoDialog from "./InfoDialog";
 
 class Application extends React.Component {
   constructor(props) {
@@ -101,6 +102,9 @@ class Application extends React.Component {
       clearInterval(this.slideshowCounter);
       this.startSlideshowCounter();
     }
+    if (this.props.infoShown && !nextProps.infoShown) {
+      this.clearBarTimer();
+    }
   }
 
   componentDidMount() {
@@ -117,10 +121,11 @@ class Application extends React.Component {
         className={this.props.cursorHidden ? " mouseGone" : ""}
         onMouseOver={this.startBarTimer}
         onMouseLeave={this.clearBarTimer}
-        onMouseDown={this.props.closeBars}
+        onMouseDown={this.props.infoShown ? () => null : this.closeBars}
         onMouseMove={this.resetInterval}
         onKeyPress={this.handleKeyPress}
       >
+        <InfoDialog />
         <ApplicationRoutes />
       </div>
     );
@@ -133,7 +138,8 @@ const mapStateToProps = (state) => ({
   previous: state.interface.previous,
   timer: state.interface.timer,
   slideshow: state.interface.slideshow,
-  interactivity: state.interface.interactivity
+  interactivity: state.interface.interactivity,
+  infoShown: state.configuration.info
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
