@@ -32,7 +32,7 @@ export const contents = [
     title: "Creative",
     thumbnail: "",
     passive: false,
-    info: "Here are Creative Projects",
+    info: "The Creative category is a set of active PODs for you to create your own art. Each POD will define a canvas and a set of rules for drawing, and you must take advantage of these constrainst to produce beautiful designs. Within any single POD, make sure to play around with the parameters and attributes to maximize your artistic potential. Pressing the Save button will download your creation to your device.",
     component: com("P5Canvas"),
     configuration: "CreativeConfiguration",
     members: [
@@ -316,7 +316,7 @@ export const contents = [
     title: "Interactive",
     thumbnail: "",
     passive: false,
-    info: "",
+    info: "The Interactive category is a set of PODS requiring your participation. Whether by clicking or moving the pointer, you will create and control the interesting visual effects that you see.",
     component: com("P5Canvas"),
     configuration: "CreativeConfiguration",
     members: [
@@ -389,7 +389,7 @@ export const contents = [
     title: "Generative",
     thumbnail: "",
     passive: true,
-    info: "",
+    info: "The Generative category is a set of passive PODs, meant purely for viewing enjoyment. Most of them work by randomly generating visuals from a predefined set of rules. So, each time the feel will be similar, but it will never repeat. Note that although these visuals are not interactive, you can still change parameters and attributes to have a large effect on what gets generated.",
     component: com("P5Canvas"),
     configuration: "GenerativeConfiguration",
     members: [
@@ -400,7 +400,7 @@ export const contents = [
         sketch: can("mandala"),
         date: new Date(2019, 1, 1),
         phrase: "Enjoy a randomly generated moving mandala.",
-        info: "This pod uses predefined rules to generate randomized mandala, with randomized motion. Concentric rings are formed with different colors and patterns. They each rotate and expand at changing rates, to provide a very interesting warping effect. Every fixed interval (or if you click), the mandala will regenerate itself to a new random design.",
+        info: "This POD uses predefined rules to generate randomized mandala, with randomized motion. Concentric rings are formed with different colors and patterns. They each rotate and expand at changing rates, to provide a very interesting warping effect. Every fixed interval (or if you click), the mandala will regenerate itself to a new random design.",
         parameters: [
           {
             tag: "axialSpeed",
@@ -479,7 +479,7 @@ export const contents = [
         sketch: can("maze-balls"),
         date: new Date(2019, 1, 1),
         phrase: "Watch balls bounce around the walls of a maze.",
-        info: "This pod uses an algorithm to randomly generate a maze. It then places a number of colored balls inside the maze with some speed. The balls then bounce off the walls, revealing the shape of the maze. There are also black balls which slightly erase the colors, to provide a more dynamic effect. This can look amazing with a high number of rows. Use \"Reset\" to generate a new empty random maze.",
+        info: "This POD uses an algorithm to randomly generate a maze. It then places a number of colored balls inside the maze with some speed. The balls then bounce off the walls, revealing the shape of the maze. There are also black balls which slightly erase the colors, to provide a more dynamic effect. This can look amazing with a high number of rows. Use \"Reset\" to generate a new empty random maze.",
         parameters: [
           {
             tag: "ballSize",
@@ -682,7 +682,7 @@ export const contents = [
     title: "Repetitive",
     thumbnail: "",
     passive: true,
-    info: "",
+    info: "This category is for looping visuals, that can repeat endlessly. These are not generated in real time, but instead are effectively just repeating video files played in your browser. These videos are programatically generated frame by frame, and then assembled together.",
     component: com("Repetitive"),
     configuration: "RepetitiveConfiguration",
     members: [

@@ -53,6 +53,19 @@
   justify-content: center;
 }
 
+.indexThumb {
+  color: orange;
+  font-size: 16px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.indexThumb p {
+  text-align: center;
+  hyphens: auto;
+}
+
 h4.line, h5.line, h6.line {
   width: 100%;
   text-align: center;

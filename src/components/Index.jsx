@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getContentFromTag } from "../scripts/organization";
 import { setCurrentElement, setCurrentInteractivity } from "../actions/interface";
+import IndexThumb from "./IndexThumb";
 
 class Index extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class Index extends React.Component {
         <h1 className="pageTitle">{content.title}</h1>
         <br />
         <p>{content.info}</p>
+        {content.members.map((member) => <IndexThumb member={member} category={content.tag} />)}
       </div>
     );
   }

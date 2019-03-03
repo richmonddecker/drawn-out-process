@@ -12,7 +12,7 @@ class HomePage extends React.Component {
         <p>
           Welcome,
           <span style={{color: "orange"}}> friend</span>!
-          This website is a technical artistic project by
+          This website is an open-source technical artistic project by
           <span style={{color: "orange"}}> Justin Richmond-Decker</span>. 
           The goal is to provide you with an immersive and captivating visual experience.
         </p>
