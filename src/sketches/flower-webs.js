@@ -15,7 +15,8 @@ const sketch = (p) => {
     sinePower: 4,
     hueCycles: 3,
     hueOffset: 0,
-    lineOpacity: 60
+    lineOpacity: 60,
+    easyMode: false
   }
 
   function flowerFun(n, r) {
@@ -131,7 +132,7 @@ const sketch = (p) => {
     p.stroke(hue, 1, 1, p.settings.lineOpacity / 100.0);
     let factor;
     let th;
-    for (let i = 0; i < p.settings.numPetals - 2; i++) {
+    for (let i = 0; i < p.settings.numPetals - (p.settings.easyMode ? 0 : 2); i++) {
       p.rotate(p.TWO_PI / p.settings.numPetals);
       p.beginShape();
       for (let j = 0; j < 2 * count2; j++) {

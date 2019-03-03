@@ -216,11 +216,13 @@ export const contents = [
         thumbnail: img("flower-webs.png"),
         sketch: can("flower-webs"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Draw web or feather-like patterns inside a flower.",
+        info: "Here you can create interesting designs inside of a flower shape. Web-like curves are drawn based on the location of the pointer, on every petal except where the pointer itself is. This adds an interesting challenge to produce desired patterns. With the petal ratio lowered, the flower looks more like a circle. The color is based on the angle of the pointer around the circle, and the webs are shaped to never leave the flower.",
         parameters: [
           {
             tag: "hueCycles",
             title: "Color Cycles",
+            info: "How many color cycles there are around the circle. The higher the value, the more sensitive the color is to changing mouse position.",
             default: 4,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -234,6 +236,7 @@ export const contents = [
           {
             tag: "hueOffset",
             title: "Color Offset",
+            info: "This is to shift the base hue by a percentage, to change what colors correspond to what point. For example, at 50%, what is normally red will be cyan.",
             default: 0,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -246,6 +249,7 @@ export const contents = [
           {
             tag: "lineOpacity",
             title: "Line Opacity",
+            info: "The opacity percentage of the lines drawn.",
             default: 100,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -258,6 +262,7 @@ export const contents = [
           {
             tag: "sinePower",
             title: "Web Power",
+            info: "This controls the roundness/squareness of the web shapes. For higher values, the webs appear more square.",
             default: 4,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -266,12 +271,20 @@ export const contents = [
               step: 1,
               strict: true
             }
+          },
+          {
+            tag: "easyMode",
+            title: "Easy Mode",
+            info: "This toggles easy mode, where the webs drawn fully enclose the circle, for more symmetry.",
+            default: false,
+            widget: wid("CheckboxWidget")
           }
         ],
         attributes: [
           {
             tag: "numPetals",
             title: "Number of Petals",
+            info: "The number of petals in the flower.",
             default: 5,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -284,6 +297,7 @@ export const contents = [
           {
             tag: "petalRatio",
             title: "Petal Ratio",
+            info: "How long the petals are compared to the size of the flower. At 0, it is just a circle.",
             default: 1,
             widget: wid("NumberWidget"),
             widgetProps: {
