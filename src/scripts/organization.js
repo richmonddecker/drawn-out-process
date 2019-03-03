@@ -326,13 +326,14 @@ export const contents = [
         thumbnail: img("pointers.png"),
         sketch: can("pointers"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Watch colorful lines follow you in waves.",
+        info: "These lines will move to point to your pointer, but only after they receive the signal to move. The farther away, the longer this takes, creating wave-like effects. The color of the lines depends on their own angle, as well as the location of your pointer. I highly encourage upping the Pointer Length for very interesting visuals. Also, try quickly clicking or tapping on different points of the screen.",
         parameters: [
           {
             tag: "length",
             title: "Pointer Length",
             default: 1,
-            info: "",
+            info: "The length of the pointers, as a fraction of their spacing.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0.25,
@@ -344,7 +345,7 @@ export const contents = [
             tag: "thickness",
             title: "Pointer Thickness",
             default: 2,
-            info: "",
+            info: "The thickness of the pointers, in pixels.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -356,7 +357,7 @@ export const contents = [
             tag: "speed",
             title: "Wave Speed",
             default: 10,
-            info: "",
+            info: "The speed at which information moves, essentially the speed of the waves.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 2,
@@ -370,7 +371,7 @@ export const contents = [
             tag: "count",
             title: "Pointer Count",
             default: 25,
-            info: "",
+            info: "How many rows of pointers there are.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -398,11 +399,13 @@ export const contents = [
         thumbnail: img("mandala.png"),
         sketch: can("mandala"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Enjoy a randomly generated moving mandala.",
+        info: "This pod uses predefined rules to generate randomized mandala, with randomized motion. Concentric rings are formed with different colors and patterns. They each rotate and expand at changing rates, to provide a very interesting warping effect. Every fixed interval (or if you click), the mandala will regenerate itself to a new random design.",
         parameters: [
           {
             tag: "axialSpeed",
             title: "Axial Speed",
+            info: "How fast the rings can rotate around their center.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -415,6 +418,7 @@ export const contents = [
           {
             tag: "petalSpeed",
             title: "Petal Speed",
+            info: "How fast the petals can grow and shrink.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -427,6 +431,7 @@ export const contents = [
           {
             tag: "radialSpeed",
             title: "Radial Speed",
+            info: "How fast the rings can expand and shrink.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -439,6 +444,7 @@ export const contents = [
           {
             tag: "changeRate",
             title: "Change Rate",
+            info: "How often (how many times per minute) the pattern of the mandala regenerates.",
             default: 5,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -453,6 +459,7 @@ export const contents = [
           {
             tag: "numRings",
             title: "Number of Rings",
+            info: "The number of concentric rings to render.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -471,13 +478,14 @@ export const contents = [
         thumbnail: img("maze-balls.png"),
         sketch: can("maze-balls"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Watch balls bounce around the walls of a maze.",
+        info: "This pod uses an algorithm to randomly generate a maze. It then places a number of colored balls inside the maze with some speed. The balls then bounce off the walls, revealing the shape of the maze. There are also black balls which slightly erase the colors, to provide a more dynamic effect. This can look amazing with a high number of rows. Use \"Reset\" to generate a new empty random maze.",
         parameters: [
           {
             tag: "ballSize",
             title: "Ball Size (%)",
             default: 20,
-            info: "",
+            info: "The size of the ball as a percentage of the row size.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -490,7 +498,7 @@ export const contents = [
             tag: "ballSpeed",
             title: "Ball Speed",
             default: 3,
-            info: "",
+            info: "How fast (on average) the balls move around the maze.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0.5,
@@ -502,7 +510,7 @@ export const contents = [
             tag: "opacity",
             title: "Opacity",
             default: 5,
-            info: "",
+            info: "The opacity percentage of the balls. With a low opacity (<10), we see interesting fading/blending effects.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -513,8 +521,8 @@ export const contents = [
           {
             tag: "darkSide",
             title: "Dark Side",
-            default: false,
-            info: "",
+            default: true,
+            info: "Whether or not to include the erasing effect of the black balls.",
             widget: wid("CheckboxWidget")
           }
         ],
@@ -523,7 +531,7 @@ export const contents = [
             tag: "numRows",
             title: "Number of Rows",
             default: 10,
-            info: "",
+            info: "The number of rows to generate for this maze. The number of columns is determined accordingly.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 2,
@@ -536,7 +544,7 @@ export const contents = [
             tag: "wallSize",
             title: "Wall Size (%)",
             default: 25,
-            info: "",
+            info: "How thick the walls are, as a percentage of the row size. With a higher value, the path for the balls is narrower",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -549,7 +557,7 @@ export const contents = [
             tag: "ballDensity",
             title: "Ball Density (%)",
             default: 25,
-            info: "",
+            info: "How many balls (on average) per unit square. A higher number will cause the maze to fill in much faster.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
@@ -565,13 +573,14 @@ export const contents = [
         thumbnail: img("dvd-sim.png"),
         sketch: can("dvd-sim"),
         date: new Date(2019, 1, 1),
-        info: "",
+        phrase: "Enjoy everyone's favorite living room pasttime.",
+        info: "Watch a piece of colored text bounce around the screen on a simple linear trajectory, just like those DVD screens. Wait for it to hit the corner and lose your shit.",
         parameters: [
           {
             tag: "string",
             title: "Text",
             default: "GOOSE",
-            info: "",
+            info: "The text to display. Always uses capital letters.",
             map: (str) => str.toUpperCase(),
             widget: wid("TextWidget"),
             widgetProps: {}
@@ -580,7 +589,7 @@ export const contents = [
             tag: "size",
             title: "Font Size",
             default: 100,
-            info: "",
+            info: "How large the text is.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 5,
@@ -592,7 +601,7 @@ export const contents = [
             tag: "font",
             title: "Font",
             default: "Verdana",
-            info: "",
+            info: "What font face to use to display the text. (Please choose Comic Sans.)",
             widget: wid("ChoiceWidget"),
             widgetProps: {
               options: [
@@ -632,7 +641,7 @@ export const contents = [
             tag: "color",
             title: "Color",
             default: "#FF0000",
-            info: "",
+            info: "What color to display the text.",
             widget: wid("ColorWidget"),
             widgetProps: {
               min: 0,
@@ -644,7 +653,7 @@ export const contents = [
             tag: "angle",
             title: "Angle",
             default: 45,
-            info: "",
+            info: "Controls what angle the text bounces at. Usually this is 45, but go wild.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -656,7 +665,7 @@ export const contents = [
             tag: "speed",
             title: "Speed",
             default: 200,
-            info: "",
+            info: "How fast the text bounces around.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
