@@ -34,6 +34,11 @@ export const contents = [
         tag: "personal",
         title: "Personal",
         component: pag("Personal")
+      },
+      {
+        tag: "technical",
+        title: "Technical",
+        component: pag("Technical")
       }
     ]
   },
