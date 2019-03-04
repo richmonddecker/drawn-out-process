@@ -54,16 +54,24 @@
 }
 
 .indexThumb {
-  color: orange;
   font-size: 16px;
   text-align: center;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  width: 200px;
 }
 
 .indexThumb p {
   text-align: center;
   hyphens: auto;
+}
+
+.indexThumb a {
+  color: orange;
+}
+
+.indexGrid {
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fill, 200px);
 }
 
 h4.line, h5.line, h6.line {

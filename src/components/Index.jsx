@@ -12,7 +12,9 @@ class Index extends React.Component {
         <h1 className="pageTitle">{content.title}</h1>
         <br />
         <p>{content.info}</p>
-        {content.members.map((member) => <IndexThumb member={member} category={content.tag} />)}
+        <div className="indexGrid">
+          {content.members.map((member) => <IndexThumb member={member} category={content.tag} />)}
+        </div>
       </div>
     );
   }

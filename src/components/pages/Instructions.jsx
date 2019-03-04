@@ -1,7 +1,7 @@
 import React from "react";
 
 const Instructions = (props) => (
-  <div className="page">
+  <div className="page home">
     <h1 className="pageTitle">Instructions</h1>
     <br/>
     <h2 className="sectionHead">Navigation Bar</h2>

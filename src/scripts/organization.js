@@ -24,6 +24,16 @@ export const contents = [
         tag: "instructions",
         title: "Instructions",
         component: pag("Instructions")
+      },
+      {
+        tag: "purpose",
+        title: "Purpose",
+        component: pag("Purpose")
+      },
+      {
+        tag: "personal",
+        title: "Personal",
+        component: pag("Personal")
       }
     ]
   },
