@@ -28,7 +28,11 @@ const state = {
     },
     slideshow: 0,
     timer: 0,
-    info: false
+    info: false,
+    window: {
+      width: 0,
+      height: 0
+    }
   },
   configuration: {
     fullScreen: false,

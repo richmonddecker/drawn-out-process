@@ -85,6 +85,11 @@ export default (state = {}, action) => {
         ...state,
         info: !state.info
       }
+    case "UPDATE_SIZE":
+      return {
+        ...state,
+        window: action.payload
+      }
     default:
       return state
   }

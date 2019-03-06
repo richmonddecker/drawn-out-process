@@ -8,14 +8,14 @@ import { resetTrigger } from "../actions/trigger";
 class Repetitive extends React.Component {
   constructor(props) {
     super(props);
-    this.updateDimensions = this.updateDimensions.bind(this);
     this.handleTriggers = this.handleTriggers.bind(this);
   }
 
   render() {
+    const dimension = Math.min(this.props.width, this.props.height);
     return (
       <div className="fillScreen">
-        <video id="repetitiveVideo" src={this.props.video} height={this.state.height} width={this.state.width} autoPlay loop muted>
+        <video id="repetitiveVideo" src={this.props.video} height={dimension} width={dimension} autoPlay loop muted>
         </video>
       </div>
     );
@@ -34,33 +34,18 @@ class Repetitive extends React.Component {
     }
   }
 
-  updateDimensions() {
-    const dimension = Math.min(window.innerWidth, window.innerHeight);
-    this.setState({width: dimension, height: dimension});
-  }
-
   componentWillReceiveProps(newProps) {
     this.handleTriggers(newProps);
   }
 
-  componentWillMount() {
-    this.updateDimensions();
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
-  }
 }
 
 // TODO: Make this stuff have an effect.
 
 const mapStateToProps = (state) => ({
   save: state.trigger.saveFrame,
-  reset: state.trigger.resetFrame
+  reset: state.trigger.resetFrame,
+  ...state.interface.window
 });
 
 const mapDispatchToProps = (dispatch) => ({

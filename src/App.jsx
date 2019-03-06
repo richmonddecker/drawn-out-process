@@ -5,9 +5,10 @@ import Fullscreen from "react-full-screen";
 import Navigation from "./components/Navigation";
 import Application from "./components/Application";
 import Configuration from "./components/Configuration";
+import WidthWarning from "./components/WidthWarning";
 
 import { setFullScreen } from "./actions/configuration";
-import { setOpenNavSection } from "./actions/interface";
+import { setOpenNavSection, updateSize } from "./actions/interface";
 
 import { contents } from "./scripts/organization";
 
@@ -15,7 +16,8 @@ import { contents } from "./scripts/organization";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.updateNavSection = this.updateNavSection.bind(this)
+    this.updateNavSection = this.updateNavSection.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
 
   updateNavSection(category) {
@@ -28,8 +30,21 @@ class App extends React.Component {
     }
   }
 
+  handleResize() {
+    this.props.updateSize(window.innerWidth, window.innerHeight);
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
   componentWillMount() {
     this.updateNavSection(this.props.category);
+    this.props.updateSize(window.innerWidth, window.innerHeight);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,6 +63,7 @@ class App extends React.Component {
           <Navigation isOpen={this.props.barsOpen} />
           <Application />
           <Configuration isOpen={this.props.barsOpen} />
+          <WidthWarning />
         </Fullscreen>
       </div>
     );
@@ -62,7 +78,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setFullScreen: (full) => dispatch(setFullScreen(full)),
-  setOpenNavSection: (section) => dispatch(setOpenNavSection(section))
+  setOpenNavSection: (section) => dispatch(setOpenNavSection(section)),
+  updateSize: (width, height) => dispatch(updateSize(width, height))
 });
 
 export default connect(

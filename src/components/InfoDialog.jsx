@@ -21,9 +21,9 @@ const InfoDialog = (props) => {
   return (
     <Modal
       visible={props.isOpen}
-      width={`${window.innerWidth - 500}`}
-      height={`${window.innerHeight - 100}`}
-      onClickAway={props.close}
+      width={`${props.window.width - 500}`}
+      height={`${props.window.height - 100}`}
+      
     >
       <div className="dialogBox">
         <h2>{content.member.title}</h2>
@@ -58,7 +58,8 @@ const InfoDialog = (props) => {
 const mapStateToProps = (state) => ({
   isOpen: state.interface.info,
   category: state.interface.category,
-  element: state.interface.element
+  element: state.interface.element,
+  window: state.interface.window
 });
 
 const mapDispatchToProps = (dispatch) => ({

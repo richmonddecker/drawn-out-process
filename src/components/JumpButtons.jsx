@@ -51,7 +51,6 @@ const mapStateToProps = (state, ownProps) => {
   const nextMember = getContentFromTags(state.interface.next.category, state.interface.next.element);
   const previousMember = getContentFromTags(state.interface.previous.category, state.interface.previous.element);
   if (!nextMember || !previousMember) {
-    console.log("DERES NUTHIN")
     return {
       interactivity: state.interface.interactivity,
       nextUrl: "",

@@ -70,3 +70,8 @@ export const incrementTimer = () => ({
 export const toggleInfo = () => ({
   type: "TOGGLE_INFO"
 });
+
+export const updateSize = (width, height) => ({
+  type: "UPDATE_SIZE",
+  payload: {width, height}
+});
