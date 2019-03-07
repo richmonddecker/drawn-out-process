@@ -37,6 +37,10 @@ const Technical = (props) => (
       But if you're masochistic enough to explore it... As far as it interests you or is useful to you, you are welcome to view and use the code, and adapt anything how you feel.
       Of course, please be nice and credit me or this website if you do happen to use it.
     </p>
+    <h2 className="sectionHead">Credit</h2>
+    <p>
+      The navigation icons were made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/"          title="Flaticon">www.flaticon.com</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/"          title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+    </p>
   </div>
 );
 

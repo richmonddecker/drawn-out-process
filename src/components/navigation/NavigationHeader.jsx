@@ -6,7 +6,7 @@ import { CardHeader } from "reactstrap";
 
 class NavigationHeader extends React.Component {
   render() {
-    let style = {"cursor": "pointer"};
+    let style = {"cursor": this.props.active && this.props.open ? "default": "pointer"};
     if (this.props.active) {
       style = {...style, "backgroundColor": "purple", "color": "white", "fontWeight": "bold"};
     } else if (this.props.parental && !this.props.invalidUrl) {

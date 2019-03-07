@@ -23,7 +23,7 @@ const InfoDialog = (props) => {
       visible={props.isOpen}
       width={`${props.window.width - 500}`}
       height={`${props.window.height - 100}`}
-      
+      onClickAway={props.close}
     >
       <div className="dialogBox">
         <h2>{content.member.title}</h2>

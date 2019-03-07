@@ -1,5 +1,6 @@
 const vid = name => require(`../videos/${name}`);
 const img = name => require(`../images/index/${name}`);
+const icn = name => require(`../images/icon/${name}`);
 const com = name => require(`../components/${name}`).default;
 const can = name => require(`../sketches/${name}`).default;
 const wid = name => require("../components/widgets")[name];
@@ -23,22 +24,26 @@ export const contents = [
       {
         tag: "instructions",
         title: "Instructions",
-        component: pag("Instructions")
+        component: pag("Instructions"),
+        thumbnail: icn("instruction.png")
       },
       {
         tag: "purpose",
         title: "Purpose",
-        component: pag("Purpose")
+        component: pag("Purpose"),
+        thumbnail: icn("goal.png")
       },
       {
         tag: "personal",
         title: "Personal",
-        component: pag("Personal")
+        component: pag("Personal"),
+        thumbnail: icn("question.png")
       },
       {
         tag: "technical",
         title: "Technical",
-        component: pag("Technical")
+        component: pag("Technical"),
+        thumbnail: icn("computer.png")
       }
     ]
   },

@@ -3,7 +3,7 @@ import NumericInput from "react-numeric-input";
 import Dropdown from "react-dropdown";
 import Switch from "react-switch";
 import "react-dropdown/style.css";
-import { SketchPicker } from "react-color";
+import { HuePicker } from "react-color";
 
 export const NumberWidget = (props) => (
   <NumericInput
@@ -35,7 +35,7 @@ export class TextWidget extends React.Component {
 
 export class ColorWidget extends React.Component {
   render() {
-    return <SketchPicker color={this.props.value} {...this.props} />;
+    return <HuePicker width={200} color={this.props.value} {...this.props} />;
   }
 
   static map(thing) {
