@@ -17,7 +17,9 @@ class HomePage extends React.Component {
           The goal is to provide you with an immersive and captivating visual experience.
         </p>
         <p>
-          The site features both interactive and passive content, and gives you a high degree of control to curate and customize your own session.
+          The site features both interactive and passive content elements,
+          <span style={{color: "orange"}}> called PODs</span>
+          , and gives you a high degree of control to curate and customize your own session.
           Here
           <span style={{color: "orange"}}> you are encouraged to play around with the configurations</span>,
           to see what interesting effects you can achieve.

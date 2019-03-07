@@ -39,7 +39,7 @@ const state = {
     barTabs: true,
     barLock: false,
     squareScreen: false,
-    keepCategory: true,
+    keepCategory: false,
     shuffle: false
   },
   trigger: {

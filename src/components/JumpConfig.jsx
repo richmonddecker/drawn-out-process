@@ -11,7 +11,7 @@ const JumpConfig = (props) => (
       outline={!props.keepCategory}
       onClick={props.toggleKeepCategory}
     >
-      {"Category "}{props.keepCategory ? "▶" : "⏩"}
+      {"One Cat. "}{props.keepCategory ? "▶" : "⏩"}
     </Button>
     <Button
       className="halfButton"
