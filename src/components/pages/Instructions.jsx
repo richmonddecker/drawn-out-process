@@ -41,8 +41,22 @@ const Instructions = (props) => (
     </p>
     <h2 className="sectionHead">Key Shortcuts</h2>
     <p>
-      This section is totally optional, and only relevant for computer viewing.
+      This section is totally optional, and only relevant for computer viewing. These keyboard shortcuts work when the focus
+      if off the sidebars. That is, once you have clicked on a page or POD. Lower or upper case work.
     </p>
+    <ul style={{"color": "orange"}}>
+      <li>F – toggle full screen</li>
+      <li>B – lock/unlock the sidebars</li>
+      <li>T – toggle on/off the side tabs</li>
+      <li>X – toggle on/off "Square Screen" mode</li>
+      <li>R – reset the POD</li>
+      <li>S – save the current canvas</li>
+      <li>C – toggle "One Category" mode</li>
+      <li>M – toggle the shuffle mode in navigation</li>
+      <li>P – jump to the previous POD</li>
+      <li>N – jump to the next POD</li>
+      <li>I – display info about the current POD</li>
+    </ul>
   </div>
 );
 

@@ -158,8 +158,8 @@ const sketch = (p) => {
       let r1 = r2 - diff;
       let petal = petals[p.floor(p.random(petals.length))];
       let count = counts[p.floor(p.random(counts.length))];
-      let cp = p.color(p.random(255), 255, 255);
-      let cr = p.color(p.random(255), 255, 255);
+      let cp = p.color(p.random(1), 1, 1);
+      let cr = p.color(p.random(1), 1, 1);
       rings.push(new Ring(new petal(cp), p.TWO_PI / count, r1, r2, cr));
     }
     return rings;
@@ -253,7 +253,7 @@ const sketch = (p) => {
 
   function makeChange() {
     // Implements the change by generating a random mandala.
-    centColor = p.random(255);
+    centColor = p.random(1);
     p.translate(p.width/2, p.height/2)
     diagonal = p.mag(p.width/2, p.height/2);
     rings = randomFlower(diagonal, p.settings.numRings);
@@ -269,7 +269,7 @@ const sketch = (p) => {
   }
 
   p.setup = function() {
-    p.colorMode(p.HSB);
+    p.colorMode(p.HSB, 1);
     const canvas = getCanvasSize();
     p.createCanvas(canvas.width, canvas.height);
     diagonal = p.mag(p.width/2, p.height/2);
@@ -296,7 +296,7 @@ const sketch = (p) => {
       factspeeds[i].step();
       rings[i].drawRing();
     }
-    p.fill(centColor, 255, 255);
+    p.fill(centColor, 1, 1);
     (new Circle(radiiPairs[radiiPairs.length - 1][1])).drawCircle();
     radii.alter(ellapsed);
     checkChange();
