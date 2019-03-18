@@ -61,7 +61,8 @@ export const contents = [
         title: "Chord Art",
         thumbnail: img("chord-art.png"),
         sketch: can("chord-art"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Draw colorful strings across a circular surface.",
         info: "This POD allows you to make colorful string art on a circular canvas. When you click on a point, lines are generated randomly to fill in an angled section around this point. The color changes based on the angle around the circle. Closer to the center, the angle span is greater, and the lines less colorful. By changing the controls, you can produce a large number of different styles.",
         parameters: [
@@ -158,7 +159,8 @@ export const contents = [
         title: "Polystrings",
         thumbnail: img("polystrings.png"),
         sketch: can("polystrings"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Draw using orthogonal lines inside a polygon.",
         info: "Here we explore the effects of orthogonal lines inside a polygon. When you click the mouse inside the polygon, a line will be drawn to project onto each edge possible. The color of the line depends on its length. Tap or drag your pointer around to see what interesting patterns you can make.",
         parameters: [
@@ -235,7 +237,8 @@ export const contents = [
         title: "Flower Webs",
         thumbnail: img("flower-webs.png"),
         sketch: can("flower-webs"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Draw web or feather-like patterns inside a flower.",
         info: "Here you can create interesting designs inside of a flower shape. Web-like curves are drawn based on the location of the pointer, on every petal except where the pointer itself is. This adds an interesting challenge to produce desired patterns. With the petal ratio lowered, the flower looks more like a circle. The color is based on the angle of the pointer around the circle, and the webs are shaped to never leave the flower.",
         parameters: [
@@ -341,11 +344,72 @@ export const contents = [
     configuration: "CreativeConfiguration",
     members: [
       {
+        tag: "doppler",
+        title: "Doppler",
+        thumbnail: img("doppler.png"),
+        sketch: can("doppler"),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
+        phrase: "Send circular waves outward and watch them interact.",
+        info: "You've probably played with something like this before, but I promise this one is way trippier. It's fairly self explanatory; just watch colorful circles emanate outwards from your mouse pointer. Move it around and watch them interact. While the pointer is held down, waves will cycle through the color spectrum. Otherwise, their colors are random.",
+        parameters: [
+          {
+            tag: "frequency",
+            title: "Wave Frequency",
+            default: 5,
+            info: "The number of waves generated per second.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.5,
+              max: 20,
+              step: 0.5
+            }
+          },
+          {
+            tag: "velocity",
+            title: "Wave Velocity",
+            default: 100,
+            info: "The propagation velocity of the wave, in pixels per second.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 25,
+              max: 1000,
+              step: 25
+            }
+          },
+          {
+            tag: "thickness",
+            title: "Wave Thickness",
+            default: 3,
+            info: "The thickness of the circles drawn.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 50,
+              step: 2
+            }
+          },
+          {
+            tag: "opacity",
+            title: "Wave Opacity",
+            default: 100,
+            info: "The opacity percentage of the circles.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 3
+            }
+          },
+        ]
+      },
+      {
         tag: "pointers",
         title: "Pointers",
         thumbnail: img("pointers.png"),
         sketch: can("pointers"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Watch colorful lines follow you in waves.",
         info: "These lines will move to point to your pointer, but only after they receive the signal to move. The farther away, the longer this takes, creating wave-like effects. The color of the lines depends on their own angle, as well as the location of your pointer. I highly encourage upping the Pointer Length for very interesting visuals. Also, try quickly clicking or tapping on different points of the screen.",
         parameters: [
@@ -418,7 +482,8 @@ export const contents = [
         title: "Mandala",
         thumbnail: img("mandala.png"),
         sketch: can("mandala"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Enjoy a randomly generated moving mandala.",
         info: "This POD uses predefined rules to generate randomized mandala, with randomized motion. Concentric rings are formed with different colors and patterns. They each rotate and expand at changing rates, to provide a very interesting warping effect. Every fixed interval (or if you click), the mandala will regenerate itself to a new random design.",
         parameters: [
@@ -497,7 +562,8 @@ export const contents = [
         title: "Maze Balls",
         thumbnail: img("maze-balls.png"),
         sketch: can("maze-balls"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Watch balls bounce around the walls of a maze.",
         info: "This POD uses an algorithm to randomly generate a maze. It then places a number of colored balls inside the maze with some speed. The balls then bounce off the walls, revealing the shape of the maze. There are also black balls which slightly erase the colors, to provide a more dynamic effect. This can look amazing with a high number of rows. Use \"Reset\" to generate a new empty random maze.",
         parameters: [
@@ -592,7 +658,8 @@ export const contents = [
         title: "DVD Simulator",
         thumbnail: img("dvd-sim.png"),
         sketch: can("dvd-sim"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         phrase: "Enjoy everyone's favorite living room pasttime.",
         info: "Watch a piece of colored text bounce around the screen on a simple linear trajectory, just like those DVD screens. Wait for it to hit the corner and lose your shit.",
         parameters: [
@@ -711,7 +778,8 @@ export const contents = [
         title: "Plasma Ball",
         thumbnail: img("plasma-ball.png"),
         video: vid("plasma-ball.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       },
       {
@@ -719,7 +787,8 @@ export const contents = [
         title: "Hexagon Star",
         thumbnail: img("hexagon-star.png"),
         video: vid("hexagon-star.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       },
       {
@@ -727,7 +796,8 @@ export const contents = [
         title: "XT-Square",
         thumbnail: img("xt-square.png"),
         video: vid("xt-square.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       },
       {
@@ -735,7 +805,8 @@ export const contents = [
         title: "Kochpinski",
         thumbnail: img("kochpinski.png"),
         video: vid("kochpinski.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       },
       {
@@ -743,7 +814,8 @@ export const contents = [
         title: "Snowflake",
         thumbnail: img("snowflake.png"),
         video: vid("snowflake.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       },
       {
@@ -751,7 +823,8 @@ export const contents = [
         title: "Pentaspiral",
         thumbnail: img("pentaspiral.png"),
         video: vid("pentaspiral.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       },
       {
@@ -759,7 +832,8 @@ export const contents = [
         title: "Bouncy Rose",
         thumbnail: img("bouncy-rose.png"),
         video: vid("bouncy-rose.mp4"),
-        date: new Date(2019, 1, 1),
+        date: new Date(2019, 3, 7),
+        author: "Justin Richmond-Decker",
         info: ""
       }
     ]
