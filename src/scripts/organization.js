@@ -773,23 +773,62 @@ export const contents = [
         info: "Watch a piece of colored text bounce around the screen on a simple linear trajectory, just like those DVD screens. Wait for it to hit the corner and lose your shit.",
         parameters: [
           {
-            tag: "string",
-            title: "Text",
-            default: "GOOSE",
-            info: "The text to display. Always uses capital letters.",
-            map: (str) => str.toUpperCase(),
-            widget: wid("TextWidget"),
-            widgetProps: {}
-          },
-          {
-            tag: "size",
-            title: "Font Size",
-            default: 100,
-            info: "How large the text is.",
+            tag: "maxFrequency",
+            title: "Frequency",
+            default: 1,
+            info: "",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 5,
-              max: 300,
+              min: 0,
+              max: 5,
+              step: 0.5
+            }
+          },
+          {
+            tag: "maxAmplitude",
+            title: "Oscillation",
+            default: 0.5,
+            info: "",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 1,
+              step: 0.1
+            }
+          },
+          {
+            tag: "maxLoops",
+            title: "Max Loops",
+            default: 5,
+            info: ".",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 20,
+              step: 1
+            }
+          },
+          {
+            tag: "maxWaves",
+            title: "Max Waves",
+            default: 2,
+            info: ".",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 10,
+              step: 0.5
+            }
+          },
+          {
+            tag: "numBalls",
+            title: "Number of Balls",
+            default: 50,
+            info: ".",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 10,
+              max: 200,
               step: 5
             }
           }

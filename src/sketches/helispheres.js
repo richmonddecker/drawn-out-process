@@ -2,6 +2,8 @@ import { Driftable } from "./utility/randomness";
 
 const sketch = (p) => {
 
+  // TODO: Fix loops so things don't look so jittery. Also, make it start cewntered. Also, not all red.
+
   let sizes = {};
   let helices = {};
 
@@ -11,12 +13,15 @@ const sketch = (p) => {
 
   p.isSquare = false;
   p.settings = {
-    maxFrequency: 0,
+    maxFrequency: 1,
+    maxAmplitude: 0.5,
     maxLoops: 10,
     maxWaves: 2,
-    numBalls: 50,
-    ballSize: 10,
-    widthFactor: 0.3
+    numBalls: 50
+  }
+
+  function getBallSize() {
+    return 3 * theLength * (1 - p.settings.maxAmplitude) / p.settings.numBalls;
   }
 
   class Sphere {
@@ -60,7 +65,7 @@ const sketch = (p) => {
 
     currentValues() {
       return ({
-        amplitude: this.amplitude.value * p.cos(this.currentPhase),
+        amplitude: p.settings.maxAmplitude * this.amplitude.value * p.cos(this.currentPhase),
         radius: this.radius.value,
         waves: this.waves.value
       });
@@ -87,7 +92,7 @@ const sketch = (p) => {
     }
 
     currentValues() {
-      return {length: this.length.value * (1 + this.amplitude.value * p.sin(this.currentPhase))};
+      return {length: this.length.value * (1 + p.settings.maxAmplitude * this.amplitude.value * p.sin(this.currentPhase))};
     }
   }
 
@@ -141,7 +146,6 @@ const sketch = (p) => {
       this.number = number;
       this.ballSize = ballSize;
       this.loops = loops;
-      console.log("SUP: ", this.loops, this.loops.value)
     }
 
     step() {
@@ -151,7 +155,7 @@ const sketch = (p) => {
     }
 
     currentValues() {
-      console.log("BUDDY: ", this.number.value, this.ballSize.value)
+      console.log("BUDDY: ", this.number.value, this.ballSize)
       return ({
         number: this.number.value,
         ballSize: this.ballSize.value,
@@ -195,15 +199,16 @@ const sketch = (p) => {
     mapValues(vals) {
       vals.loops *= p.settings.maxLoops;
       vals.colorCycles *= p.settings.numBalls / 10;
-      vals.radius *= p.settings.widthFactor * theLength;
+      vals.radius *= 0.3 * theLength;
       vals.length *= theLength;
       vals.waves *= p.settings.maxWaves;
+      vals.ballSize *= getBallSize();
+      vals.number *= p.settings.numBalls;
       return vals;
     }
 
     getSpheres() {
       const vals = this.currentValues();
-      //console.log("SHEEP", vals)
       let spheres = [];
       for (let i = 0; i < vals.number; i++) {
         // Calculate coordinate
@@ -228,16 +233,16 @@ const sketch = (p) => {
 
   function makeHelix() {
     return new Helix(
-      new (Driftable(p))(-1, 1, 0.05),
+      new (Driftable(p))(.9, 1.1, 0.01),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(-1, 1, 0.1),
-      new (Driftable(p))(-1, 1, 0.05),
+      new (Driftable(p))(.9, 1.1, 0.01),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(-1, 1, 0.1),
-      new (Driftable(p))(p.settings.numBalls, p.settings.numBalls, 0),
-      new (Driftable(p))(p.settings.ballSize, p.settings.ballSize, 0),
+      new (Driftable(p))(1, 1, 0),
+      new (Driftable(p))(1, 1, 0),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(-1, 1, 0.1)
@@ -277,12 +282,6 @@ const sketch = (p) => {
     p.orbitControl();
 
     p.pointLight(0, 0, 1, 0, 0, 0);
-    p.pointLight(0, 0, 1, 0, 0, 130);
-    p.pointLight(0, 0, 1, 0, 0, 140);
-    p.pointLight(0, 0, 1, 0, 0, 150);
-    p.pointLight(0, 0, 1, 0, 0, 160);
-    p.pointLight(0, 0, 1, 0, 0, 170);
-    p.pointLight(0, 0, 1, 0, 0, 180);
     p.pointLight(0, 0, 1, 0, 0, 0);
     p.pointLight(0, 0, 1, 0, 0, 0);
     p.pointLight(0, 0, 1, 0, 0, 0);
@@ -292,6 +291,8 @@ const sketch = (p) => {
     helices.x.step();
     helices.y.step();
     helices.z.step();
+
+    console.log("SIZE: ", helices.z.getSpheres().length);
 
     //console.log("HEY: ", helices.z, helices.z.getSpheres())
     helices.z.getSpheres().forEach((sphere) => sphere.draw());
