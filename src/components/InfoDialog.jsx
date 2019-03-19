@@ -50,7 +50,7 @@ const InfoDialog = (props) => {
           :
             null
         }
-        <h5>Released: <i>{content.member.date.toLocaleDateString()}</i></h5>
+        <h5>Released: <i>{content.member.date ? content.member.date.toLocaleDateString() : ""}</i></h5>
         <h5>Author: <b>{content.member.author}</b></h5>
       </div>
     </Modal>

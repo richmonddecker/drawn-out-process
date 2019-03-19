@@ -761,6 +761,39 @@ export const contents = [
             }
           }
         ]
+      },
+      {
+        tag: "helispheres",
+        title: "Helispheres",
+        thumbnail: img("dvd-sim.png"),
+        sketch: can("helispheres"),
+        date: new Date(2019, 2, 7),
+        author: "Justin Richmond-Decker",
+        phrase: "Enjoy everyone's favorite living room pasttime.",
+        info: "Watch a piece of colored text bounce around the screen on a simple linear trajectory, just like those DVD screens. Wait for it to hit the corner and lose your shit.",
+        parameters: [
+          {
+            tag: "string",
+            title: "Text",
+            default: "GOOSE",
+            info: "The text to display. Always uses capital letters.",
+            map: (str) => str.toUpperCase(),
+            widget: wid("TextWidget"),
+            widgetProps: {}
+          },
+          {
+            tag: "size",
+            title: "Font Size",
+            default: 100,
+            info: "How large the text is.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 5,
+              max: 300,
+              step: 5
+            }
+          }
+        ]
       }
     ]
   },
