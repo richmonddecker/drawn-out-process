@@ -18,6 +18,7 @@ class App extends React.Component {
     super(props);
     this.updateNavSection = this.updateNavSection.bind(this);
     this.handleResize = this.handleResize.bind(this);
+    this.onFullScreenChange = this.onFullScreenChange.bind(this);
   }
 
   updateNavSection(category) {
@@ -53,12 +54,18 @@ class App extends React.Component {
     }
   }
 
+  onFullScreenChange(isFull) {
+    if (!isFull) {
+      this.props.setFullScreen(isFull);
+    }
+  }
+
   render() {
     return (
       <div>
         <Fullscreen
           enabled={this.props.fullScreen}
-          onChange={isFull => this.props.setFullScreen(isFull)}
+          onChange={this.onFullScreenChange}
         >
           <Navigation isOpen={this.props.barsOpen} />
           <Application />

@@ -67,6 +67,9 @@ class P5Canvas extends React.Component {
     }
     this.passProps(newProps);
     this.handleTriggers(newProps);
+    if (this.wrapper.childNodes.length > 1) {
+      this.wrapper.removeChild(this.wrapper.childNodes[0]);
+    }
   }
 
   componentWillUnmount() {

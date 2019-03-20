@@ -765,30 +765,30 @@ export const contents = [
       {
         tag: "helispheres",
         title: "Helispheres",
-        thumbnail: img("dvd-sim.png"),
+        thumbnail: img("helispheres.png"),
         sketch: can("helispheres"),
-        date: new Date(2019, 2, 7),
+        date: new Date(2019, 2, 20),
         author: "Justin Richmond-Decker",
-        phrase: "Enjoy everyone's favorite living room pasttime.",
-        info: "Watch a piece of colored text bounce around the screen on a simple linear trajectory, just like those DVD screens. Wait for it to hit the corner and lose your shit.",
+        phrase: "Watch coloful helices warp and flow in 3D.",
+        info: "This is an adaptation of the first project I made in PyOpenGL. We define a helix of spheres in three dimensional space, which a ton of variables. These include, number of loops, number of color cycles, oscillation frequency, radial oscillation, and more. We have these variables vary over time, to produce very randomized but patterned behavior. Pop three of these babies onto the three axial directions, and you get some really nice effects. You can turn them around in space, and zoom in and out.",
         parameters: [
           {
             tag: "maxFrequency",
             title: "Frequency",
             default: 1,
-            info: "",
+            info: "This is the frequency of change/oscillation of the helices. Higher numbers mean faster motion.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
-              max: 5,
-              step: 0.5
+              max: 3,
+              step: 0.2
             }
           },
           {
             tag: "maxAmplitude",
             title: "Oscillation",
             default: 0.5,
-            info: "",
+            info: "How significant the size expansion/contraction is of the oscillation.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -800,7 +800,7 @@ export const contents = [
             tag: "maxLoops",
             title: "Max Loops",
             default: 5,
-            info: ".",
+            info: "The maximum number of loops for a helix.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
@@ -809,27 +809,27 @@ export const contents = [
             }
           },
           {
-            tag: "maxWaves",
-            title: "Max Waves",
-            default: 2,
-            info: ".",
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 10,
-              step: 0.5
-            }
-          },
-          {
             tag: "numBalls",
             title: "Number of Balls",
             default: 50,
-            info: ".",
+            info: "The number of balls per helix.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 10,
-              max: 200,
-              step: 5
+              max: 400,
+              step: 10
+            }
+          },
+          {
+            tag: "ballSize",
+            title: "Ball Size",
+            default: 1,
+            info: "The relative ball size (compared to a calculated default). With higher values, the balls can overlap, creating a cool effect.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.2,
+              max: 5,
+              step: 0.2
             }
           }
         ]

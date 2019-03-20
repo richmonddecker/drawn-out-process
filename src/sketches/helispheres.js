@@ -16,12 +16,12 @@ const sketch = (p) => {
     maxFrequency: 1,
     maxAmplitude: 0.5,
     maxLoops: 10,
-    maxWaves: 2,
-    numBalls: 50
+    numBalls: 50,
+    ballSize: 1
   }
 
   function getBallSize() {
-    return 3 * theLength * (1 - p.settings.maxAmplitude) / p.settings.numBalls;
+    return 3 * p.settings.ballSize * theLength * (1 - p.settings.maxAmplitude / 2) / p.settings.numBalls / 2;
   }
 
   class Sphere {
@@ -92,27 +92,42 @@ const sketch = (p) => {
     }
 
     currentValues() {
-      return {length: this.length.value * (1 + p.settings.maxAmplitude * this.amplitude.value * p.sin(this.currentPhase))};
+      return {length: this.length.value * (1 + 0.5 * p.settings.maxAmplitude * this.amplitude.value * p.sin(this.currentPhase))};
     }
   }
 
   class RotationInfo {
-    constructor(frequency) {
-      this.frequency = frequency;
+    constructor(rotationFrequency, loopFrequency) {
+      this.rotationFrequency = rotationFrequency;
+      this.loopFrequency = loopFrequency;
       this.currentPhase = p.random(p.TWO_PI);
+      this.currentLoops = p.random(-1, 1);
       this.lastMillis = p.millis();
     }
 
     step() {
-      this.frequency.step();
+      this.rotationFrequency.step();
+      this.loopFrequency.step();
       const newMillis = p.millis();
       const ellapsed = (newMillis - this.lastMillis) / 1000;
-      this.currentPhase += p.settings.maxFrequency * this.frequency.value * p.TWO_PI * ellapsed;
+      this.currentPhase += p.settings.maxFrequency * this.rotationFrequency.value * p.TWO_PI * ellapsed;
+      this.currentLoops += this.loopFrequency.value * p.settings.maxFrequency * ellapsed;
+      if (this.currentLoops > 1) {
+        this.currentLoops = 2 - this.currentLoops;
+        this.loopFrequency.value = -this.loopFrequency.value;
+      }
+      if (this.currentLoops < -1) {
+        this.currentLoops = -2 - this.currentLoops;
+        this.loopFrequency.value = -this.loopFrequency.value;
+      }
       this.lastMillis = newMillis;
     }
 
     currentValues() {
-      return {phase: this.currentPhase};
+      return ({
+        phase: this.currentPhase,
+        loops: this.currentLoops
+      });
     }
   }
 
@@ -142,24 +157,20 @@ const sketch = (p) => {
   }
 
   class OtherInfo {
-    constructor(number, ballSize, loops) {
+    constructor(number, ballSize) {
       this.number = number;
       this.ballSize = ballSize;
-      this.loops = loops;
     }
 
     step() {
       this.number.step();
       this.ballSize.step();
-      this.loops.step();
     }
 
     currentValues() {
-      console.log("BUDDY: ", this.number.value, this.ballSize)
       return ({
         number: this.number.value,
-        ballSize: this.ballSize.value,
-        loops: this.loops.value
+        ballSize: this.ballSize.value
       });
     }
 
@@ -167,12 +178,12 @@ const sketch = (p) => {
 
   class Helix {
     constructor(radius, radiusAmplitude, radiusWaves, radiusFrequency, length, lengthAmplitude,
-                lengthFrequency, rotationFrequency, number, ballSize, loops, colorCycles, colorFrequency) {
+                lengthFrequency, rotationFrequency, number, ballSize, loopFrequency, colorCycles, colorFrequency) {
       this.radialInfo = new RadialInfo(radius, radiusAmplitude, radiusWaves, radiusFrequency);
       this.axialInfo = new AxialInfo(length, lengthAmplitude, lengthFrequency);
-      this.rotationInfo = new RotationInfo(rotationFrequency);
-      this.colorInfo = new ColorInfo(colorCycles, colorFrequency)
-      this.otherInfo = new OtherInfo(number, ballSize, loops);
+      this.rotationInfo = new RotationInfo(rotationFrequency, loopFrequency);
+      this.colorInfo = new ColorInfo(colorCycles, colorFrequency);
+      this.otherInfo = new OtherInfo(number, ballSize);
     }
 
     step() {
@@ -184,9 +195,6 @@ const sketch = (p) => {
     }
 
     currentValues() {
-      //console.log("HEY THERE:", this.radialInfo.currentValues());
-      //console.log("AXIAL: ", this.axialInfo.currentValues());
-      //console.log("OTHER: ", this.otherInfo.currentValues());
       return this.mapValues({
         ...this.radialInfo.currentValues(),
         ...this.axialInfo.currentValues(),
@@ -198,10 +206,10 @@ const sketch = (p) => {
 
     mapValues(vals) {
       vals.loops *= p.settings.maxLoops;
-      vals.colorCycles *= p.settings.numBalls / 10;
-      vals.radius *= 0.3 * theLength;
+      vals.colorCycles *= p.sqrt(p.settings.numBalls / 10);
+      vals.radius *= 0.25 * theLength;
       vals.length *= theLength;
-      vals.waves *= p.settings.maxWaves;
+      vals.waves *= p.settings.maxLoops / 2;
       vals.ballSize *= getBallSize();
       vals.number *= p.settings.numBalls;
       return vals;
@@ -218,7 +226,7 @@ const sketch = (p) => {
         const y = vals.radius * p.sin(a) * (1 - vals.amplitude * p.cos(vals.waves * p.TWO_PI * i / vals.number));
 
         // Calculate color
-        const h = (vals.startColor + vals.colorCycles * i / vals.number) % 1;
+        const h = (p.ceil(p.settings.numBalls / 10) + vals.startColor + vals.colorCycles * i / vals.number) % 1;
         const c = p.color(h, 1, 1);
 
         // Calculate size
@@ -243,8 +251,8 @@ const sketch = (p) => {
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(1, 1, 0),
       new (Driftable(p))(1, 1, 0),
-      new (Driftable(p))(-1, 1, 0.1),
-      new (Driftable(p))(-1, 1, 0.1),
+      new (Driftable(p))(-0.2, 0.2, 0.04),
+      new (Driftable(p))(-1, 1, 0.3),
       new (Driftable(p))(-1, 1, 0.1)
     );
   }
@@ -267,11 +275,13 @@ const sketch = (p) => {
   p.windowResized = function() {
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
+    theLength = sizes.height / 2;
   }
 
   p.setup = function() {
     p.colorMode(p.HSB, 1);
     sizes = getCanvasSize();
+    theLength = sizes.height / 2;
     p.createCanvas(sizes.width, sizes.height, p.WEBGL);
     p.noStroke();
     makeHelices();
@@ -292,9 +302,6 @@ const sketch = (p) => {
     helices.y.step();
     helices.z.step();
 
-    console.log("SIZE: ", helices.z.getSpheres().length);
-
-    //console.log("HEY: ", helices.z, helices.z.getSpheres())
     helices.z.getSpheres().forEach((sphere) => sphere.draw());
     p.rotateY(p.PI/2);
     helices.x.getSpheres().forEach((sphere) => sphere.draw());
