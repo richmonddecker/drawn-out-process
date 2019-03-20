@@ -344,6 +344,45 @@ export const contents = [
     configuration: "CreativeConfiguration",
     members: [
       {
+        tag: "stick-stacks",
+        title: "Stick Stacks",
+        thumbnail: img("pointers.png"),
+        sketch: can("stick-stacks"),
+        date: new Date(2000, 1, 1),
+        author: "Justin Richmond-Decker",
+        phrase: "STIX.",
+        info: "stacks",
+        parameters: [
+          {
+            tag: "speed",
+            title: "Wave Speed",
+            default: 10,
+            info: "The speed at which information moves, essentially the speed of the waves.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 2,
+              max: 100,
+              step: 2
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "count",
+            title: "Pointer Count",
+            default: 25,
+            info: "How many rows of pointers there are.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 1,
+              strict: true
+            }
+          }
+        ]
+      },
+      {
         tag: "doppler",
         title: "Doppler",
         thumbnail: img("doppler.png"),
@@ -775,13 +814,13 @@ export const contents = [
           {
             tag: "maxFrequency",
             title: "Frequency",
-            default: 1,
+            default: 0.6,
             info: "This is the frequency of change/oscillation of the helices. Higher numbers mean faster motion.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
-              max: 3,
-              step: 0.2
+              max: 2,
+              step: 0.1
             }
           },
           {
@@ -799,7 +838,7 @@ export const contents = [
           {
             tag: "maxLoops",
             title: "Max Loops",
-            default: 5,
+            default: 10,
             info: "The maximum number of loops for a helix.",
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -811,7 +850,7 @@ export const contents = [
           {
             tag: "numBalls",
             title: "Number of Balls",
-            default: 50,
+            default: 100,
             info: "The number of balls per helix.",
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -823,7 +862,7 @@ export const contents = [
           {
             tag: "ballSize",
             title: "Ball Size",
-            default: 1,
+            default: 2,
             info: "The relative ball size (compared to a calculated default). With higher values, the balls can overlap, creating a cool effect.",
             widget: wid("NumberWidget"),
             widgetProps: {

@@ -2,8 +2,6 @@ import { Driftable } from "./utility/randomness";
 
 const sketch = (p) => {
 
-  // TODO: Fix loops so things don't look so jittery. Also, make it start cewntered. Also, not all red.
-
   let sizes = {};
   let helices = {};
 
@@ -43,23 +41,33 @@ const sketch = (p) => {
   }
 
   class RadialInfo {
-    constructor(radius, amplitude, waves, frequency) {
+    constructor(radius, amplitude, waveFrequency, frequency) {
       this.radius = radius;
       this.amplitude = amplitude;
-      this.waves = waves;
       this.frequency = frequency;
+      this.waveFrequency = waveFrequency;
       this.lastMillis = p.millis();
+      this.currentWaves = p.random(-1, 1);
       this.currentPhase = p.random(p.TWO_PI);
     }
 
     step() {
       this.radius.step();
       this.amplitude.step();
-      this.waves.step();
+      this.waveFrequency.step();
       this.frequency.step();
       const newMillis = p.millis();
       const ellapsed = (newMillis - this.lastMillis) / 1000;
       this.currentPhase += p.settings.maxFrequency * this.frequency.value * p.TWO_PI * ellapsed;
+      this.currentWaves += this.waveFrequency.value * p.settings.maxFrequency * ellapsed;
+      if (this.currentWaves > 1) {
+        this.currentWaves = 2 - this.currentWaves;
+        this.waveFrequency.value = -this.waveFrequency.value;
+      }
+      if (this.currentWaves < -1) {
+        this.currentWaves = -2 - this.currentWaves;
+        this.waveFrequency.value = -this.waveFrequency.value;
+      }
       this.lastMillis = newMillis;
     }
 
@@ -67,7 +75,7 @@ const sketch = (p) => {
       return ({
         amplitude: p.settings.maxAmplitude * this.amplitude.value * p.cos(this.currentPhase),
         radius: this.radius.value,
-        waves: this.waves.value
+        waves: this.currentWaves
       });
     }
   }
@@ -177,9 +185,9 @@ const sketch = (p) => {
   }
 
   class Helix {
-    constructor(radius, radiusAmplitude, radiusWaves, radiusFrequency, length, lengthAmplitude,
+    constructor(radius, radiusAmplitude, waveFrequency, radiusFrequency, length, lengthAmplitude,
                 lengthFrequency, rotationFrequency, number, ballSize, loopFrequency, colorCycles, colorFrequency) {
-      this.radialInfo = new RadialInfo(radius, radiusAmplitude, radiusWaves, radiusFrequency);
+      this.radialInfo = new RadialInfo(radius, radiusAmplitude, waveFrequency, radiusFrequency);
       this.axialInfo = new AxialInfo(length, lengthAmplitude, lengthFrequency);
       this.rotationInfo = new RotationInfo(rotationFrequency, loopFrequency);
       this.colorInfo = new ColorInfo(colorCycles, colorFrequency);
@@ -243,7 +251,7 @@ const sketch = (p) => {
     return new Helix(
       new (Driftable(p))(.9, 1.1, 0.01),
       new (Driftable(p))(-1, 1, 0.1),
-      new (Driftable(p))(-1, 1, 0.1),
+      new (Driftable(p))(-0.2, 0.2, 0.04),
       new (Driftable(p))(-1, 1, 0.1),
       new (Driftable(p))(.9, 1.1, 0.01),
       new (Driftable(p))(-1, 1, 0.1),
