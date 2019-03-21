@@ -354,32 +354,65 @@ export const contents = [
         info: "stacks",
         parameters: [
           {
-            tag: "speed",
-            title: "Wave Speed",
-            default: 10,
-            info: "The speed at which information moves, essentially the speed of the waves.",
+            tag: "thickness",
+            title: "Line Thickness",
+            default: 1,
+            info: "The thickness of the lines, in pixels.",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 2,
-              max: 100,
-              step: 2
+              min: 1,
+              max: 20,
+              step: 1
             }
-          }
-        ],
-        attributes: [
+          },
+          {
+            tag: "force",
+            title: "Force Strength",
+            default: 5,
+            info: "The strength of the spring force.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 20,
+              step: 1
+            }
+          },
           {
             tag: "count",
-            title: "Pointer Count",
-            default: 25,
-            info: "How many rows of pointers there are.",
+            title: "Line Count",
+            default: 20,
+            info: "The number of lines to draw.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
               max: 100,
-              step: 1,
-              strict: true
+              step: 1
             }
-          }
+          },
+          {
+            tag: "damping",
+            title: "Damping Factor",
+            default: 1,
+            info: "How fast the motion decays.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: -1,
+              max: 20,
+              step: 1
+            }
+          },
+          {
+            tag: "trailLength",
+            title: "Trail Length",
+            default: 500,
+            info: "How long of a trail to display.",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 2000,
+              step: 20
+            }
+          },
         ]
       },
       {
@@ -855,7 +888,7 @@ export const contents = [
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 10,
-              max: 400,
+              max: 500,
               step: 10
             }
           },
@@ -867,7 +900,7 @@ export const contents = [
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0.2,
-              max: 5,
+              max: 10,
               step: 0.2
             }
           }

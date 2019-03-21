@@ -1,74 +1,78 @@
 const sketch = (p) => {
 
-  let pointers = [];
+  // TODO: Make follow while mouse held, and when released, do spring behavior
+
+  let theTrail = [];
   let sizes = {};
-  let counts = {}; // how many pointers in x/y directions
-  let spacing = 0; // spacing between pointers
+  let theSticks = [];
+  let thePoint = {};
+  let theVector = {x: 0, y: 0};
+  let isHeld = false;
+  let lastMillis = 0;
   p.isSquare = false;
   p.settings = {
     thickness: 1,
-    length: 1,
-    count: 50,
-    speed: 10
+    count: 20,
+    ballSize: 20,
+    trailLength: 100,
+    force: 1,
+    damping: 1
   }
 
-  class Pointer {
-    constructor(x, y, colorFun) {
-      this.x = x;
-      this.y = y;
-      this.angle = p.atan2(y - p.height / 2, x - p.width / 2);
-      this.velocity = 0;
-      this.colorFun = colorFun;
-      this.trigger = Infinity;
-      this.triggers = [];
+  class Stick {
+    constructor(x1, y1, x2, y2, h) {
+      this.x1 = x1;
+      this.y1 = y1;
+      this.x2 = x2;
+      this.y2 = y2;
+      this.h = h || getHue(x2, y2);
     }
 
-    addTrigger(time, x, y) {
-      this.triggers.unshift({x, y, t: time});
-    }
-
-    armTrigger(x, y) {
-      this.setTriggerTime(p.millis() + 1000 * p.mag(x - this.x, y - this.y) / (spacing * p.settings.speed));
-    }
-
-    setTriggerTime(time) {
-      if (time < this.trigger) {
-        this.trigger = time;
-      }
-    }
-
-    checkTrigger() {
-      if (p.millis() >= this.trigger) {
-        this.angle = this.newAngle;
-        this.trigger = Infinity;
-      }
-    }
-
-    defaultColorFun() {
-      const hue = (this.angle + p.PI) / p.TWO_PI;
-      const difference = (p.atan2(p.mouseX - p.width / 2, p.mouseY - p.height / 2) + p.PI) / p.TWO_PI;
-      return p.color((hue + difference) % 1, 1, 1);
-    }
-
-    pointTo(x, y) {
-      this.newAngle = p.atan2(y - this.y, x - this.x);
-    }
-
-    draw(length, thickness) {
-      const theLength = (p.height / (p.settings.count - 1) - thickness) * length;
-      const dx = theLength * p.cos(this.angle) / 2;
-      const dy = theLength * p.sin(this.angle) / 2;
-      p.strokeWeight(thickness);
-      p.stroke(this.defaultColorFun());
-      p.line(this.x + dx, this.y + dy, this.x - dx, this.y - dy);
+    draw() {
+      p.strokeWeight(p.settings.thickness);
+      p.stroke(this.h, 1, 1);
+      p.line(this.x1, this.y1, this.x2, this.y2);
     }
   }
 
-  function getCounts() {
-    // Figure out how many pointers in the x and y directions.
-    counts.y = p.settings.count;
-    counts.x = p.ceil(counts.y * p.width / p.height);
-    spacing = p.height / (counts.y - 1);
+  function getHue(x, y) {
+    return (2 * p.abs(y - sizes.height / 2) / sizes.height + 2 * p.abs(x - sizes.width / 2) / sizes.width) % 1;
+  }
+
+  function cornerToPointSticks(corner, point, number) {
+    let sticks = [];
+    let h1 = getHue(corner.x, point.y);
+    let h2 = getHue(point.x, corner.y);
+    if (h1 >= h2) {
+      h2 += 1;
+    }
+    if (h2 - h1 < 0.5) {
+      h2 += 1;
+    }
+    for (let i = 0; i <= number; i++) {
+      sticks.push(new Stick(
+        corner.x + (point.x - corner.x) / 2 + i * (point.x - corner.x) / number / 2,
+        //corner.x + i * (point.x - corner.x) / number,
+        corner.y,
+        point.x,
+        corner.y + i * (point.y - corner.y) / number
+      ));
+      sticks.push(new Stick(
+        corner.x,
+        corner.y + (point.y - corner.y) / 2 + i * (point.y - corner.y) / number / 2,
+        //corner.y + i * (point.y - corner.y) / number,
+        corner.x + i * (point.x - corner.x) / number,
+        point.y
+      ));
+      sticks.push(new Stick(
+        corner.x,
+        (corner.y + point.y) / 2 + (corner.y - (corner.y + point.y) / 2) * i / number,
+        (corner.x + point.x) / 2 + (corner.x - (corner.x + point.x) / 2) * (number - i) / number,
+        corner.y,
+        (((number - i) * h1 + i * h2) / number) % 1
+      ));
+    }
+    return sticks;
   }
 
 
@@ -81,34 +85,77 @@ const sketch = (p) => {
     return {width, height};
   }
 
-  function makePointers() {
-    pointers = [];
-    for (let i = 0; i < counts.x; i++) {
-      for (let j = 0; j < counts.y; j++) {
-        pointers.push(new Pointer(
-          spacing * i,
-          spacing * j
-        ));
+  function makeSticksFromPoint(point) {
+    const sticks1 = cornerToPointSticks({x: 0, y: 0}, point, p.settings.count);
+    const sticks2 = cornerToPointSticks({x: 0, y: sizes.height-1}, point, p.settings.count);
+    const sticks3 = cornerToPointSticks({x: sizes.width-1, y: 0}, point, p.settings.count);
+    const sticks4 = cornerToPointSticks({x: sizes.width-1, y: sizes.height-1}, point, p.settings.count);
+    theSticks = sticks1.concat(sticks2, sticks3, sticks4);
+    console.log(theSticks.map((s) => [s.x1, s.y1, s.x2, s.y2]))
+  }
+
+  function stepPoint() {
+    if (!p.mouseIsPressed || p.isBlocked) {
+      thePoint.x += theVector.x;
+      thePoint.y += theVector.y;
+      const direction = {x: sizes.width / 2 - thePoint.x, y: sizes.height / 2 - thePoint.y};
+      accelerateVector(theVector, direction);
+      dampVector(theVector, p.settings.damping);
+      updateTrail(theTrail, thePoint);
+    }
+  }
+
+  function updateTrail(trail, point) {
+    if (trail.length >= p.settings.trailLength) {
+      for (let i = 0; i <= trail.length - p.settings.trailLength; i++) {
+        trail.shift();
       }
     }
+    trail.push({x: point.x, y: point.y});
+  }
+
+  function drawTrail(trail) {
+    let alpha, point;
+    for (let i = 0; i < trail.length; i++) {
+      alpha = 1 - p.sqrt((i + 1) / p.settings.trailLength);
+      point = trail[trail.length - 1 - i];
+      p.stroke(getHue(point.x, point.y), 1, 1, alpha);
+      p.noFill();
+      p.ellipse(point.x, point.y, p.settings.ballSize, p.settings.ballSize);
+    }
+  }
+
+  function accelerateVector(vector, direction) {
+    vector.x += p.sq(p.settings.force) * direction.x / 3000;
+    vector.y += p.sq(p.settings.force) * direction.y / 3000;
+  }
+
+  function dampVector(vector, damping) {
+    vector.x /= (1 + p.sqrt(p.abs(damping)) * damping / 300);
+    vector.y /= (1 + p.sqrt(p.abs(damping)) * damping / 300);
   }
 
   p.mousePressed = function() {
-    const randomPoint = {x: p.random(0, p.width), y: p.random(0, p.height)};
-    pointers.forEach((x) => {
-      x.armTrigger(randomPoint.x, randomPoint.y)
-      x.pointTo(randomPoint.x, randomPoint.y)
-    });
+    if (!p.isBlocked) {
+      console.log("NOT BLOCKED");
+      thePoint = {x: p.mouseX, y: p.mouseY};
+      theVector = {x: 0, y: 0};
+      theTrail = [];
+      makeSticksFromPoint(thePoint);
+    }
   }
 
   p.mouseMoved = function() {
-    if (p.mouseX > p.width || p.mouseY > p.height || p.mouseX < 0 || p.mouseY < 0) {
-      return;
+    if (!p.isBlocked && p.mouseIsPressed) {
+      isHeld = true;
+      theVector = {x: p.mouseX - thePoint.x, y: p.mouseY - thePoint.y};
+      thePoint = {x: p.mouseX, y: p.mouseY};
+      makeSticksFromPoint(thePoint);
     }
-    pointers.forEach((x) => {
-      x.armTrigger(p.mouseX, p.mouseY);
-      x.pointTo(p.mouseX, p.mouseY);
-    });
+  }
+
+  p.mouseReleased = function() {
+    isHeld = false;
   }
 
   p.touchMoved = function() {
@@ -118,24 +165,27 @@ const sketch = (p) => {
   p.windowResized = function() {
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
-    getCounts();
-    makePointers();
+    theTrail = [];
   }
 
   p.setup = function() {
     p.colorMode(p.HSB, 1);
+    p.frameRate(40);
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
-    getCounts()
-    makePointers();
+    thePoint = {x: sizes.width / 2, y: sizes.height / 2};
+    theVector = {x: 0, y: 0}
   }
 
   p.draw = function() {
     p.background(0);
-    pointers.forEach((x) => {
-      x.checkTrigger();
-      x.draw(p.settings.length, p.settings.thickness);
-    });
+    stepPoint();
+    makeSticksFromPoint(thePoint);
+    drawTrail(theTrail);
+    theSticks.forEach((s) => s.draw());
+    p.fill(0, 0, 1, 1);
+    p.stroke(getHue(thePoint.x, thePoint.y), 1, 1);
+    p.ellipse(thePoint.x, thePoint.y, p.settings.ballSize, p.settings.ballSize);
   }
 
 };
