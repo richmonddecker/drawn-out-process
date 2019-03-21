@@ -1,6 +1,6 @@
 const sketch = (p) => {
 
-  // TODO: Make follow while mouse held, and when released, do spring behavior
+  // TODO: FIX DAMPING FOR DIFFERENT FORCE VALUES. COLORS ARE STILL WEIRD.
 
   let theTrail = [];
   let sizes = {};
@@ -36,19 +36,14 @@ const sketch = (p) => {
   }
 
   function getHue(x, y) {
-    return (2 * p.abs(y - sizes.height / 2) / sizes.height + 2 * p.abs(x - sizes.width / 2) / sizes.width) % 1;
+    return (2 * (1 + p.abs(y - sizes.height / 2)) / sizes.height + 2 * (1 + p.abs(x - sizes.width / 2)) / sizes.width) % 1;
   }
 
   function cornerToPointSticks(corner, point, number) {
     let sticks = [];
     let h1 = getHue(corner.x, point.y);
-    let h2 = getHue(point.x, corner.y);
-    if (h1 >= h2) {
-      h2 += 1;
-    }
-    if (h2 - h1 < 0.5) {
-      h2 += 1;
-    }
+    let h2 = 1 + getHue(point.x, corner.y);
+
     for (let i = 0; i <= number; i++) {
       sticks.push(new Stick(
         corner.x + (point.x - corner.x) / 2 + i * (point.x - corner.x) / number / 2,
@@ -117,7 +112,7 @@ const sketch = (p) => {
   function drawTrail(trail) {
     let alpha, point;
     for (let i = 0; i < trail.length; i++) {
-      alpha = 1 - p.sqrt((i + 1) / p.settings.trailLength);
+      alpha = 1 - p.sq((i + 1) / p.settings.trailLength);
       point = trail[trail.length - 1 - i];
       p.stroke(getHue(point.x, point.y), 1, 1, alpha);
       p.noFill();
@@ -131,8 +126,8 @@ const sketch = (p) => {
   }
 
   function dampVector(vector, damping) {
-    vector.x /= (1 + p.sqrt(p.abs(damping)) * damping / 300);
-    vector.y /= (1 + p.sqrt(p.abs(damping)) * damping / 300);
+    vector.x /= (1 + p.sqrt(p.abs(damping)) * damping / 3000 * p.settings.force);
+    vector.y /= (1 + p.sqrt(p.abs(damping)) * damping / 3000 * p.settings.force);
   }
 
   p.mousePressed = function() {
@@ -165,7 +160,7 @@ const sketch = (p) => {
   p.windowResized = function() {
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
-    theTrail = [];
+    // theTrail = [];
   }
 
   p.setup = function() {

@@ -344,14 +344,14 @@ export const contents = [
     configuration: "CreativeConfiguration",
     members: [
       {
-        tag: "stick-stacks",
-        title: "Stick Stacks",
-        thumbnail: img("pointers.png"),
-        sketch: can("stick-stacks"),
+        tag: "galaxy-tracer",
+        title: "Galaxy Tracer",
+        thumbnail: img("galaxy-tracer.png"),
+        sketch: can("galaxy-tracer"),
         date: new Date(2000, 1, 1),
         author: "Justin Richmond-Decker",
-        phrase: "STIX.",
-        info: "stacks",
+        phrase: "Fling a ball to trace out beautiful galaxy patterns.",
+        info: "This is a really colorful simulation of 2D harmonic motion. Picture the ball as being fixed between springs. As you drag or fling the ball, it will be pulled back to the center. You can send it in orbit around the center, and watch the path it traces out. Increase the Force Strength to create faster movement, whereas the Damping Factor will affect how fast the motion slows. Change the Line Count to make the appearanace more or less smooth. With 0 lines, you will see only the motion of the ball.",
         parameters: [
           {
             tag: "thickness",
@@ -384,7 +384,7 @@ export const contents = [
             info: "The number of lines to draw.",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 1,
+              min: 0,
               max: 100,
               step: 1
             }
@@ -396,7 +396,7 @@ export const contents = [
             info: "How fast the motion decays.",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: -1,
+              min: -2,
               max: 20,
               step: 1
             }
@@ -404,13 +404,13 @@ export const contents = [
           {
             tag: "trailLength",
             title: "Trail Length",
-            default: 500,
+            default: 1000,
             info: "How long of a trail to display.",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 0,
               max: 2000,
-              step: 20
+              step: 25
             }
           },
         ]
@@ -422,7 +422,7 @@ export const contents = [
         sketch: can("doppler"),
         date: new Date(2019, 2, 18),
         author: "Justin Richmond-Decker",
-        phrase: "Send circular waves outward and watch them interact.",
+        phrase: "Create circular waves and watch them interact.",
         info: "You've probably played with something like this before, but I promise this one is way trippier. It's fairly self explanatory; just watch colorful circles emanate outwards from your mouse pointer. Move it around and watch them interact. While the pointer is held down, waves will cycle through the color spectrum. Otherwise, their colors are random.",
         parameters: [
           {
