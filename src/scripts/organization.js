@@ -918,6 +918,15 @@ export const contents = [
     configuration: "RepetitiveConfiguration",
     members: [
       {
+        tag: "tribal-stars",
+        title: "Tribal Stars",
+        thumbnail: img("tribal-stars.png"),
+        video: vid("tribal-stars.mp4"),
+        date: new Date(2019, 2, 24),
+        author: "Justin Richmond-Decker",
+        info: ""
+      },
+      {
         tag: "plasma-ball",
         title: "Plasma Ball",
         thumbnail: img("plasma-ball.png"),

@@ -165,7 +165,7 @@ const sketch = (p) => {
 
   p.setup = function() {
     p.colorMode(p.HSB, 1);
-    p.frameRate(40);
+    p.frameRate(20);
     sizes = getCanvasSize();
     p.resizeCanvas(sizes.width, sizes.height);
     thePoint = {x: sizes.width / 2, y: sizes.height / 2};
