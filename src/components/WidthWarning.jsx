@@ -39,7 +39,8 @@ class WidthWarning extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  window: state.interface.window
+  window: state.interface.window,
+  barsOpen: state.interface.barsOpen || state.configuration.barLock
 });
 
 export default connect(mapStateToProps)(WidthWarning);

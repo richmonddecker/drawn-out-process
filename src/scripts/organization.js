@@ -8,8 +8,7 @@ const pag = name => require(`../components/pages/${name}`).default;
 
 
 // TODO: ADD A "RANDOM" BUTTON WHICH IS LIKE DEFAULTS, BUT APPLIES RANDOM SETTINGS
-// TODO: TRIGGERS INCORRECTLY ACTIVATE WHEN CLICKED ON A PAGE WHERE IT CAN'T BE USED
-// TODO: FIX maze-balls dark side
+// TODO: MADE "INFO" ITEMS READ AS HTML, SO I CAN ADD LINKS AND PARAGRAPHS AND STUFF
 
 export const contents = [
   {
@@ -549,6 +548,57 @@ export const contents = [
     component: com("P5Canvas"),
     configuration: "GenerativeConfiguration",
     members: [
+      {
+        tag: "steamy-dream",
+        title: "Steamy Dream",
+        thumbnail: img("mandala.png"),
+        sketch: can("steamy-dream"),
+        date: new Date(2019, 2, 7),
+        author: "Justin Richmond-Decker",
+        phrase: "XXX",
+        info: "XXX",
+        parameters: [
+          {
+            tag: "changeRate",
+            title: "Change Rate",
+            info: "XXX",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 5,
+              strict: true
+            }
+          },
+          {
+            tag: "baseFreq",
+            title: "Base Frequency",
+            info: "XXX",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 30,
+              step: 3,
+              strict: true
+            }
+          },
+          {
+            tag: "numFreqs",
+            title: "Number of Layers",
+            info: "XXX",
+            default: 4,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 6,
+              step: 1,
+              strict: true
+            }
+          }
+        ]
+      },
       {
         tag: "mandala",
         title: "Mandala",
