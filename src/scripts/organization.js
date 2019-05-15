@@ -330,6 +330,87 @@ export const contents = [
             }
           }
         ]
+      },
+      {
+        tag: "falling-trees",
+        title: "Falling Trees",
+        thumbnail: img("chord-art.png"),
+        sketch: can("falling-trees"),
+        date: new Date(2019, 2, 7),
+        author: "Justin Richmond-Decker",
+        phrase: "XXX",
+        info: "XXX",
+        parameters: [
+          {
+            tag: "speed",
+            title: "Drawing Speed",
+            default: 1.0,
+            info: "XXX",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.1,
+              max: 10,
+              step: 0.1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "height",
+            title: "Layer Height",
+            default: 300,
+            info: "xxx",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 20,
+              max: 1000,
+              step: 20
+            }
+          },
+          {
+            tag: "widthFactor",
+            title: "Width Factor",
+            default: 1.0,
+            info: "XXX",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.1,
+              max: 10,
+              step: 0.1
+            }
+          },
+          {
+            tag: "leafNumber",
+            title: "Branch Number",
+            default: 2,
+            info: "XXX",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 1,
+              max: 100,
+              step: 1
+            }
+          },
+          {
+            tag: "persistence",
+            title: "Persistence",
+            default: 0.75,
+            info: "XXX",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 1,
+              step: 0.01
+            }
+          },
+          {
+            tag: "flipside",
+            title: "Flipside",
+            default: false,
+            info: "XXX",
+            widget: wid("CheckboxWidget"),
+          }
+        ]
       }
     ]
   },
@@ -347,7 +428,7 @@ export const contents = [
         title: "Galaxy Tracer",
         thumbnail: img("galaxy-tracer.png"),
         sketch: can("galaxy-tracer"),
-        date: new Date(2000, 1, 1),
+        date: new Date(2019, 2, 22),
         author: "Justin Richmond-Decker",
         phrase: "Fling a ball to trace out beautiful galaxy patterns.",
         info: "This is a really colorful simulation of 2D harmonic motion. Picture the ball as being fixed between springs. As you drag or fling the ball, it will be pulled back to the center. You can send it in orbit around the center, and watch the path it traces out. Increase the Force Strength to create faster movement, whereas the Damping Factor will affect how fast the motion slows. Change the Line Count to make the appearanace more or less smooth. With 0 lines, you will see only the motion of the ball.",
@@ -553,10 +634,10 @@ export const contents = [
         title: "Steamy Dream",
         thumbnail: img("steamy-dream.png"),
         sketch: can("steamy-dream"),
-        date: new Date(2016, 1, 1),
+        date: new Date(2019, 3, 2),
         author: "Justin Richmond-Decker",
         phrase: "Play with a trippy steam cloud.",
-        info: "This is my first foray into shaders. It's a totally different way of programming visuals, using GPUs, and confusing C code. Anyway, this is a fun example of colorful morphing waves created by random noise. You can add to the motion yourself by moving the mouse around.",
+        info: "This is my first foray into shaders. It's a totally different way of programming visuals, using GPUs, and confusing C code. Anyway, this is a fun example of colorful morphing waves created by random noise. You can add to the motion yourself by moving the mouse around.<",
         parameters: [
           {
             tag: "changeRate",
