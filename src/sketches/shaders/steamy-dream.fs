@@ -1,6 +1,9 @@
-uniform float change_rate 0.09
-uniform float base_freq 10.0
-uniform float num_freqs 4
+uniform float change_rate;
+uniform float base_freq;
+uniform int num_freqs;
+uniform float u_time;
+uniform vec2 u_mouse;
+uniform vec2 u_resolution;
 
 float rand(float val) {
     return -1.0 + 2.0 * fract(sin(val)*53.132356);
@@ -47,17 +50,17 @@ float cloud(vec2 st, float seed, float delta, float main_freq, int num_parts) {
         float off = 1000.*rand(seed) + 4.0*float(i-1);
         float amp = 1.0 / pow(2.0 * (1.0 + odd), float(i/2));
         float freq = main_freq * pow(2.0, float(i/2) * (1.0 - 2.0 * odd));
-        val += noiseComp(amp, freq, st + noise(st - vec2(100.*rand(off) + delta*rand(off+1.)*iTime, 100.*rand(off+2.) + delta*rand(off+3.)*iTime) + 2.0*iMouse.xy / iResolution.xy));
+        val += noiseComp(amp, freq, st + noise(st - vec2(100.*rand(off) + delta*rand(off+1.)*u_time, 100.*rand(off+2.) + delta*rand(off+3.)*u_time) + 2.0*u_mouse.xy / u_resolution.xy));
       summed_amp += amp;
     }
     
     return val / summed_amp;
 } 
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
-    vec2 st = fragCoord.xy/iResolution.xy;
-    st.x *= iResolution.x/iResolution.y;
-    vec2 mouse = iMouse.xy / iResolution.xy;
+void main() {
+    vec2 st = gl_Position.xy/u_resolution.xy;
+    st.x *= u_resolution.x/u_resolution.y;
+    vec2 mouse = u_mouse.xy / u_resolution.xy;
     float mid_diag = length(vec2(0.5, 0.5));
   
     vec3 facts = vec3(
@@ -66,7 +69,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
         pow(1.0 - length(mouse - vec2(0.5)) / mid_diag, 0.5)
     );
     
-    float hue_offset = length(noise(mouse/1.39)) + change_rate*10000.*length(noise(vec2(iTime/150000., 0.0)));
+    float hue_offset = length(noise(mouse/1.39)) + change_rate*10000.*length(noise(vec2(u_time/150000., 0.0)));
     
     vec3 color = vec3(0.0);
 
@@ -75,5 +78,5 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
         color += val * h2rgb(hue_offset + float(i)/3.0);
     }
   
-    fragColor = vec4(color,1.0);
+    gl_FragColor = vec4(color,1.0);
 }

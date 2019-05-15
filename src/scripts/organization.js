@@ -551,9 +551,9 @@ export const contents = [
       {
         tag: "steamy-dream",
         title: "Steamy Dream",
-        thumbnail: img("mandala.png"),
+        thumbnail: img("steamy-dream.png"),
         sketch: can("steamy-dream"),
-        date: new Date(2019, 2, 7),
+        date: new Date(2016, 1, 1),
         author: "Justin Richmond-Decker",
         phrase: "XXX",
         info: "XXX",
