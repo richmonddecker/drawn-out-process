@@ -555,13 +555,13 @@ export const contents = [
         sketch: can("steamy-dream"),
         date: new Date(2016, 1, 1),
         author: "Justin Richmond-Decker",
-        phrase: "XXX",
-        info: "XXX",
+        phrase: "Play with a trippy steam cloud.",
+        info: "This is my first foray into shaders. It's a totally different way of programming visuals, using GPUs, and confusing C code. Anyway, this is a fun example of colorful morphing waves created by random noise. You can add to the motion yourself by moving the mouse around.",
         parameters: [
           {
             tag: "changeRate",
             title: "Change Rate",
-            info: "XXX",
+            info: "How quickly things change in the dream cloud.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -574,7 +574,7 @@ export const contents = [
           {
             tag: "baseFreq",
             title: "Base Frequency",
-            info: "XXX",
+            info: "How high the frequency of the waves is. Higher numbers mean denser waves.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -587,7 +587,7 @@ export const contents = [
           {
             tag: "numFreqs",
             title: "Number of Layers",
-            info: "XXX",
+            info: "How many layers of frequencies should be rendered.",
             default: 4,
             widget: wid("NumberWidget"),
             widgetProps: {
