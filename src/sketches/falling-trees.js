@@ -3,11 +3,12 @@ const sketch = (p) => {
   let drawing = false;
   let trees = [];
   let speed = 1.0;
+  let lastCompletion = 0.0;
   let completion = 0.0;
   let lastMillis = 0;
   let drawingPoint = {x: 0, y: 0};
+  let lastPoint = {x: 0, y: 0};
   p.settings = {
-    height: 100,
     speed: 1.0,
     widthFactor: 1,
     leafNumber: 2,
@@ -16,13 +17,16 @@ const sketch = (p) => {
   };
 
   class Tree {
-    constructor(point, height, widthFactor, number, probability, isRoot=false) {
+    constructor(point, width, number, probability, level=0) {
+      if (level === 0) {
+        this.width = p.settings.widthFactor * sizes.width * (1.0 - 1.0 / number);
+      } else {
+        this.width = width;
+      }
       this.point = point;
-      this.height = height;
-      this.widthFactor = widthFactor;
       this.number = number;
       this.probability = probability;
-      this.isRoot = isRoot;
+      this.level = level;
       this.setActiveBranches();
     }
 
@@ -35,23 +39,32 @@ const sketch = (p) => {
           this.branches.push(1);
         }
       }
-      if (this.isRoot && this.branches.every(x => x === 0)) {
+      if (this.level === 0 && this.branches.every(x => x === 0)) {
         this.branches[p.random(0, this.number) | 0] = 1;
       }
     }
 
     getChildTrees() {
       let newTrees = [];
-      const newY = this.point.y + this.height * (p.settings.flipside ? -1 : 1);
       let newX;
-      for (let i = 0; i < this.number; i++) {
+      // Here we prevent things from getting too huge.
+      const theNumber = p.pow(this.number, this.level) >= 500 ? 1 : this.number; 
+      for (let i = 0; i < theNumber; i++) {
         if (this.branches[i]) {
-          newX = this.point.x - this.height * this.widthFactor * (-1.0 + i * 2.0 / (this.number - 1));
+          newX = this.point + 0.5 * this.width * (-1.0 + i * 2.0 / (this.number - 1));
         }
-        newTrees.push(new Tree({x: newX, y: newY}, this.height / this.number, this.widthFactor, this.number, this.probability, false));
+        newTrees.push(new Tree(newX, this.width / this.number, this.number, this.probability, this.level + 1));
       }
       return newTrees;
     }
+  }
+
+  function drawBackground() {
+    p.push();
+    p.noStroke();
+    p.fill(0);
+    p.triangle(p.settings.widthFactor * sizes.height / 4, 0, 0, sizes.height / 4, 0, 0);
+    p.pop();
   }
 
   function handleTime() {
@@ -60,9 +73,9 @@ const sketch = (p) => {
     completion += ellapsed / 1000.0 * p.settings.speed;
     lastMillis = newMillis;
     if (completion > 1.0) {
-      console.log("COMPLETION IS: ", completion)
       getNextTreeLevel();
       completion = completion - 1.0;
+      lastCompletion = 0.0;
     }
   }
 
@@ -87,6 +100,11 @@ const sketch = (p) => {
     p.background(255);
     p.stroke(0);
     p.strokeWeight(10);
+    drawBackground();
+  }
+
+  function treePoint(base, tree, i, completion) {
+    return base.x + tree.point + 0.5 * tree.width * completion * (-1 + i * 2.0 / (tree.number - 1));
   }
 
   p.draw = function() {
@@ -97,23 +115,25 @@ const sketch = (p) => {
     }
     p.stroke(completion, 1, 0.8);
     trees.forEach((tree) => {
-      console.log("PRINTING A THING:", tree.point, completion, tree.branches)
       for (let i = 0; i < tree.branches.length; i++) {
         if (tree.branches[i]) {
-          p.point(
-            drawingPoint.x + tree.point.x - tree.widthFactor * tree.height * completion * (-1 + i * 2.0 / (tree.number - 1)),
-            drawingPoint.y + tree.point.y + tree.height * completion * (p.settings.flipside ? -1 : 1)
-          );
+          const oldPoint = treePoint(lastPoint, tree, i, lastCompletion);
+          const newPoint = treePoint(drawingPoint, tree, i, completion);
+          p.line(oldPoint, lastPoint.y, newPoint, drawingPoint.y);
         }
       }
     });
+    lastCompletion = completion;
+    lastPoint = drawingPoint;
+    drawBackground();
   }
 
   p.mousePressed = function() {
     drawing = true;
     completion = 0.0;
+    lastPoint = {x: p.mouseX, y: p.mouseY};
     drawingPoint = {x: p.mouseX, y: p.mouseY};
-    trees.push(new Tree({x: 0, y: 0}, p.settings.height, p.settings.widthFactor, p.settings.leafNumber, p.settings.persistence, true));
+    trees.push(new Tree(0, null, p.settings.leafNumber, p.settings.persistence));
   }
 
   p.mouseReleased = function() {
@@ -123,7 +143,8 @@ const sketch = (p) => {
   p.mouseMoved = function() {
     trees = [];
     completion = 0.0;
-    trees.push(new Tree({x: 0, y: 0}, p.settings.height, p.settings.widthFactor, p.settings.leafNumber, p.settings.persistence, true));
+    lastCompletion = 0.0;
+    trees.push(new Tree(0, null, p.settings.leafNumber, p.settings.persistence));
     drawingPoint = {x: p.mouseX, y: p.mouseY};
   }
 

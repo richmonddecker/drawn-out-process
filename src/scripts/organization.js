@@ -368,26 +368,14 @@ export const contents = [
             }
           },
           {
-            tag: "widthFactor",
-            title: "Width Factor",
-            default: 1.0,
-            info: "XXX",
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0.1,
-              max: 10,
-              step: 0.1
-            }
-          },
-          {
             tag: "leafNumber",
             title: "Branch Number",
             default: 2,
             info: "XXX",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 1,
-              max: 100,
+              min: 2,
+              max: 10,
               step: 1
             }
           },
@@ -409,6 +397,20 @@ export const contents = [
             default: false,
             info: "XXX",
             widget: wid("CheckboxWidget"),
+          }
+        ],
+        attributes: [
+          {
+            tag: "widthFactor",
+            title: "Width Factor",
+            default: 1.0,
+            info: "XXX",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.1,
+              max: 10,
+              step: 0.1
+            }
           }
         ]
       }
