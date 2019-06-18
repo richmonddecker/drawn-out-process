@@ -16,6 +16,9 @@ const sketch = (p) => {
     flipside: false
   };
 
+  // TODO: HAVE AN EASY MODE WHERE THE TREE MOVES AT CONSTANT SPEED UP OR DOWN INSTEAD OF EXACTLY WITH THE MOUSE
+  // TODO: HAVE A MAX NUMBER OF LEAVES TO PREVENT LAG
+
   class Tree {
     constructor(point, width, number, probability, level=0) {
       if (level === 0) {
@@ -63,7 +66,6 @@ const sketch = (p) => {
     p.push();
     p.noStroke();
     p.fill(0);
-    p.triangle(p.settings.widthFactor * sizes.height / 4, 0, 0, sizes.height / 4, 0, 0);
     p.pop();
   }
 
