@@ -334,11 +334,11 @@ export const contents = [
       {
         tag: "falling-trees",
         title: "Falling Trees",
-        thumbnail: img("chord-art.png"),
+        thumbnail: img("falling-trees.png"),
         sketch: can("falling-trees"),
         date: new Date(2019, 2, 7),
         author: "Justin Richmond-Decker",
-        phrase: "XXX",
+        phrase: "Form and trace colorful tree structures.",
         info: "XXX",
         parameters: [
           {
@@ -386,9 +386,9 @@ export const contents = [
             info: "xxx",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 5,
+              min: 2,
               max: 100,
-              step: 5
+              step: 2
             }
           },
           {
@@ -434,13 +434,13 @@ export const contents = [
             info: "XXX",
             widget: wid("CheckboxWidget"),
           },
-          {
-            tag: "easyMode",
-            title: "Easy Mode",
-            default: false,
-            info: "XXX",
-            widget: wid("CheckboxWidget"),
-          }
+          // {
+          //   tag: "easyMode",
+          //   title: "Easy Mode",
+          //   default: false,
+          //   info: "XXX",
+          //   widget: wid("CheckboxWidget"),
+          // }
         ]
       }
     ]
@@ -660,6 +660,73 @@ export const contents = [
     component: com("P5Canvas"),
     configuration: "GenerativeConfiguration",
     members: [
+      {
+        tag: "wedge-wheel",
+        title: "Wedge Wheel",
+        thumbnail: img("wedge-wheel.png"),
+        sketch: can("wedge-wheel"),
+        date: new Date(2019, 5, 19),
+        author: "Justin Richmond-Decker",
+        phrase: "Watch a spinning wheel of wedges transform.",
+        info: "XXX",
+        parameters: [
+          {
+            tag: "axialSpeed",
+            title: "Axial Speed",
+            info: "How fast the wedges can expand sideways.",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 2,
+              strict: true
+            }
+          },
+          {
+            tag: "radialSpeed",
+            title: "Radial Speed",
+            info: "How fast the wedges can grow in and out.",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 2,
+              strict: true
+            }
+          },
+          {
+            tag: "colorSpeed",
+            title: "Color Speed",
+            info: "How fast the colors of the wedges change.",
+            default: 10,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 100,
+              step: 2,
+              strict: true
+            }
+          }
+        ],
+        attributes: [
+          {
+            tag: "numWedges",
+            title: "Number of Wedges",
+            info: "The number of wedge slices in the circle.",
+            default: 24,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 4,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          }
+        ]
+      },
       {
         tag: "steamy-dream",
         title: "Steamy Dream",

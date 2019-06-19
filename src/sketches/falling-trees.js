@@ -67,8 +67,10 @@ const sketch = (p) => {
 
   function drawBackground() {
     p.push();
-    p.noStroke();
-    p.fill(0);
+    p.strokeWeight(1000);
+    p.stroke(0);
+    p.noFill();
+    p.ellipse(sizes.width/2, sizes.height/2, sizes.width + 1000, sizes.height + 1000)
     p.pop();
   }
 
