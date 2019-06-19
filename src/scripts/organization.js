@@ -342,6 +342,18 @@ export const contents = [
         info: "XXX",
         parameters: [
           {
+            tag: "scaleFactor",
+            title: "Scale Factor",
+            default: 0.5,
+            info: "XXX",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0.05,
+              max: 5,
+              step: 0.05
+            }
+          },
+          {
             tag: "speed",
             title: "Drawing Speed",
             default: 1.0,
@@ -356,15 +368,39 @@ export const contents = [
             }
           },
           {
-            tag: "height",
-            title: "Layer Height",
-            default: 300,
+            tag: "thickness",
+            title: "Thickness",
+            default: 5,
             info: "xxx",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 20,
-              max: 1000,
-              step: 20
+              min: 1,
+              max: 20,
+              step: 1
+            }
+          },
+          {
+            tag: "opacity",
+            title: "Opacity",
+            default: 100,
+            info: "xxx",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 5,
+              max: 100,
+              step: 5
+            }
+          },
+          {
+            tag: "steepness",
+            title: "Steepness",
+            default: 1,
+            info: "xxx",
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 0,
+              max: 5,
+              step: 0.2
             }
           },
           {
@@ -388,7 +424,7 @@ export const contents = [
             widgetProps: {
               min: 0,
               max: 1,
-              step: 0.01
+              step: 0.05
             }
           },
           {
@@ -397,20 +433,13 @@ export const contents = [
             default: false,
             info: "XXX",
             widget: wid("CheckboxWidget"),
-          }
-        ],
-        attributes: [
+          },
           {
-            tag: "widthFactor",
-            title: "Width Factor",
-            default: 1.0,
+            tag: "easyMode",
+            title: "Easy Mode",
+            default: false,
             info: "XXX",
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0.1,
-              max: 10,
-              step: 0.1
-            }
+            widget: wid("CheckboxWidget"),
           }
         ]
       }

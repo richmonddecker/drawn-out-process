@@ -10,21 +10,24 @@ const sketch = (p) => {
   let lastPoint = {x: 0, y: 0};
   p.settings = {
     speed: 1.0,
-    widthFactor: 1,
+    scaleFactor: 0.5,
+    thickness: 5,
+    opacity: 100,
+    steepness: 1,
     leafNumber: 2,
     persistence: 1,
     flipside: false
   };
 
   // TODO: HAVE AN EASY MODE WHERE THE TREE MOVES AT CONSTANT SPEED UP OR DOWN INSTEAD OF EXACTLY WITH THE MOUSE
-  // TODO: HAVE A MAX NUMBER OF LEAVES TO PREVENT LAG
 
   class Tree {
-    constructor(point, width, number, probability, level=0) {
+    constructor(point, scale, number, probability, level=0) {
+      this.dimension = p.settings.flipside ? sizes.height : sizes.width;
       if (level === 0) {
-        this.width = p.settings.widthFactor * sizes.width * (1.0 - 1.0 / number);
+        this.scale = p.settings.scaleFactor * this.dimension * (1.0 - 1.0 / number);
       } else {
-        this.width = width;
+        this.scale = scale;
       }
       this.point = point;
       this.number = number;
@@ -49,14 +52,14 @@ const sketch = (p) => {
 
     getChildTrees() {
       let newTrees = [];
-      let newX;
+      let newP;
       // Here we prevent things from getting too huge.
-      const theNumber = p.pow(this.number, this.level) >= 500 ? 1 : this.number; 
+      const theNumber = p.pow(this.number, this.level) >= 100 ? 1 : this.number; 
       for (let i = 0; i < theNumber; i++) {
         if (this.branches[i]) {
-          newX = this.point + 0.5 * this.width * (-1.0 + i * 2.0 / (this.number - 1));
+          newP = this.point + 0.5 * this.scale * (-1.0 + i * 2.0 / (this.number - 1));
         }
-        newTrees.push(new Tree(newX, this.width / this.number, this.number, this.probability, this.level + 1));
+        newTrees.push(new Tree(newP, this.scale / this.number, this.number, this.probability, this.level + 1));
       }
       return newTrees;
     }
@@ -106,22 +109,31 @@ const sketch = (p) => {
   }
 
   function treePoint(base, tree, i, completion) {
-    return base.x + tree.point + 0.5 * tree.width * completion * (-1 + i * 2.0 / (tree.number - 1));
+    // Here we get the center x/y value of a certain leaf of the tree.
+    if (p.settings.flipside) {
+      return base.y + tree.point + 0.5 * tree.scale * completion * (-1 + i * 2.0 / (tree.number - 1));
+    }
+    return base.x + tree.point + 0.5 * tree.scale * completion * (-1 + i * 2.0 / (tree.number - 1));
   }
 
   p.draw = function() {
     drawingPoint = {x: p.mouseX, y: p.mouseY};
     handleTime();
-    if (!drawing) {
+    if (!drawing || !shouldDraw()) {
       return;
     }
-    p.stroke(completion, 1, 0.8);
+    p.stroke(completion, 1, 0.8, p.settings.opacity / 100);
+    p.strokeWeight(p.settings.thickness);
     trees.forEach((tree) => {
       for (let i = 0; i < tree.branches.length; i++) {
         if (tree.branches[i]) {
           const oldPoint = treePoint(lastPoint, tree, i, lastCompletion);
           const newPoint = treePoint(drawingPoint, tree, i, completion);
-          p.line(oldPoint, lastPoint.y, newPoint, drawingPoint.y);
+          if (p.settings.flipside) {
+            p.line(lastPoint.x, oldPoint, drawingPoint.x, newPoint);
+          } else {
+            p.line(oldPoint, lastPoint.y, newPoint, drawingPoint.y);
+          }
         }
       }
     });
