@@ -671,35 +671,9 @@ export const contents = [
         info: "XXX",
         parameters: [
           {
-            tag: "axialSpeed",
-            title: "Axial Speed",
-            info: "How fast the wedges can expand sideways.",
-            default: 10,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 2,
-              strict: true
-            }
-          },
-          {
-            tag: "radialSpeed",
-            title: "Radial Speed",
-            info: "How fast the wedges can grow in and out.",
-            default: 10,
-            widget: wid("NumberWidget"),
-            widgetProps: {
-              min: 0,
-              max: 100,
-              step: 2,
-              strict: true
-            }
-          },
-          {
-            tag: "colorSpeed",
-            title: "Color Speed",
-            info: "How fast the colors of the wedges change.",
+            tag: "changeRate",
+            title: "Change Rate",
+            info: "How fast the wedge wheel transforms.",
             default: 10,
             widget: wid("NumberWidget"),
             widgetProps: {
@@ -719,6 +693,20 @@ export const contents = [
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 4,
+              max: 100,
+              step: 1,
+              snap: true,
+              strict: true
+            }
+          },
+          {
+            tag: "numRings",
+            title: "Number of Rings",
+            info: "The number of black rings sections in the circle.",
+            default: 12,
+            widget: wid("NumberWidget"),
+            widgetProps: {
+              min: 2,
               max: 100,
               step: 1,
               snap: true,
