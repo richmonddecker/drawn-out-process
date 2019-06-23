@@ -356,26 +356,25 @@ export const contents = [
           {
             tag: "speed",
             title: "Drawing Speed",
-            default: 1.0,
+            default: 20,
             info: "XXX",
             widget: wid("NumberWidget"),
             widgetProps: {
-              min: 0.1,
-              max: 10,
-              step: 0.1,
-              snap: true,
+              min: 1,
+              max: 100,
+              step: 2,
               strict: true
             }
           },
           {
             tag: "thickness",
             title: "Thickness",
-            default: 5,
+            default: 10,
             info: "xxx",
             widget: wid("NumberWidget"),
             widgetProps: {
               min: 1,
-              max: 20,
+              max: 50,
               step: 1
             }
           },
@@ -434,13 +433,13 @@ export const contents = [
             info: "XXX",
             widget: wid("CheckboxWidget"),
           },
-          // {
-          //   tag: "easyMode",
-          //   title: "Easy Mode",
-          //   default: false,
-          //   info: "XXX",
-          //   widget: wid("CheckboxWidget"),
-          // }
+          {
+            tag: "easyMode",
+            title: "Easy Mode",
+            default: true,
+            info: "XXX",
+            widget: wid("CheckboxWidget"),
+          }
         ]
       }
     ]

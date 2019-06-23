@@ -6,8 +6,10 @@ const sketch = (p) => {
   let lastCompletion = 0.0;
   let completion = 0.0;
   let lastMillis = 0;
+  let ellapsed = 0;
   let drawingPoint = {x: 0, y: 0};
   let lastPoint = {x: 0, y: 0};
+  let clickPoint = {x: 0, y: 0};
   p.settings = {
     speed: 1.0,
     scaleFactor: 0.5,
@@ -16,7 +18,8 @@ const sketch = (p) => {
     steepness: 1,
     leafNumber: 2,
     persistence: 1,
-    flipside: false
+    flipside: false,
+    easyMode: false
   };
 
   // TODO: HAVE AN EASY MODE WHERE THE TREE MOVES AT CONSTANT SPEED UP OR DOWN INSTEAD OF EXACTLY WITH THE MOUSE
@@ -76,8 +79,8 @@ const sketch = (p) => {
 
   function handleTime() {
     const newMillis = p.millis();
-    const ellapsed = newMillis - lastMillis;
-    completion += ellapsed / 1000.0 * p.settings.speed;
+    ellapsed = newMillis - lastMillis;
+    completion += ellapsed / 1000.0 * p.settings.speed / 50;
     lastMillis = newMillis;
     if (completion > 1.0) {
       getNextTreeLevel();
@@ -95,6 +98,7 @@ const sketch = (p) => {
   }
 
   p.setup = function() {
+    lastMillis = p.millis();
     if (p.isSquare) {
       sizes.width = p.min(window.innerWidth, window.innerHeight);
       sizes.height = sizes.width;
@@ -119,8 +123,27 @@ const sketch = (p) => {
   }
 
   p.draw = function() {
-    drawingPoint = {x: p.mouseX, y: p.mouseY};
     handleTime();
+    drawingPoint = {...lastPoint};
+    if (p.settings.easyMode && trees[0]) {
+      const difference = ellapsed / 1000 * p.settings.steepness * p.settings.speed / 50 * getScale() / p.pow(p.settings.leafNumber, trees[0].level);
+      if (p.settings.flipside) {
+        if (p.mouseX > drawingPoint.x + 1) {
+          drawingPoint.x += difference;
+        } else if (p.mouseX <= drawingPoint.x - 1) {
+          drawingPoint.x -= difference;
+        }
+      } else {
+        if (p.mouseY >= drawingPoint.y + 1) {
+          drawingPoint.y += difference;
+        } else if (p.mouseY <= drawingPoint.y - 1) {
+          drawingPoint.y -= difference;
+        }
+      }
+    } else {
+      drawingPoint = {x: p.mouseX, y: p.mouseY};
+    }
+    // drawingPoint = {x: p.mouseX, y: p.mouseY};
     if (!drawing || !shouldDraw()) {
       return;
     }
@@ -140,8 +163,12 @@ const sketch = (p) => {
       }
     });
     lastCompletion = completion;
-    lastPoint = drawingPoint;
+    lastPoint = {...drawingPoint};
     drawBackground();
+  }
+
+  function getScale() {
+    return p.settings.scaleFactor * (p.settings.flipside ? sizes.height : sizes.width) * (p.settings.leafNumber - 1) / p.settings.leafNumber;
   }
 
   p.mousePressed = function() {
@@ -154,6 +181,7 @@ const sketch = (p) => {
 
   p.mouseReleased = function() {
     drawing = false;
+    trees = [];
   }
 
   p.mouseMoved = function() {
@@ -161,7 +189,6 @@ const sketch = (p) => {
     completion = 0.0;
     lastCompletion = 0.0;
     trees.push(new Tree(0, null, p.settings.leafNumber, p.settings.persistence));
-    drawingPoint = {x: p.mouseX, y: p.mouseY};
   }
 
   function shouldDraw() {
